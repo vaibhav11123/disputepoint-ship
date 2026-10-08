@@ -10,10 +10,10 @@ function framesFor(point: PointDetail): Frame[] {
   const labels: Record<string, string> = {
     rain: "RAIN",
     priority: "PRIORITY ↑",
-    conflict: "CONFLICT",
-    evidence: "EVIDENCE VERIFIED",
-    escalate: "ESCALATED",
-    human: "HUMAN DECISION",
+    conflict: "RESPONSIBILITY DISPUTED",
+    evidence: "EVIDENCE · WE DON’T GUESS",
+    escalate: "HUMAN REVIEW",
+    human: "OFFICER CONFIRMED",
   }
   const done = steps.filter((s) => s.done)
   return done.map((step, index) => {

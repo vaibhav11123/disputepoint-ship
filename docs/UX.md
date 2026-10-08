@@ -10,6 +10,10 @@
 
 **Join key:** Screen states for FR ids that are officer-visible. Component file names live only in [LLD.md](LLD.md).
 
+### V2 IA reopen note (2026-10-09)
+
+Progressive multi-screen IA is allowed for V2: Command queue + map, Incident (slim), Case Evidence, Coordination (human review), Audit (DecisionRecord), Demo Signature Interaction. Wireframe gate: [build/WIREFRAMES_V2.md](build/WIREFRAMES_V2.md). Labels: RESPONSIBILITY DISPUTED · AWAITING YOU · OFFICER CONFIRMED. Phase 6 hard stops unchanged (CONFLICT ⇒ null agency until human confirm).
+
 **Research:** [research/ux-anti-slop-research.md](research/ux-anti-slop-research.md)  
 **Citations:** [Sailop 73 patterns](https://sailop.com/blog/from-ai-slop-to-signature-73-patterns-2026); [avoid-ai-design](https://github.com/funboy322/avoid-ai-design); [Carbon type](https://www.carbondesignsystem.com/building-blocks/foundations/typography/type-sets); OpenELIS Carbon adoption.
 

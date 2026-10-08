@@ -176,7 +176,23 @@ export function App() {
       <a className="skip" href="#queue">
         Skip to queue
       </a>
-      <TopBar hideSynthetic={hideSynthetic} onToggleSynthetic={() => setHideSynthetic((value) => !value)} pulse={pulse} />
+      <TopBar
+        hideSynthetic={hideSynthetic}
+        onToggleSynthetic={() => setHideSynthetic((value) => !value)}
+        pulse={pulse}
+        precipMm={precipMm}
+        rainMode={precipMm > 5 ? "DEMO" : "IDLE"}
+        counts={
+          summary
+            ? {
+                active: displayRows?.length ?? 0,
+                high: displayRows?.filter((r) => r.priority_rank <= 5).length ?? 0,
+                disputed: summary.disputed,
+                awaiting: summary.awaiting + summary.adjudicate,
+              }
+            : undefined
+        }
+      />
       <div className="workspace">
         <section className="queue" id="queue" aria-label="Disputed points queue">
           {error ? (
@@ -187,7 +203,8 @@ export function App() {
           {rows === null && !error ? <p>Loading disputed points.</p> : null}
           {summary ? (
             <p className="triage-strip" data-testid="triage-summary">
-              {summary.act} act · {summary.adjudicate} adjudicate · {summary.research} research
+              {summary.act} act · {summary.adjudicate} adjudicate · {summary.awaiting} awaiting you · {summary.research}{" "}
+              research
             </p>
           ) : null}
           {displayRows ? (

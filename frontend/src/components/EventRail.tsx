@@ -6,13 +6,15 @@ export function buildEventSteps(point: PointDetail): Step[] {
   const hasEvidence = (point.evidence?.length ?? 0) > 0
   const escalated = Boolean(point.escalate_reason) || (point.audit ?? []).some((a) => a.action === "ESCALATE")
   const human = (point.audit?.length ?? 0) > 0
+  const confirmed =
+    Boolean(point.officer_confirmed) || (point.audit ?? []).some((a) => a.action === "OFFICER_CONFIRMED")
   return [
     { id: "rain", label: "RAIN", done: (point.rain_delta ?? 0) !== 0 },
     { id: "priority", label: "PRIORITY", done: point.priority_rank > 0 },
-    { id: "conflict", label: "CONFLICT", done: point.ownership_state === "CONFLICT" },
+    { id: "conflict", label: "DISPUTED", done: point.ownership_state === "CONFLICT" || confirmed },
     { id: "evidence", label: "EVIDENCE", done: hasEvidence },
-    { id: "escalate", label: "ESCALATE", done: escalated },
-    { id: "human", label: "HUMAN", done: human },
+    { id: "escalate", label: "HUMAN REVIEW", done: escalated },
+    { id: "human", label: confirmed ? "OFFICER CONFIRMED" : "HUMAN", done: human || confirmed },
   ]
 }
 

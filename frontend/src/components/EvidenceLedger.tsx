@@ -1,6 +1,13 @@
 import { useState } from "react"
 import type { EvidenceItem } from "../api/client"
 
+function decisionEffect(ownershipState: string, type: string): string {
+  if (ownershipState === "CONFLICT") {
+    return `Supports ${type.includes("PWD") ? "PWD" : "agency"} claim · Does NOT establish exclusive responsibility`
+  }
+  return "Supports claim · Review for exclusive responsibility"
+}
+
 export function EvidenceLedger({
   items,
   ownershipState,
@@ -13,18 +20,19 @@ export function EvidenceLedger({
   if (items.length === 0) return <p className="muted">No evidence rows on this point.</p>
 
   return (
-    <section className="evidence-ledger" data-testid="evidence-ledger" aria-label="Evidence ledger">
-      <h3 className="section-h">Evidence</h3>
+    <section className="evidence-ledger" data-testid="evidence-ledger" aria-label="Case evidence">
+      <h3 className="section-h">CASE EVIDENCE</h3>
       {ownershipState === "CONFLICT" ? (
-        <p className="evidence-effect muted">
-          EFFECT: quotes establish competing claims — exclusive responsibility is not established.
+        <p className="evidence-effect muted" data-testid="claims-overlap">
+          CLAIMS OVERLAP → NO AUTO-ASSIGN → HUMAN REVIEW
         </p>
       ) : null}
       <ul className="evidence-list">
         {items.map((item) => {
           const active = traceId === item.id
+          const stale = item.live_status === "STALE" || item.live_status === "UNAVAILABLE"
           return (
-            <li key={item.id} className={active ? "evidence-row tracing" : "evidence-row"}>
+            <li key={item.id} className={active ? "evidence-row tracing" : "evidence-row"} data-testid="evidence-card">
               <button
                 type="button"
                 className="evidence-trace-btn"
@@ -42,10 +50,11 @@ export function EvidenceLedger({
                     </span>
                   ) : null}{" "}
                   {item.live_verified ? (
-                    <span className="chip ok">live verified</span>
+                    <span className="chip ok">VERIFIED</span>
                   ) : (
-                    <span className="chip">fixture cache</span>
+                    <span className="chip">DEMO / fixture</span>
                   )}
+                  {stale ? <span className="chip warn">SOURCE UNAVAILABLE</span> : null}
                 </p>
                 <p>
                   <q>{item.quote}</q>{" "}
@@ -53,9 +62,12 @@ export function EvidenceLedger({
                     source
                   </a>
                 </p>
+                <p className="decision-effect" data-testid="decision-effect">
+                  {decisionEffect(ownershipState, item.type)}
+                </p>
                 {active ? (
                   <p className="trace-path mono" data-testid="evidence-trace">
-                    CLAIM → SOURCE → QUOTE → DECISION EFFECT
+                    CLAIM → SOURCE → EXTRACT → POINT → DECISION EFFECT
                     {ownershipState === "CONFLICT" ? " (no exclusive responsibility)" : ""}
                   </p>
                 ) : null}

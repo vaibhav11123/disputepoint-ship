@@ -25,7 +25,10 @@ const DecisionAuditPanel = Object.values(auditMods)[0]?.DecisionAuditPanel
 
 function decisionBrief(point: PointDetail, judges: boolean) {
   if (point.ownership_state === "CONFLICT") {
-    return "Multiple agencies claim this corridor. No auto-pick — escalate or OVERRIDE."
+    return "RESPONSIBILITY DISPUTED — competing claims. NO AUTO-ASSIGNMENT. Escalate for Incident Commander review."
+  }
+  if (point.officer_confirmed && point.responsible_agency) {
+    return `OFFICER CONFIRMED operational responsibility: ${point.responsible_agency}.`
   }
   if (point.ownership_state === "ASSIGNED" && point.responsible_agency) {
     if (judges) {
@@ -52,10 +55,15 @@ export function PointCard({
       <h2 style={{ fontSize: 16, fontWeight: 600, margin: "0 0 8px" }}>{point.name}</h2>
       <EventRail point={point} />
       <p className="decision-meta">
-        <TriageChip state={point.ownership_state} />{" "}
-        <StateChip state={point.ownership_state} />{" "}
+        <TriageChip state={point.ownership_state} escalated={Boolean(point.escalated)} />{" "}
+        <StateChip
+          state={point.ownership_state}
+          escalated={Boolean(point.escalated)}
+          officerConfirmed={Boolean(point.officer_confirmed)}
+        />{" "}
         <span className="muted">Agency: </span>
-        <AgencyBlock agency={point.responsible_agency} />{" "}
+        <AgencyBlock agency={point.responsible_agency} claimed={point.agencies_claimed} />{" "}
+        {point.id === "dp-purana-quila" ? <span className="chip">DEMO INCIDENT</span> : null}{" "}
         {judges ? <span className="mono muted">conf {point.ownership_confidence.toFixed(2)}</span> : null}
       </p>
       <p className="decision-brief" data-testid="decision-brief">

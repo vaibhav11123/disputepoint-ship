@@ -38,10 +38,12 @@ export function RainControl({ pulse }: { pulse: boolean }) {
       >
         Rain Strike
       </button>
-      <span className="mono" aria-live="polite">
-        {rain.precip.toFixed(1)} mm
+      <span className="mono" aria-live="polite" data-testid="rain-mm">
+        {rain.mode === "slider" || rain.precip > 5
+          ? `RAINFALL SCENARIO · ${rain.precip.toFixed(0)} mm`
+          : `${rain.precip.toFixed(1)} mm`}
       </span>
-      <span className="chip">{label}</span>
+      <span className="chip">{rain.mode === "slider" ? "DEMO" : label}</span>
       {rain.retrievedAt ? (
         <span className="muted mono" title={rain.retrievedAt}>
           {rain.retrievedAt.replace("T", " ").slice(0, 16)}Z

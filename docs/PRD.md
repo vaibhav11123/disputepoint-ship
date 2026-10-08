@@ -477,6 +477,10 @@ Same rule appears in [HLD.md](HLD.md) degradation, [LLD.md](LLD.md) invariants, 
 
 **ASSUMPTION:** A DM cell officer can triage from a ranked queue in under 30 seconds if evidence and agency or UNCERTAIN sit on one card.
 
+### V2 primary user (2026-10-09)
+
+**Primary decision-maker:** SDM / Incident Commander in a district EOC (not a citizen portal). UI labels CONFLICT as **RESPONSIBILITY DISPUTED** (operational responsibility). Lifecycle forbids CONFLICT→ASSIGNED without IC `OFFICER_CONFIRMED` DecisionRecord. Canonical demo climax: **Purana Quila** (`dp-purana-quila`, DEMO INCIDENT). See [DONOR_MATRIX.md](build/DONOR_MATRIX.md), [WIREFRAMES_V2.md](build/WIREFRAMES_V2.md).
+
 ---
 
 ## 16. Golden scenario (product acceptance narrative)

@@ -64,6 +64,10 @@ export type PointDetail = PointRow & {
   human_selected_agency?: string | null
   override_reason?: string
   escalate_reason?: string
+  escalated?: boolean
+  officer_confirmed?: boolean
+  lifecycle_state?: string
+  decision_record?: Record<string, unknown>
   geo_source?: string
   geo_licence?: string
 }
@@ -138,9 +142,29 @@ export function postOverride(id: string, agency: string, reason: string, reviewe
   })
 }
 
-export function postEscalate(id: string, reason: string, reviewer: string) {
+export function postEscalate(id: string, reason: string, reviewer: string, actorRole = "EOC_OPERATOR") {
   return read<AuditRow>(`/points/${id}/escalate`, {
     method: "POST",
-    body: JSON.stringify({ reason, reviewer }),
+    body: JSON.stringify({ reason, reviewer, actor_role: actorRole }),
+  })
+}
+
+export function postConfirm(
+  id: string,
+  agency: string,
+  reason: string,
+  reviewer: string,
+  evidenceIds: string[],
+  actorRole = "INCIDENT_COMMANDER",
+) {
+  return read<{ action: string; decision: Record<string, unknown> }>(`/points/${id}/confirm`, {
+    method: "POST",
+    body: JSON.stringify({
+      agency,
+      reason,
+      reviewer,
+      evidence_ids: evidenceIds,
+      actor_role: actorRole,
+    }),
   })
 }

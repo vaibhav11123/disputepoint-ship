@@ -32,7 +32,7 @@
 | **0:05–0:30** | Locked problem statement above | Title + calm queue (Mode A) | — |
 | **0:30–0:45** | “Thirty-plus disputed areas on one board — not a thin fixture list. Volunteer reported rows fill the street view.” | Queue `dry` (full board); Volunteer reported chip | W1 |
 | **0:45–1:05** | “Watch rain hit the queue.” | Slider or Open-Meteo; mode banner; rank flash | W2 |
-| **1:05–1:35** | “Purana Quila: ownership CONFLICT. Volunteer reports raise urgency — they do not pick an owner. Agency stays null.” | Card CONFLICT + null + Volunteer reported + quotes | W3 W4 |
+| **1:05–1:35** | “Purana Quila — DEMO INCIDENT. Responsibility disputed. We don’t guess. Competing claims, no auto-assign. Volunteer reports raise urgency — they do not pick an owner.” | Card RESPONSIBILITY DISPUTED + null + WE DON’T GUESS beat + quotes | W3 W4 |
 | **1:35–1:50** | “Why this rank — and what if rain drops.” | Counterfactual chips if shipped; else **skip VO** | W5 |
 | **1:50–2:00** | “Advisory next step. Officer ACK or OVERRIDE — audit stays visible.” | Advisory + HITL + DecisionAuditPanel | W6 W7 |
 | **2:00–2:30** | “Hard part: evidence-weighted ownership under conflict, plus rain re-rank — no flood ML. On AWS: API Gateway, Lambda, DynamoDB, S3.” | Architecture diagram + Ship It URL or SAM invoke | W9 |

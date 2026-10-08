@@ -25,6 +25,19 @@
 | react-flip-move (if used) | https://github.com/joshwcomeau/react-flip-move | npm optional | MIT | Package license | true | true | Queue reorder; CSS FLIP OK as substitute |
 | IBM Carbon (if used) | @carbon/react | not pinned yet | Apache-2.0 | Package license | true | true | Selective primitives only |
 | Google Earth Studio | https://www.google.com/earth/studio/ | video export | Google Earth / Studio terms | Per Google terms | true (video tool) | false into frontend | **Mode C only** — not app dependency |
+| OpenFreeMap Positron style | https://tiles.openfreemap.org/styles/positron | runtime style URL | OpenFreeMap / OSM ODbL attribution | Yes — map credit | true | false (tiles) | V2 MapHUD muted basemap; no API key |
+| Carto Positron GL (fallback) | https://basemaps.cartocdn.com/gl/positron-gl-style/style.json | runtime fallback | Carto basemap terms | Yes | true | false (tiles) | Fallback if OpenFreeMap unavailable |
+| decision-desk (pattern) | https://github.com/rspier-ax/decision-desk | 2026-10-09 | MIT | NOTICE if code copied | true (pattern) | false wholesale | COPY_ADAPT grammar only — no Next shell |
+| SourceDeck (pattern) | https://github.com/Xyloth/SourceDeck | 2026-10-09 | MIT | NOTICE if code copied | true (pattern) | false wholesale | Quote/missing-record cards |
+| IncidentPulse (pattern) | https://github.com/bhoyee/IncidentPulse | 2026-10-09 | MIT | NOTICE if pattern copied | true (pattern) | false wholesale | Ops queue grammar; do not vendor Next stack |
+| maplibre-gl-storymaps (pattern) | https://github.com/opengeos/maplibre-gl-storymaps | 2026-10-09 | MIT | NOTICE if schema copied | true (pattern) | false wholesale | Chapter config only |
+| AEGIS (alejadxr) | https://github.com/alejadxr/AEGIS | 2026-10-09 | **AGPL-3.0** | N/A | true (reference) | **false** | **REFERENCE ONLY** — AWAITING YOU IA; never paste TriageQueue |
+| Purana Qila coordinates | Wikipedia Purana Qila Delhi | 2026-10-09 | CC BY-SA | Cite if republished as dataset | true | true with cite | FACT 28.60944, 77.24417 DEMO climax |
+| AWS Architecture Icons | https://aws.amazon.com/architecture/icons/ | pitch | AWS Architecture Icons terms | Per AWS | true (pitch) | false in product UI | Never TopBar / MapHUD |
+
+### Contamination gate (V2)
+
+No new `package.json` dependency until this file lists: package, direct+transitive SPDX scan note, bundle impact, maintenance. Existing MapLibre / react-map-gl / @fontsource already pinned above.
 
 ## Donor Copy/Reference lock (2026-10-08)
 

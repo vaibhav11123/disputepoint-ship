@@ -23,19 +23,41 @@ export function TopBar({
   hideSynthetic,
   onToggleSynthetic,
   pulse,
+  counts,
+  actorRole = "INCIDENT_COMMANDER",
+  precipMm = 0,
+  rainMode = "DEMO",
 }: {
   hideSynthetic: boolean
   onToggleSynthetic: () => void
   pulse: boolean
+  counts?: { active: number; high: number; disputed: number; awaiting: number }
+  actorRole?: string
+  precipMm?: number
+  rainMode?: string
 }) {
   return (
     <header className="topbar">
       <div className="brand-block">
         <h1>DisputePoint</h1>
-        <span className="muted brand-sub">WATERLOGGING COORDINATION</span>
+        <span className="muted brand-sub">DISTRICT OPERATIONS · NEW DELHI DISTRICT</span>
+        <span className="chip" data-testid="role-chip" title="Session actor">
+          {actorRole.replace(/_/g, " ")}
+        </span>
       </div>
+      {counts ? (
+        <div className="counts-strip" data-testid="counts-strip">
+          <span>ACTIVE {counts.active}</span>
+          <span>HIGH {counts.high}</span>
+          <span>DISPUTED {counts.disputed}</span>
+          <span className="chip warn">AWAITING YOU {counts.awaiting}</span>
+        </div>
+      ) : null}
       <LiveSources />
       <div className="slot">
+        <span className="mono rain-scenario-label" data-testid="rain-scenario-label">
+          {precipMm > 5 ? `RAINFALL SCENARIO · ${Math.round(precipMm)} mm` : `RAIN STATUS · ${rainMode}`}
+        </span>
         {RainControl ? <RainControl pulse={pulse} /> : <span className="muted">Rain control loads with the rain package.</span>}
         <button type="button" aria-pressed={hideSynthetic} onClick={onToggleSynthetic}>
           {hideSynthetic ? "Synthetic hidden" : "Hide synthetic"}
