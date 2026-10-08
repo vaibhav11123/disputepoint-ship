@@ -62,6 +62,41 @@
       "point_ids": [],
       "expected_type": "html",
       "notes": "DM-71 mandate cite only — not a demo point"
+    },
+    {
+      "slug": "toi-underpass-flooded",
+      "url": "https://timesofindia.indiatimes.com/city/delhi/delhi-underpasses-flooded-despite-preparedness-claims/articleshow/111497831.cms",
+      "point_ids": ["dp-samaypur-badli", "dp-okhla-underpass", "dp-shalimar-bagh-underpass", "dp-dwarka-underpass"],
+      "expected_type": "html",
+      "notes": "Expansion B underpass fatalities / agency blame"
+    },
+    {
+      "slug": "ht-underpass-comeback",
+      "url": "https://www.hindustantimes.com/cities/delhi-news/infamous-flooded-underpasses-make-a-comeback-in-delhi-man-drowns-in-azadpur-101719598910444.html",
+      "point_ids": ["dp-azadpur-underpass", "dp-tilak-bridge", "dp-purana-quila"],
+      "expected_type": "html",
+      "notes": "Volunteer-channel densify + Expansion B"
+    },
+    {
+      "slug": "iit-aab-prahari",
+      "url": "https://home.iitd.ac.in/show.php?id=239&in_sections=Press",
+      "point_ids": ["dp-barapullah"],
+      "expected_type": "html",
+      "notes": "Volunteer / citizen science channel cite — not live Aab Prahari API"
+    },
+    {
+      "slug": "nie-311-waterlogging",
+      "url": "https://www.newindianexpress.com/cities/delhi/2025/May/06/single-complaint-number-for-all-waterlogging-grievances-says-parvesh-verma",
+      "point_ids": ["dp-purana-quila", "dp-maharani-bagh"],
+      "expected_type": "html",
+      "notes": "311 multi-agency complaint routing — Volunteer reported channel"
+    },
+    {
+      "slug": "ie-445-hotspots",
+      "url": "https://indianexpress.com/article/cities/delhi/eye-on-monsoon-445-waterlogging-hotspots-identified-across-delhi-9944486/",
+      "point_ids": ["dp-sarita-vihar", "dp-jahangirpuri-metro", "dp-azad-market"],
+      "expected_type": "html",
+      "notes": "Named hotspot list for Expansion B densify"
     }
   ]
 }

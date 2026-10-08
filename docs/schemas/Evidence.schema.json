@@ -17,6 +17,11 @@
     "retrieved_at": { "type": "string", "format": "date-time" },
     "weight": { "type": "number", "minimum": 0, "maximum": 1 },
     "needs_review": { "type": "boolean", "default": false },
-    "is_synthetic": { "type": "boolean" }
+    "is_synthetic": { "type": "boolean" },
+    "channel": {
+      "type": "string",
+      "enum": ["VOLUNTEER_REPORTED", "OFFICIAL"],
+      "description": "Optional presentation channel. VOLUNTEER_REPORTED = citizen/press volunteer voice; does not change type weights."
+    }
   }
 }

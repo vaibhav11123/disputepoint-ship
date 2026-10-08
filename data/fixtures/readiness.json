@@ -1,20 +1,181 @@
 {
-  "version": "0.1.0",
-  "notes": "Scaffold: UNKNOWN + is_synthetic=true until a public non-SCADA fact is copied verbatim.",
+  "version": "0.2.0",
+  "notes": "UNKNOWN + is_synthetic=true for Expansion B until public non-SCADA fact.",
   "readiness": [
-    {"point_id": "dp-purana-quila", "state": "UNKNOWN", "is_synthetic": true},
-    {"point_id": "dp-bharat-mandapam-tunnel", "state": "UNKNOWN", "is_synthetic": true},
-    {"point_id": "dp-mathura-rd-hc", "state": "UNKNOWN", "is_synthetic": true},
-    {"point_id": "dp-barapullah", "state": "UNKNOWN", "is_synthetic": true},
-    {"point_id": "dp-minto-bridge", "state": "UNKNOWN", "is_synthetic": true},
-    {"point_id": "dp-aiims-aurobindo", "state": "UNKNOWN", "is_synthetic": true},
-    {"point_id": "dp-lodhi-moolchand", "state": "UNKNOWN", "is_synthetic": true},
-    {"point_id": "dp-maharani-bagh", "state": "UNKNOWN", "is_synthetic": true},
-    {"point_id": "dp-who-ito-ring", "state": "GAP", "is_synthetic": true},
-    {"point_id": "dp-zakhira", "state": "UNKNOWN", "is_synthetic": true},
-    {"point_id": "dp-pul-prahladpur", "state": "UNKNOWN", "is_synthetic": true},
-    {"point_id": "dp-azad-market", "state": "UNKNOWN", "is_synthetic": true},
-    {"point_id": "dp-pragati-bhairon", "state": "UNKNOWN", "is_synthetic": true},
-    {"point_id": "dp-loni-rd", "state": "UNKNOWN", "is_synthetic": true}
+    {
+      "point_id": "dp-purana-quila",
+      "state": "UNKNOWN",
+      "is_synthetic": true
+    },
+    {
+      "point_id": "dp-bharat-mandapam-tunnel",
+      "state": "UNKNOWN",
+      "is_synthetic": true
+    },
+    {
+      "point_id": "dp-mathura-rd-hc",
+      "state": "UNKNOWN",
+      "is_synthetic": true
+    },
+    {
+      "point_id": "dp-barapullah",
+      "state": "UNKNOWN",
+      "is_synthetic": true
+    },
+    {
+      "point_id": "dp-minto-bridge",
+      "state": "UNKNOWN",
+      "is_synthetic": true
+    },
+    {
+      "point_id": "dp-aiims-aurobindo",
+      "state": "UNKNOWN",
+      "is_synthetic": true
+    },
+    {
+      "point_id": "dp-lodhi-moolchand",
+      "state": "UNKNOWN",
+      "is_synthetic": true
+    },
+    {
+      "point_id": "dp-maharani-bagh",
+      "state": "UNKNOWN",
+      "is_synthetic": true
+    },
+    {
+      "point_id": "dp-who-ito-ring",
+      "state": "GAP",
+      "is_synthetic": true
+    },
+    {
+      "point_id": "dp-zakhira",
+      "state": "UNKNOWN",
+      "is_synthetic": true
+    },
+    {
+      "point_id": "dp-pul-prahladpur",
+      "state": "UNKNOWN",
+      "is_synthetic": true
+    },
+    {
+      "point_id": "dp-azad-market",
+      "state": "UNKNOWN",
+      "is_synthetic": true
+    },
+    {
+      "point_id": "dp-pragati-bhairon",
+      "state": "UNKNOWN",
+      "is_synthetic": true
+    },
+    {
+      "point_id": "dp-loni-rd",
+      "state": "UNKNOWN",
+      "is_synthetic": true
+    },
+    {
+      "point_id": "dp-azadpur-underpass",
+      "state": "UNKNOWN",
+      "is_synthetic": true
+    },
+    {
+      "point_id": "dp-samaypur-badli",
+      "state": "UNKNOWN",
+      "is_synthetic": true
+    },
+    {
+      "point_id": "dp-okhla-underpass",
+      "state": "UNKNOWN",
+      "is_synthetic": true
+    },
+    {
+      "point_id": "dp-dhaula-kuan",
+      "state": "UNKNOWN",
+      "is_synthetic": true
+    },
+    {
+      "point_id": "dp-sarita-vihar",
+      "state": "UNKNOWN",
+      "is_synthetic": true
+    },
+    {
+      "point_id": "dp-karala-kanjhawala",
+      "state": "UNKNOWN",
+      "is_synthetic": true
+    },
+    {
+      "point_id": "dp-jahangirpuri-metro",
+      "state": "UNKNOWN",
+      "is_synthetic": true
+    },
+    {
+      "point_id": "dp-tilak-bridge",
+      "state": "UNKNOWN",
+      "is_synthetic": true
+    },
+    {
+      "point_id": "dp-ashram-underpass",
+      "state": "UNKNOWN",
+      "is_synthetic": true
+    },
+    {
+      "point_id": "dp-shalimar-bagh-underpass",
+      "state": "UNKNOWN",
+      "is_synthetic": true
+    },
+    {
+      "point_id": "dp-mehrauli-badarpur-saket",
+      "state": "UNKNOWN",
+      "is_synthetic": true
+    },
+    {
+      "point_id": "dp-outer-ring-bhera-enclave",
+      "state": "UNKNOWN",
+      "is_synthetic": true
+    },
+    {
+      "point_id": "dp-outer-ring-mukarba-madhuban",
+      "state": "UNKNOWN",
+      "is_synthetic": true
+    },
+    {
+      "point_id": "dp-gtk-depot",
+      "state": "UNKNOWN",
+      "is_synthetic": true
+    },
+    {
+      "point_id": "dp-kali-mandir",
+      "state": "UNKNOWN",
+      "is_synthetic": true
+    },
+    {
+      "point_id": "dp-qutub-minar-metro",
+      "state": "UNKNOWN",
+      "is_synthetic": true
+    },
+    {
+      "point_id": "dp-sarai-kale-khan",
+      "state": "UNKNOWN",
+      "is_synthetic": true
+    },
+    {
+      "point_id": "dp-patparganj-nh24",
+      "state": "UNKNOWN",
+      "is_synthetic": true
+    },
+    {
+      "point_id": "dp-mahipalpur-tpoint",
+      "state": "UNKNOWN",
+      "is_synthetic": true
+    },
+    {
+      "point_id": "dp-kartavya-path-boat-club",
+      "state": "UNKNOWN",
+      "is_synthetic": true
+    },
+    {
+      "point_id": "dp-dwarka-underpass",
+      "state": "UNKNOWN",
+      "is_synthetic": true
+    }
   ]
 }

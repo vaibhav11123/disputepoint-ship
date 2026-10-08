@@ -47,3 +47,10 @@ Fetch summary: **10 ok / 0 gated / 0 failed**. ROS mine: URL cites only (no bodi
 ## Handoff
 
 Residual AMBER: maharani-bagh, who-ito-ring, pul-prahladpur, azad-market, pragati-bhairon, loni-rd (usable but thin). BLOCKED URLs: none. Next: **Phase 7 coding**. Still later: eval/gold, demo video, deploy/AWS, T-VIS-AUDIT. L0 bodies stay gitignored.
+
+## C. Full-board v0.3 (2026-10-08)
+
+- Gate A densified (≥4 evidence each) + `channel=VOLUNTEER_REPORTED` rows.
+- Expansion B: ~21 press-named areas (demo volume; lat/lon null until VERIFIED).
+- Total board ~35 points / ~120+ evidence. Not a 445-row dump; not DM-71.
+- Generators: `scripts/build_fullboard_fixtures.py`, `scripts/fix_fullboard_spine.py`.

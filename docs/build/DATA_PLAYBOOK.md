@@ -2,8 +2,10 @@
 
 **Purpose:** Minute-level recipes for curating the MVP point corpus. Agents and humans extract into JSON; they do not invent.  
 **SoT:** [../PHASE6.md](../PHASE6.md) + Phase 4 Gate A. If this playbook disagrees with Phase 6, follow Phase 6.  
-**Corpus:** Gate A rows **1–14** only. Row 15 (DM-71 bulk) is a **mandate cite**, not a demo point.  
+**Corpus:** Gate A rows **1–14** = conflict spine. **Expansion B** (~21 press-named areas) = demo volume only — not DM-71 bulk. Row 15 (DM-71) remains a **mandate cite**, not a point.  
 **Numeric locks SoT:** [../LLD.md](../LLD.md) §24 (W_NORM, θ, rain window/poll, wet/dry precip) — do not soft-change here.
+
+**Volunteer channel:** optional evidence field `channel: "VOLUNTEER_REPORTED"` (UI chip). Ownership `type` stays `PRESS_REPORT` (weight 0.55). Never treat volunteer rows as SCADA/live depths.
 ---
 
 ## Do not invent
@@ -13,6 +15,7 @@
 - No quote that is not a substring of the cited source after fetch.
 - `is_synthetic=true` forever for readiness unless a public non-SCADA fact exists — and still never invent that fact.
 - `lat` / `lon` stay `null` / `TBD_GEOCODE` in fixtures until a human marks a Nominatim candidate **VERIFIED**. Do not invent decimals. Procedure: [../research/geocode-candidates.md](../research/geocode-candidates.md).
+- Expansion B stays null-geo until VERIFIED; do not invent decimals to fill the map.
 
 ---
 

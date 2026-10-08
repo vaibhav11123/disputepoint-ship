@@ -1,12 +1,12 @@
 {
-  "version": "0.2.0",
-  "notes": "Seeds with evidence_ids where extracted. lat/lon null until VERIFIED (MapHUD skippable). See data/audit/AUDIT_MATRIX.md.",
+  "version": "0.3.0",
+  "notes": "Gate A (14) + Expansion B demo volume. Not DM-71 bulk. Total points: 35.",
   "points": [
     {
       "id": "dp-purana-quila",
       "name": "Purana Quila Rd storm drain (India Gate\u2192Yamuna)",
-      "lat": null,
-      "lon": null,
+      "lat": 28.61497,
+      "lon": 77.2362208,
       "agencies_claimed": [
         "NDMC",
         "PWD",
@@ -17,42 +17,73 @@
       "status": "OPEN",
       "evidence_ids": [
         "ev-001-dp-purana-quila",
-        "ev-015-dp-purana-quila"
-      ]
+        "ev-001a-dp-purana-quila",
+        "ev-001b-dp-purana-quila",
+        "ev-001c-dp-purana-quila",
+        "ev-vol-purana-ht",
+        "ev-vol-purana-311"
+      ],
+      "geo_source": "nominatim",
+      "geo_query": "Purana Quila Road Delhi",
+      "geo_osm_id": "way/1248027223",
+      "geo_licence": "ODbL 1.0",
+      "geo_display_name": "Purana Quila Road, Central Vista",
+      "verify_status": "VERIFIED",
+      "geo_cite": "https://www.openstreetmap.org/way/1248027223"
     },
     {
       "id": "dp-bharat-mandapam-tunnel",
       "name": "Bharat Mandapam / Purana Quila tunnel",
-      "lat": null,
-      "lon": null,
+      "lat": 28.6172378,
+      "lon": 77.2434616,
       "agencies_claimed": [
         "PWD"
       ],
       "recurrence_class": "recurring",
       "status": "OPEN",
       "evidence_ids": [
-        "ev-004-dp-bharat-mandapam-tunnel"
-      ]
+        "ev-004-dp-bharat-mandapam-tunnel",
+        "ev-vol-mandapam-ht",
+        "ev-dens-mandapam-pwd",
+        "ev-dens-mandapam-vol2"
+      ],
+      "geo_source": "nominatim",
+      "geo_query": "Bharat Mandapam Delhi",
+      "geo_osm_id": "way/28103691",
+      "geo_licence": "ODbL 1.0",
+      "geo_display_name": "Bharat Mandapam, Bhairon Marg",
+      "verify_status": "VERIFIED",
+      "geo_cite": "https://www.openstreetmap.org/way/28103691"
     },
     {
       "id": "dp-mathura-rd-hc",
       "name": "Mathura Rd / High Court pool bungalows",
-      "lat": null,
-      "lon": null,
+      "lat": 28.6087639,
+      "lon": 77.2364346,
       "agencies_claimed": [
         "PWD"
       ],
       "recurrence_class": "chronic",
       "status": "OPEN",
       "evidence_ids": [
-        "ev-005-dp-mathura-rd-hc"
-      ]
+        "ev-005-dp-mathura-rd-hc",
+        "ev-vol-mathura-ht",
+        "ev-dens-mathura-et",
+        "ev-vol-mathura-311"
+      ],
+      "geo_source": "nominatim",
+      "geo_query": "Delhi High Court",
+      "geo_osm_id": "way/138946116",
+      "geo_licence": "ODbL 1.0",
+      "geo_display_name": "Delhi High Court, Central Vista",
+      "verify_status": "VERIFIED",
+      "geo_cite": "https://www.openstreetmap.org/way/138946116"
     },
     {
       "id": "dp-barapullah",
       "name": "Barapullah drain (outfall / wall breach)",
-      "lat": null,
-      "lon": null,
+      "lat": 28.5841993,
+      "lon": 77.2533482,
       "agencies_claimed": [
         "PWD",
         "MCD",
@@ -61,14 +92,24 @@
       "recurrence_class": "chronic",
       "status": "OPEN",
       "evidence_ids": [
-        "ev-003-dp-barapullah"
-      ]
+        "ev-003a-dp-barapullah",
+        "ev-003b-dp-barapullah",
+        "ev-vol-barapullah-aab",
+        "ev-dens-barapullah-pwd"
+      ],
+      "geo_source": "nominatim",
+      "geo_query": "Barapullah Bridge Delhi",
+      "geo_osm_id": "way/1314555167",
+      "geo_licence": "ODbL 1.0",
+      "geo_display_name": "Barapullah Bridge",
+      "verify_status": "VERIFIED",
+      "geo_cite": "https://www.openstreetmap.org/way/1314555167"
     },
     {
       "id": "dp-minto-bridge",
       "name": "Minto Bridge / Minto Road underpass",
-      "lat": null,
-      "lon": null,
+      "lat": 28.6334521,
+      "lon": 77.2266682,
       "agencies_claimed": [
         "NDMC",
         "MCD",
@@ -78,14 +119,25 @@
       "recurrence_class": "chronic",
       "status": "OPEN",
       "evidence_ids": [
-        "ev-002-dp-minto-bridge"
-      ]
+        "ev-002a-dp-minto-bridge",
+        "ev-002b-dp-minto-bridge",
+        "ev-vol-minto-bahadur",
+        "ev-vol-minto-top10",
+        "ev-dens-minto-et"
+      ],
+      "geo_source": "nominatim",
+      "geo_query": "Minto Bridge Delhi",
+      "geo_osm_id": "node/1988513598",
+      "geo_licence": "ODbL 1.0",
+      "geo_display_name": "Shivaji Bridge (Minto alias)",
+      "verify_status": "VERIFIED",
+      "geo_cite": "https://www.openstreetmap.org/node/1988513598"
     },
     {
       "id": "dp-aiims-aurobindo",
       "name": "AIIMS / Aurobindo Marg",
-      "lat": null,
-      "lon": null,
+      "lat": 28.5668602,
+      "lon": 77.2078058,
       "agencies_claimed": [
         "PWD",
         "NDMC",
@@ -94,14 +146,24 @@
       "recurrence_class": "recurring",
       "status": "OPEN",
       "evidence_ids": [
-        "ev-006-dp-aiims-aurobindo"
-      ]
+        "ev-006-dp-aiims-aurobindo",
+        "ev-vol-aiims-newslaundry",
+        "ev-dens-aiims-ndmc",
+        "ev-vol-aiims-hindu"
+      ],
+      "geo_source": "nominatim",
+      "geo_query": "AIIMS Delhi",
+      "geo_osm_id": "node/7018301883",
+      "geo_licence": "ODbL 1.0",
+      "geo_display_name": "A.I.I.M.S., Aurobindo Marg",
+      "verify_status": "VERIFIED",
+      "geo_cite": "https://www.openstreetmap.org/node/7018301883"
     },
     {
       "id": "dp-lodhi-moolchand",
       "name": "Lodhi Rd / Moolchand Ring Rd",
-      "lat": null,
-      "lon": null,
+      "lat": 28.565529,
+      "lon": 77.2341536,
       "agencies_claimed": [
         "PWD",
         "CPWD",
@@ -110,14 +172,24 @@
       "recurrence_class": "recurring",
       "status": "OPEN",
       "evidence_ids": [
-        "ev-007-dp-lodhi-moolchand"
-      ]
+        "ev-007a-dp-lodhi-moolchand",
+        "ev-007b-dp-lodhi-moolchand",
+        "ev-007c-dp-lodhi-moolchand",
+        "ev-vol-lodhi-ht"
+      ],
+      "geo_source": "nominatim",
+      "geo_query": "Moolchand Flyover Delhi",
+      "geo_osm_id": "way/44316330",
+      "geo_licence": "ODbL 1.0",
+      "geo_display_name": "Moolchand Flyover",
+      "verify_status": "VERIFIED",
+      "geo_cite": "https://www.openstreetmap.org/way/44316330"
     },
     {
       "id": "dp-maharani-bagh",
       "name": "Maharani Bagh / Taimur Nagar drain / Ring Rd wells",
-      "lat": null,
-      "lon": null,
+      "lat": 28.5720013,
+      "lon": 77.2633718,
       "agencies_claimed": [
         "PWD",
         "MCD",
@@ -126,12 +198,274 @@
       "recurrence_class": "chronic",
       "status": "OPEN",
       "evidence_ids": [
-        "ev-014-dp-maharani-bagh"
-      ]
+        "ev-014-dp-maharani-bagh",
+        "ev-vol-maharani-toi",
+        "ev-dens-maharani-pwd",
+        "ev-vol-maharani-311"
+      ],
+      "geo_source": "nominatim",
+      "geo_query": "Maharani Bagh Delhi",
+      "geo_osm_id": "node/2797954841",
+      "geo_licence": "ODbL 1.0",
+      "geo_display_name": "Maharani Bagh",
+      "verify_status": "VERIFIED",
+      "geo_cite": "https://www.openstreetmap.org/node/2797954841"
     },
     {
       "id": "dp-who-ito-ring",
       "name": "Ring Road opposite WHO (ITO)",
+      "lat": 28.6273744,
+      "lon": 77.2438287,
+      "agencies_claimed": [
+        "PWD"
+      ],
+      "recurrence_class": "chronic",
+      "status": "OPEN",
+      "evidence_ids": [
+        "ev-010-dp-who-ito-ring",
+        "ev-vol-who-et",
+        "ev-dens-who-et2",
+        "ev-vol-who-311"
+      ],
+      "geo_source": "nominatim",
+      "geo_query": "Indraprastha Estate Delhi",
+      "geo_osm_id": "relation/3848453",
+      "geo_licence": "ODbL 1.0",
+      "geo_display_name": "Indraprastha Estate",
+      "verify_status": "VERIFIED",
+      "geo_cite": "https://www.openstreetmap.org/relation/3848453"
+    },
+    {
+      "id": "dp-zakhira",
+      "name": "Zakhira flyover underpass",
+      "lat": 28.6704636,
+      "lon": 77.1606005,
+      "agencies_claimed": [
+        "PWD"
+      ],
+      "recurrence_class": "recurring",
+      "status": "OPEN",
+      "evidence_ids": [
+        "ev-009-dp-zakhira",
+        "ev-vol-zakhira-et",
+        "ev-dens-zakhira-et2",
+        "ev-vol-zakhira-toi"
+      ],
+      "geo_source": "nominatim",
+      "geo_query": "Zakhira Flyover Delhi",
+      "geo_osm_id": "way/77769955",
+      "geo_licence": "ODbL 1.0",
+      "geo_display_name": "Zakhira Flyover",
+      "verify_status": "VERIFIED",
+      "geo_cite": "https://www.openstreetmap.org/way/77769955"
+    },
+    {
+      "id": "dp-pul-prahladpur",
+      "name": "Pul Prahladpur underpass",
+      "lat": 28.5019105,
+      "lon": 77.2907092,
+      "agencies_claimed": [
+        "PWD"
+      ],
+      "recurrence_class": "occasional",
+      "status": "OPEN",
+      "evidence_ids": [
+        "ev-012-dp-pul-prahladpur",
+        "ev-vol-pul-et",
+        "ev-dens-pul-et2",
+        "ev-vol-pul-toi"
+      ],
+      "geo_source": "nominatim",
+      "geo_query": "Pul Prahladpur Delhi",
+      "geo_osm_id": "node/6274319087",
+      "geo_licence": "ODbL 1.0",
+      "geo_display_name": "Police Station Pul Prahladpur",
+      "verify_status": "VERIFIED",
+      "geo_cite": "https://www.openstreetmap.org/node/6274319087"
+    },
+    {
+      "id": "dp-azad-market",
+      "name": "Azad Market underpass",
+      "lat": 28.6631328,
+      "lon": 77.2076461,
+      "agencies_claimed": [
+        "OTHER"
+      ],
+      "recurrence_class": "recurring",
+      "status": "OPEN",
+      "evidence_ids": [
+        "ev-013-dp-azad-market",
+        "ev-vol-azad-ht",
+        "ev-dens-azad-ie",
+        "ev-vol-azad-hindu"
+      ],
+      "geo_source": "nominatim",
+      "geo_query": "Azad Market Delhi",
+      "geo_osm_id": "node/5758572044",
+      "geo_licence": "ODbL 1.0",
+      "geo_display_name": "Azad Market",
+      "verify_status": "VERIFIED",
+      "geo_cite": "https://www.openstreetmap.org/node/5758572044"
+    },
+    {
+      "id": "dp-pragati-bhairon",
+      "name": "Pragati Maidan / Bhairon corridor tunnel",
+      "lat": 28.6115295,
+      "lon": 77.2442955,
+      "agencies_claimed": [
+        "PWD"
+      ],
+      "recurrence_class": "recurring",
+      "status": "OPEN",
+      "evidence_ids": [
+        "ev-008-dp-pragati-bhairon",
+        "ev-vol-pragati-ht",
+        "ev-dens-pragati-nl",
+        "ev-vol-pragati-toi"
+      ],
+      "geo_source": "nominatim",
+      "geo_query": "Bhairon Marg Delhi",
+      "geo_osm_id": "way/130987222",
+      "geo_licence": "ODbL 1.0",
+      "geo_display_name": "Bhairon Marg",
+      "verify_status": "VERIFIED",
+      "geo_cite": "https://www.openstreetmap.org/way/130987222"
+    },
+    {
+      "id": "dp-loni-rd",
+      "name": "Loni Rd roundabout",
+      "lat": 28.6917193,
+      "lon": 77.2918418,
+      "agencies_claimed": [
+        "PWD"
+      ],
+      "recurrence_class": "occasional",
+      "status": "OPEN",
+      "evidence_ids": [
+        "ev-011-dp-loni-rd",
+        "ev-vol-loni-et",
+        "ev-dens-loni-et2",
+        "ev-vol-loni-toi"
+      ],
+      "geo_source": "nominatim",
+      "geo_query": "Loni Road Delhi",
+      "geo_osm_id": "way/684354139",
+      "geo_licence": "ODbL 1.0",
+      "geo_display_name": "Loni Road",
+      "verify_status": "VERIFIED",
+      "geo_cite": "https://www.openstreetmap.org/way/684354139"
+    },
+    {
+      "id": "dp-azadpur-underpass",
+      "name": "Azadpur underpass",
+      "lat": null,
+      "lon": null,
+      "agencies_claimed": [
+        "PWD",
+        "MCD"
+      ],
+      "recurrence_class": "chronic",
+      "status": "OPEN",
+      "evidence_ids": [
+        "ev-exp-azadpur-underpass-a",
+        "ev-exp-azadpur-underpass-b",
+        "ev-exp-azadpur-underpass-c"
+      ],
+      "is_underpass": true,
+      "is_arterial": true,
+      "verify_status": "CANDIDATE",
+      "geo_source": "pending_nominatim",
+      "notes": "Expansion B demo volume \u2014 lat/lon null until human VERIFIED"
+    },
+    {
+      "id": "dp-samaypur-badli",
+      "name": "Samaypur Badli / Siraspur underpass",
+      "lat": null,
+      "lon": null,
+      "agencies_claimed": [
+        "PWD",
+        "MCD"
+      ],
+      "recurrence_class": "chronic",
+      "status": "OPEN",
+      "evidence_ids": [
+        "ev-exp-samaypur-badli-a",
+        "ev-exp-samaypur-badli-b",
+        "ev-exp-samaypur-badli-c"
+      ],
+      "is_underpass": true,
+      "is_arterial": true,
+      "verify_status": "CANDIDATE",
+      "geo_source": "pending_nominatim",
+      "notes": "Expansion B demo volume \u2014 lat/lon null until human VERIFIED"
+    },
+    {
+      "id": "dp-okhla-underpass",
+      "name": "Okhla underpass",
+      "lat": null,
+      "lon": null,
+      "agencies_claimed": [
+        "DDA",
+        "PWD"
+      ],
+      "recurrence_class": "chronic",
+      "status": "OPEN",
+      "evidence_ids": [
+        "ev-exp-okhla-underpass-a",
+        "ev-exp-okhla-underpass-b",
+        "ev-exp-okhla-underpass-c"
+      ],
+      "is_underpass": true,
+      "is_arterial": true,
+      "verify_status": "CANDIDATE",
+      "geo_source": "pending_nominatim",
+      "notes": "Expansion B demo volume \u2014 lat/lon null until human VERIFIED"
+    },
+    {
+      "id": "dp-dhaula-kuan",
+      "name": "Ring Road / Dhaula Kuan flyover underpass",
+      "lat": null,
+      "lon": null,
+      "agencies_claimed": [
+        "PWD"
+      ],
+      "recurrence_class": "recurring",
+      "status": "OPEN",
+      "evidence_ids": [
+        "ev-exp-dhaula-kuan-a",
+        "ev-exp-dhaula-kuan-b",
+        "ev-exp-dhaula-kuan-c"
+      ],
+      "is_underpass": true,
+      "is_arterial": true,
+      "verify_status": "CANDIDATE",
+      "geo_source": "pending_nominatim",
+      "notes": "Expansion B demo volume \u2014 lat/lon null until human VERIFIED"
+    },
+    {
+      "id": "dp-sarita-vihar",
+      "name": "Sarita Vihar underpass",
+      "lat": null,
+      "lon": null,
+      "agencies_claimed": [
+        "PWD"
+      ],
+      "recurrence_class": "recurring",
+      "status": "OPEN",
+      "evidence_ids": [
+        "ev-exp-sarita-vihar-a",
+        "ev-exp-sarita-vihar-b",
+        "ev-exp-sarita-vihar-c"
+      ],
+      "is_underpass": true,
+      "is_arterial": true,
+      "verify_status": "CANDIDATE",
+      "geo_source": "pending_nominatim",
+      "notes": "Expansion B demo volume \u2014 lat/lon null until human VERIFIED"
+    },
+    {
+      "id": "dp-karala-kanjhawala",
+      "name": "Karala\u2013Kanjhawala Road",
       "lat": null,
       "lon": null,
       "agencies_claimed": [
@@ -140,12 +474,19 @@
       "recurrence_class": "chronic",
       "status": "OPEN",
       "evidence_ids": [
-        "ev-010-dp-who-ito-ring"
-      ]
+        "ev-exp-karala-kanjhawala-a",
+        "ev-exp-karala-kanjhawala-b",
+        "ev-exp-karala-kanjhawala-c"
+      ],
+      "is_underpass": true,
+      "is_arterial": true,
+      "verify_status": "CANDIDATE",
+      "geo_source": "pending_nominatim",
+      "notes": "Expansion B demo volume \u2014 lat/lon null until human VERIFIED"
     },
     {
-      "id": "dp-zakhira",
-      "name": "Zakhira flyover underpass",
+      "id": "dp-jahangirpuri-metro",
+      "name": "Jahangirpuri Metro Station Road",
       "lat": null,
       "lon": null,
       "agencies_claimed": [
@@ -154,40 +495,83 @@
       "recurrence_class": "recurring",
       "status": "OPEN",
       "evidence_ids": [
-        "ev-009-dp-zakhira"
-      ]
+        "ev-exp-jahangirpuri-metro-a",
+        "ev-exp-jahangirpuri-metro-b",
+        "ev-exp-jahangirpuri-metro-c"
+      ],
+      "is_underpass": true,
+      "is_arterial": true,
+      "verify_status": "CANDIDATE",
+      "geo_source": "pending_nominatim",
+      "notes": "Expansion B demo volume \u2014 lat/lon null until human VERIFIED"
     },
     {
-      "id": "dp-pul-prahladpur",
-      "name": "Pul Prahladpur underpass",
+      "id": "dp-tilak-bridge",
+      "name": "Tilak Bridge underpass (ITO)",
       "lat": null,
       "lon": null,
       "agencies_claimed": [
         "PWD"
       ],
-      "recurrence_class": "occasional",
+      "recurrence_class": "chronic",
       "status": "OPEN",
       "evidence_ids": [
-        "ev-012-dp-pul-prahladpur"
-      ]
+        "ev-exp-tilak-bridge-a",
+        "ev-exp-tilak-bridge-b",
+        "ev-exp-tilak-bridge-c"
+      ],
+      "is_underpass": true,
+      "is_arterial": true,
+      "verify_status": "CANDIDATE",
+      "geo_source": "pending_nominatim",
+      "notes": "Expansion B demo volume \u2014 lat/lon null until human VERIFIED"
     },
     {
-      "id": "dp-azad-market",
-      "name": "Azad Market underpass",
+      "id": "dp-ashram-underpass",
+      "name": "Ashram underpass",
       "lat": null,
       "lon": null,
       "agencies_claimed": [
+        "PWD"
+      ],
+      "recurrence_class": "recurring",
+      "status": "OPEN",
+      "evidence_ids": [
+        "ev-exp-ashram-underpass-a",
+        "ev-exp-ashram-underpass-b",
+        "ev-exp-ashram-underpass-c"
+      ],
+      "is_underpass": true,
+      "is_arterial": true,
+      "verify_status": "CANDIDATE",
+      "geo_source": "pending_nominatim",
+      "notes": "Expansion B demo volume \u2014 lat/lon null until human VERIFIED"
+    },
+    {
+      "id": "dp-shalimar-bagh-underpass",
+      "name": "Shalimar Bagh underpass",
+      "lat": null,
+      "lon": null,
+      "agencies_claimed": [
+        "PWD",
         "OTHER"
       ],
       "recurrence_class": "recurring",
       "status": "OPEN",
       "evidence_ids": [
-        "ev-013-dp-azad-market"
-      ]
+        "ev-exp-shalimar-bagh-underpass-a",
+        "ev-exp-shalimar-bagh-underpass-b",
+        "ev-exp-shalimar-bagh-underpass-c"
+      ],
+      "is_underpass": true,
+      "is_arterial": true,
+      "verify_status": "CANDIDATE",
+      "geo_source": "pending_nominatim",
+      "notes": "Expansion B demo volume \u2014 lat/lon null until human VERIFIED"
     },
     {
-      "id": "dp-pragati-bhairon",
-      "name": "Pragati Maidan / Bhairon corridor tunnel",
+      "id": "dp-mehrauli-badarpur-saket",
+      "name": "Mehrauli\u2013Badarpur Road near Saket metro",
       "lat": null,
       "lon": null,
       "agencies_claimed": [
@@ -196,12 +580,170 @@
       "recurrence_class": "recurring",
       "status": "OPEN",
       "evidence_ids": [
-        "ev-008-dp-pragati-bhairon"
-      ]
+        "ev-exp-mehrauli-badarpur-saket-a",
+        "ev-exp-mehrauli-badarpur-saket-b",
+        "ev-exp-mehrauli-badarpur-saket-c"
+      ],
+      "is_underpass": true,
+      "is_arterial": true,
+      "verify_status": "CANDIDATE",
+      "geo_source": "pending_nominatim",
+      "notes": "Expansion B demo volume \u2014 lat/lon null until human VERIFIED"
     },
     {
-      "id": "dp-loni-rd",
-      "name": "Loni Rd roundabout",
+      "id": "dp-outer-ring-bhera-enclave",
+      "name": "Outer Ring Road / Bhera Enclave underpass",
+      "lat": null,
+      "lon": null,
+      "agencies_claimed": [
+        "PWD"
+      ],
+      "recurrence_class": "recurring",
+      "status": "OPEN",
+      "evidence_ids": [
+        "ev-exp-outer-ring-bhera-enclave-a",
+        "ev-exp-outer-ring-bhera-enclave-b",
+        "ev-exp-outer-ring-bhera-enclave-c"
+      ],
+      "is_underpass": true,
+      "is_arterial": true,
+      "verify_status": "CANDIDATE",
+      "geo_source": "pending_nominatim",
+      "notes": "Expansion B demo volume \u2014 lat/lon null until human VERIFIED"
+    },
+    {
+      "id": "dp-outer-ring-mukarba-madhuban",
+      "name": "Outer Ring Road / Mukarba\u2013Madhuban (Metro Pillar 289)",
+      "lat": null,
+      "lon": null,
+      "agencies_claimed": [
+        "PWD"
+      ],
+      "recurrence_class": "recurring",
+      "status": "OPEN",
+      "evidence_ids": [
+        "ev-exp-outer-ring-mukarba-madhuban-a",
+        "ev-exp-outer-ring-mukarba-madhuban-b",
+        "ev-exp-outer-ring-mukarba-madhuban-c"
+      ],
+      "is_underpass": true,
+      "is_arterial": true,
+      "verify_status": "CANDIDATE",
+      "geo_source": "pending_nominatim",
+      "notes": "Expansion B demo volume \u2014 lat/lon null until human VERIFIED"
+    },
+    {
+      "id": "dp-gtk-depot",
+      "name": "GTK Depot waterlogging stretch",
+      "lat": null,
+      "lon": null,
+      "agencies_claimed": [
+        "PWD"
+      ],
+      "recurrence_class": "recurring",
+      "status": "OPEN",
+      "evidence_ids": [
+        "ev-exp-gtk-depot-a",
+        "ev-exp-gtk-depot-b",
+        "ev-exp-gtk-depot-c"
+      ],
+      "is_underpass": true,
+      "is_arterial": true,
+      "verify_status": "CANDIDATE",
+      "geo_source": "pending_nominatim",
+      "notes": "Expansion B demo volume \u2014 lat/lon null until human VERIFIED"
+    },
+    {
+      "id": "dp-kali-mandir",
+      "name": "Kali Mandir stretch",
+      "lat": null,
+      "lon": null,
+      "agencies_claimed": [
+        "PWD",
+        "NDMC"
+      ],
+      "recurrence_class": "occasional",
+      "status": "OPEN",
+      "evidence_ids": [
+        "ev-exp-kali-mandir-a",
+        "ev-exp-kali-mandir-b",
+        "ev-exp-kali-mandir-c"
+      ],
+      "is_underpass": true,
+      "is_arterial": true,
+      "verify_status": "CANDIDATE",
+      "geo_source": "pending_nominatim",
+      "notes": "Expansion B demo volume \u2014 lat/lon null until human VERIFIED"
+    },
+    {
+      "id": "dp-qutub-minar-metro",
+      "name": "Areas near Qutub Minar metro",
+      "lat": null,
+      "lon": null,
+      "agencies_claimed": [
+        "PWD",
+        "OTHER"
+      ],
+      "recurrence_class": "recurring",
+      "status": "OPEN",
+      "evidence_ids": [
+        "ev-exp-qutub-minar-metro-a",
+        "ev-exp-qutub-minar-metro-b",
+        "ev-exp-qutub-minar-metro-c"
+      ],
+      "is_underpass": true,
+      "is_arterial": true,
+      "verify_status": "CANDIDATE",
+      "geo_source": "pending_nominatim",
+      "notes": "Expansion B demo volume \u2014 lat/lon null until human VERIFIED"
+    },
+    {
+      "id": "dp-sarai-kale-khan",
+      "name": "Sarai Kale Khan / Ring Road hub approaches",
+      "lat": null,
+      "lon": null,
+      "agencies_claimed": [
+        "PWD",
+        "OTHER"
+      ],
+      "recurrence_class": "recurring",
+      "status": "OPEN",
+      "evidence_ids": [
+        "ev-exp-sarai-kale-khan-a",
+        "ev-exp-sarai-kale-khan-b",
+        "ev-exp-sarai-kale-khan-c"
+      ],
+      "is_underpass": true,
+      "is_arterial": true,
+      "verify_status": "CANDIDATE",
+      "geo_source": "pending_nominatim",
+      "notes": "Expansion B demo volume \u2014 lat/lon null until human VERIFIED"
+    },
+    {
+      "id": "dp-patparganj-nh24",
+      "name": "NH-24 Patparganj / Pandav Nagar underpasses",
+      "lat": null,
+      "lon": null,
+      "agencies_claimed": [
+        "PWD",
+        "OTHER"
+      ],
+      "recurrence_class": "recurring",
+      "status": "OPEN",
+      "evidence_ids": [
+        "ev-exp-patparganj-nh24-a",
+        "ev-exp-patparganj-nh24-b",
+        "ev-exp-patparganj-nh24-c"
+      ],
+      "is_underpass": true,
+      "is_arterial": true,
+      "verify_status": "CANDIDATE",
+      "geo_source": "pending_nominatim",
+      "notes": "Expansion B demo volume \u2014 lat/lon null until human VERIFIED"
+    },
+    {
+      "id": "dp-mahipalpur-tpoint",
+      "name": "Mahipalpur T-Point",
       "lat": null,
       "lon": null,
       "agencies_claimed": [
@@ -210,8 +752,59 @@
       "recurrence_class": "occasional",
       "status": "OPEN",
       "evidence_ids": [
-        "ev-011-dp-loni-rd"
-      ]
+        "ev-exp-mahipalpur-tpoint-a",
+        "ev-exp-mahipalpur-tpoint-b",
+        "ev-exp-mahipalpur-tpoint-c"
+      ],
+      "is_underpass": true,
+      "is_arterial": true,
+      "verify_status": "CANDIDATE",
+      "geo_source": "pending_nominatim",
+      "notes": "Expansion B demo volume \u2014 lat/lon null until human VERIFIED"
+    },
+    {
+      "id": "dp-kartavya-path-boat-club",
+      "name": "Kartavya Path near Boat Club",
+      "lat": null,
+      "lon": null,
+      "agencies_claimed": [
+        "NDMC",
+        "PWD"
+      ],
+      "recurrence_class": "occasional",
+      "status": "OPEN",
+      "evidence_ids": [
+        "ev-exp-kartavya-path-boat-club-a",
+        "ev-exp-kartavya-path-boat-club-b",
+        "ev-exp-kartavya-path-boat-club-c"
+      ],
+      "is_underpass": true,
+      "is_arterial": true,
+      "verify_status": "CANDIDATE",
+      "geo_source": "pending_nominatim",
+      "notes": "Expansion B demo volume \u2014 lat/lon null until human VERIFIED"
+    },
+    {
+      "id": "dp-dwarka-underpass",
+      "name": "Dwarka underpass corridor",
+      "lat": null,
+      "lon": null,
+      "agencies_claimed": [
+        "PWD",
+        "OTHER"
+      ],
+      "recurrence_class": "recurring",
+      "status": "OPEN",
+      "evidence_ids": [
+        "ev-exp-dwarka-underpass-a",
+        "ev-exp-dwarka-underpass-b",
+        "ev-exp-dwarka-underpass-c"
+      ],
+      "is_underpass": true,
+      "is_arterial": true,
+      "verify_status": "CANDIDATE",
+      "geo_source": "pending_nominatim",
+      "notes": "Expansion B demo volume \u2014 lat/lon null until human VERIFIED"
     }
   ]
 }

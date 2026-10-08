@@ -490,6 +490,11 @@ components:
           type: boolean
         is_synthetic:
           type: boolean
+        channel:
+          type: string
+          enum: [VOLUNTEER_REPORTED, OFFICIAL]
+          nullable: true
+          description: Optional presentation channel; VOLUNTEER_REPORTED does not change type weights
 
     PriorityComponents:
       type: object
