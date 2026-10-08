@@ -1,34 +1,29 @@
-# Infra / deploy notes
+# DisputePoint AWS path
 
-**Product SoT:** [docs/PHASE6.md](../docs/PHASE6.md). Prefer **Ship It**. Day-1 recon may choose **Build It** if account/SAM is blocked.
+Phase 6 §16A. This file is the eligibility path. It is not a completed deploy.
 
-**Operator runbook:** [docs/operations/AWS_OPERATOR.md](../docs/operations/AWS_OPERATOR.md) — profile `disputepoint`, region `ap-south-1`, login refresh, Free Tier budget, SAM/Docker, G-AWS smoke/CORS/cleanup. Phase 6 frozen recon tables are historical; use AWS_OPERATOR for live pins.
+## Chosen path for this tree
 
-## Ship It (preferred)
+**B Build It**, until a human account passes G-AWS.
 
-Hosted path when Free Tier login + SAM work: static frontend on S3 (or equivalent) + API Gateway + Lambda + DynamoDB + EventBridge rain schedule + CloudWatch. Keep demo runnable locally with fixtures if deploy fails. No product deploy before G-CLOCK in the submission repo.
+| Service | Product role |
+|---------|----------------|
+| API Gateway | HTTPS front for the decision routes |
+| Lambda | Same FastAPI app as `backend.app.main:app` |
+| DynamoDB | Point and audit state (`PointsTable`) |
+| S3 | Evidence objects, public access blocked |
+| EventBridge | Hourly rain poll, rule created **DISABLED** |
 
-## Build It (SAM Local failover)
+Bedrock stays off. No extra services.
 
-If Ship It is blocked at G-AWS, use SAM Local / LocalStack for Lambda + Dynamo parity (Docker required for `sam local`):
+Local demo stays `make run`: API `127.0.0.1:8000`, UI `127.0.0.1:5173`.
 
-- Tutorial: [Deploy a Hello World application with AWS SAM](https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/serverless-getting-started-hello-world.html)
-- Typical flow: `sam init` → Hello World or Serverless API → `sam build` → `sam deploy --guided` (or `sam local` when staying offline)
-- Do not invent DM-71 / live SCADA into Lambda payloads; use `data/fixtures/`.
+## What a human still does at G-AWS
 
-SAM CLI on the planning laptop (2026-10-07): `1.166.2` via Homebrew. Verify: `sam --version`.
+1. `aws login` on the Free Tier account.
+2. Install SAM.
+3. `sam build -t infra/template.yaml` then `sam deploy` only after the account is confirmed.
+4. Smoke `GET /health` on the output `ApiUrl`.
+5. Put that URL on screen for the video (W9). Do not invent a URL here.
 
-## Local first
-
-```text
-cp .env.example .env
-make install   # when Phase 7 apps exist
-make test
-make run
-```
-
-Until Phase 7 code exists, `make` targets exit with a pointer to [docs/build/GAPS.md](../docs/build/GAPS.md).
-
-## Out of MVP
-
-SNS and CloudFront are out unless a later written ADR. Bedrock stays off (fixtures-only evidence).
+`make deploy` still exits 1 until that smoke exists.
