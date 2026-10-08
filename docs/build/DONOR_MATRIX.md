@@ -25,6 +25,11 @@ Synced from fuse-catalog 2026-10-09. Visual language always `--dp-*`. Zero AGPL 
 | F11-02 | ASSET | Tokens | tokens | IBM Plex @fontsource | npm | OFL 1.1 | ASSET | self-host Plex; no CDN | tokens.css, package.json | @fontsource/* (existing) | — | DONE |
 | F14-01 | ASSET | Pitch | docs | AWS Architecture Icons | aws.amazon.com/architecture/icons | AWS icon terms | ASSET | pitch only — never TopBar | docs, aws-arch.html | none | — | DONE |
 | F16-01 | CUSTOM | Map | MapHUD | ship | ship | ship | CUSTOM | upgrade camera/style only | MapHUD.tsx | existing | A-F6-05 | DONE |
+| G-01 | COPY_ADAPT | Command | QueueTable | TanStack Table | tanstack.com/table | MIT | COPY_ADAPT | headless table → DP queue | QueueTable.tsx | @tanstack/react-table | multipage Command | DONE |
+| G-02 | COPY_ADAPT | UI | ui/* | shadcn/ui + Radix | ui.shadcn.com | MIT | COPY_ADAPT | Button/Badge/Tabs/Table under --dp-* | components/ui/* | cva, clsx, radix | no purple default | DONE |
+| G-03 | COPY_ADAPT | Nav/Motion | IncidentNav | Motion | motion.dev | MIT | COPY_ADAPT | restrained tab/panel fade | IncidentNav, screens/* | motion | no vanity motion | DONE |
+| G-04 | COPY_ADAPT | Rain | App FLIP | CSS FLIP | web.dev/articles/flip | cite | COPY_ADAPT | rain reorder FLIP | App.tsx | none (WAAPI) | reorder works | DONE |
+| G-05 | REFERENCE | IA | router | PagerDuty/ServiceNow/Linear | — | — | REFERENCE | drill-down multipage IA only | router.ts, screens/* | none | URLs work | DONE |
 | REJECT-AEGIS | REFERENCE | — | — | AEGIS | alejadxr/AEGIS | AGPL-3.0 | REFERENCE | never vendor | — | none | — | LOCKED |
 | REJECT-RAINVIEWER-HERO | REFERENCE | Demo | — | RainViewer | rainviewer API | API terms | REFERENCE | subtle only; not Demo hero | — | none | — | LOCKED |
 

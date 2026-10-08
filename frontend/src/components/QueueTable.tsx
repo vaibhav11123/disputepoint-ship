@@ -1,6 +1,15 @@
+import {
+  flexRender,
+  getCoreRowModel,
+  useReactTable,
+  type ColumnDef,
+} from "@tanstack/react-table"
+import { useMemo } from "react"
 import type { PointRow } from "../api/client"
 import { AgencyBlock, StateChip } from "./StateChip"
 import { TriageChip } from "./TriageChip"
+import { Badge } from "./ui/badge"
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "./ui/table"
 
 function rankLabel(rank: number) {
   return `[${String(rank).padStart(2, "0")}]`
@@ -19,79 +28,131 @@ export function QueueTable({
   flashed: Set<string>
   onSelect: (id: string) => void
 }) {
+  const columns = useMemo<ColumnDef<QueueRow>[]>(
+    () => [
+      {
+        id: "rank",
+        header: "Rank",
+        cell: ({ row }) => <span className="rank">{rankLabel(row.original.priority_rank)}</span>,
+      },
+      {
+        accessorKey: "name",
+        header: "Name",
+        cell: ({ row }) => <span title={row.original.name}>{row.original.name}</span>,
+      },
+      {
+        id: "triage",
+        header: "Triage",
+        cell: ({ row }) => (
+          <TriageChip state={row.original.ownership_state} escalated={Boolean(row.original.escalated)} />
+        ),
+      },
+      {
+        id: "state",
+        header: "State",
+        cell: ({ row }) => (
+          <StateChip
+            state={row.original.ownership_state}
+            compact
+            escalated={Boolean(row.original.escalated)}
+            officerConfirmed={Boolean(row.original.officer_confirmed)}
+          />
+        ),
+      },
+      {
+        id: "agency",
+        header: "Agency",
+        cell: ({ row }) => (
+          <AgencyBlock agency={row.original.responsible_agency} claimed={row.original.agencies_claimed} />
+        ),
+      },
+      {
+        id: "priority",
+        header: "Priority",
+        cell: ({ row }) => <span className="mono">{row.original.priority_score.toFixed(2)}</span>,
+      },
+      {
+        id: "rain",
+        header: "RainΔ",
+        cell: ({ row }) => {
+          const d = row.original.rain_delta
+          return (
+            <span className="mono">{d == null ? "—" : d > 0 ? `+${d}` : String(d)}</span>
+          )
+        },
+      },
+    ],
+    [],
+  )
+
+  const table = useReactTable({
+    data: rows,
+    columns,
+    getCoreRowModel: getCoreRowModel(),
+    getRowId: (row) => row.id,
+  })
+
   if (rows.length === 0) {
     return <p>No disputed points loaded. Check fixtures.</p>
   }
+
   const awaiting = rows.filter((r) => r.ownership_state === "CONFLICT" || r.escalated)
+
   return (
     <div className="queue-wrap">
       {awaiting.length > 0 ? (
         <div className="awaiting-region" data-testid="awaiting-you-region">
-          <strong>AWAITING YOU</strong>
+          <Badge variant="warn">AWAITING YOU</Badge>
           <span className="muted"> · {awaiting.length} need human review / disputed</span>
         </div>
       ) : null}
-      <table>
-        <thead>
-          <tr>
-            <th>Rank</th>
-            <th>Name</th>
-            <th>Triage</th>
-            <th>State</th>
-            <th>Agency</th>
-            <th>Priority</th>
-            <th>RainΔ</th>
-          </tr>
-        </thead>
-        <tbody>
-          {rows.map((row) => (
-            <tr
-              key={row.id}
-              tabIndex={0}
-              role="button"
-              aria-label={`Select ${row.name}`}
-              aria-selected={row.id === selectedId}
-              className={[
-                flashed.has(row.id) ? "flash" : "",
-                row.id === selectedId ? "selected-row" : "",
-                row.ownership_state === "CONFLICT" || row.escalated ? "awaiting-row" : "",
-                "queue-row",
-              ]
-                .filter(Boolean)
-                .join(" ")}
-              data-point-id={row.id}
-              onClick={() => onSelect(row.id)}
-              onKeyDown={(event) => {
-                if (event.key === "Enter" || event.key === " ") {
-                  event.preventDefault()
-                  onSelect(row.id)
-                }
-              }}
-            >
-              <td className="rank">{rankLabel(row.priority_rank)}</td>
-              <td title={row.name}>{row.name}</td>
-              <td>
-                <TriageChip state={row.ownership_state} escalated={Boolean(row.escalated)} />
-              </td>
-              <td>
-                <StateChip
-                  state={row.ownership_state}
-                  compact
-                  escalated={Boolean(row.escalated)}
-                  officerConfirmed={Boolean(row.officer_confirmed)}
-                />
-              </td>
-              <td>
-                <AgencyBlock agency={row.responsible_agency} claimed={row.agencies_claimed} />
-              </td>
-              <td className="mono">{row.priority_score.toFixed(2)}</td>
-              <td className="mono">
-                {row.rain_delta == null ? "—" : row.rain_delta > 0 ? `+${row.rain_delta}` : String(row.rain_delta)}
-              </td>
-            </tr>
+      <Table data-testid="command-queue">
+        <TableHeader>
+          {table.getHeaderGroups().map((hg) => (
+            <TableRow key={hg.id}>
+              {hg.headers.map((header) => (
+                <TableHead key={header.id}>
+                  {header.isPlaceholder ? null : flexRender(header.column.columnDef.header, header.getContext())}
+                </TableHead>
+              ))}
+            </TableRow>
           ))}
-        </tbody>
-      </table>
+        </TableHeader>
+        <TableBody>
+          {table.getRowModel().rows.map((row) => {
+            const r = row.original
+            return (
+              <TableRow
+                key={row.id}
+                tabIndex={0}
+                role="button"
+                aria-label={`Open incident ${r.name}`}
+                aria-selected={r.id === selectedId}
+                className={[
+                  flashed.has(r.id) ? "flash flip-target" : "flip-target",
+                  r.id === selectedId ? "selected-row" : "",
+                  r.ownership_state === "CONFLICT" || r.escalated ? "awaiting-row" : "",
+                  "queue-row",
+                ]
+                  .filter(Boolean)
+                  .join(" ")}
+                data-point-id={r.id}
+                onClick={() => onSelect(r.id)}
+                onKeyDown={(event) => {
+                  if (event.key === "Enter" || event.key === " ") {
+                    event.preventDefault()
+                    onSelect(r.id)
+                  }
+                }}
+              >
+                {row.getVisibleCells().map((cell) => (
+                  <TableCell key={cell.id}>{flexRender(cell.column.columnDef.cell, cell.getContext())}</TableCell>
+                ))}
+              </TableRow>
+            )
+          })}
+        </TableBody>
+      </Table>
     </div>
   )
 }

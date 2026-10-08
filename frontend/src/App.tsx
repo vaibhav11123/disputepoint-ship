@@ -10,12 +10,8 @@ import {
   type PointRow,
 } from "./api/client"
 import { POINT_REFRESH } from "./components/ActionBlock"
-import { AdvisoryBanner } from "./components/AdvisoryBanner"
-import { MapHUD } from "./components/MapHUD"
-import { PointCard } from "./components/PointCard"
-import { QueueTable } from "./components/QueueTable"
-import { triageSummary } from "./components/TriageChip"
 import { TopBar } from "./components/TopBar"
+import { triageSummary } from "./components/TriageChip"
 import {
   isJudgesMode,
   MAP_EXPAND_EVENT,
@@ -24,6 +20,13 @@ import {
   presentQueueForDemo,
   RAIN_STRIKE_EVENT,
 } from "./lib/demoMode"
+import { incidentIdFromRoute, navigate, useRoute } from "./lib/router"
+import { AuditScreen } from "./screens/AuditScreen"
+import { CommandScreen } from "./screens/CommandScreen"
+import { CoordinationScreen } from "./screens/CoordinationScreen"
+import { DemoScreen } from "./screens/DemoScreen"
+import { EvidenceScreen } from "./screens/EvidenceScreen"
+import { IncidentScreen } from "./screens/IncidentScreen"
 
 type PaletteProps = { onSelect: (id: string) => void }
 type EvalProps = Record<string, never>
@@ -37,6 +40,7 @@ const CommandPalette = Object.values(paletteMods)[0]?.CommandPalette
 const EvalLink = Object.values(evalMods)[0]?.EvalLink
 
 export function App() {
+  const route = useRoute()
   const [rows, setRows] = useState<PointRow[] | null>(null)
   const [error, setError] = useState<string | null>(null)
   const [selectedId, setSelectedId] = useState<string | null>(null)
@@ -50,6 +54,9 @@ export function App() {
   const [precipMm, setPrecipMm] = useState(0)
   const [mapForceOpen, setMapForceOpen] = useState(false)
   const pendingStrikeFocus = useRef(false)
+  const flipRects = useRef<Map<string, DOMRect>>(new Map())
+
+  const routePointId = incidentIdFromRoute(route)
 
   async function loadQueue(keepId?: string | null, cold = false) {
     const listing = await listPoints()
@@ -61,6 +68,11 @@ export function App() {
       return listing.items[0]?.id ?? null
     })
     return listing.items
+  }
+
+  function openIncident(id: string) {
+    setSelectedId(id)
+    navigate({ name: "incident", id })
   }
 
   useEffect(() => {
@@ -78,7 +90,7 @@ export function App() {
         }
         if (cancelled) return
         await loadQueue(null, true)
-      } catch (err: unknown) {
+      } catch {
         if (cancelled) return
         try {
           await loadQueue(null, true)
@@ -93,9 +105,17 @@ export function App() {
   }, [])
 
   useEffect(() => {
-    if (!selectedId) return
+    if (routePointId) setSelectedId(routePointId)
+  }, [routePointId])
+
+  useEffect(() => {
+    const id = routePointId ?? selectedId
+    if (!id || route.name === "command" || route.name === "demo") {
+      if (route.name === "command" || route.name === "demo") setDetail(null)
+      return
+    }
     let cancelled = false
-    getPoint(selectedId)
+    getPoint(id)
       .then((point) => {
         if (!cancelled) setDetail(point)
       })
@@ -105,10 +125,49 @@ export function App() {
     return () => {
       cancelled = true
     }
-  }, [selectedId, rows, detailTick])
+  }, [routePointId, selectedId, rows, detailTick, route.name])
 
   useEffect(() => {
+    function onKey(event: KeyboardEvent) {
+      if (event.key === "Escape" && route.name !== "command" && route.name !== "demo") {
+        navigate({ name: "command" })
+      }
+    }
+    window.addEventListener("keydown", onKey)
+    return () => window.removeEventListener("keydown", onKey)
+  }, [route.name])
+
+  useEffect(() => {
+    function captureFlip() {
+      const map = new Map<string, DOMRect>()
+      document.querySelectorAll<HTMLElement>("[data-point-id]").forEach((el) => {
+        const id = el.dataset.pointId
+        if (id) map.set(id, el.getBoundingClientRect())
+      })
+      flipRects.current = map
+    }
+
+    function playFlip() {
+      const prev = flipRects.current
+      if (prev.size === 0) return
+      document.querySelectorAll<HTMLElement>("[data-point-id]").forEach((el) => {
+        const id = el.dataset.pointId
+        if (!id) return
+        const first = prev.get(id)
+        if (!first) return
+        const last = el.getBoundingClientRect()
+        const dy = first.top - last.top
+        if (Math.abs(dy) < 1) return
+        el.animate([{ transform: `translateY(${dy}px)` }, { transform: "translateY(0)" }], {
+          duration: 320,
+          easing: "cubic-bezier(0.2, 0.8, 0.2, 1)",
+        })
+      })
+      flipRects.current = new Map()
+    }
+
     function onRefresh(event: Event) {
+      captureFlip()
       const detailPrecip = (event as CustomEvent<{ precip_mm?: number }>).detail?.precip_mm
       if (typeof detailPrecip === "number") setPrecipMm(detailPrecip)
       const previous = new Map((rows ?? []).map((row) => [row.id, row.priority_rank]))
@@ -130,6 +189,7 @@ export function App() {
             setMapForceOpen(true)
             window.dispatchEvent(new Event(MAP_EXPAND_EVENT))
           }
+          requestAnimationFrame(() => requestAnimationFrame(playFlip))
           window.setTimeout(() => {
             setFlashed(new Set())
             setPulse(false)
@@ -140,7 +200,7 @@ export function App() {
     }
     function onSelect(event: Event) {
       const id = (event as CustomEvent<string>).detail
-      if (id) setSelectedId(id)
+      if (id) openIncident(id)
     }
     function onPointRefresh() {
       setDetailTick((n) => n + 1)
@@ -168,74 +228,76 @@ export function App() {
     return presentQueueForDemo(rows, precipMm)
   }, [rows, precipMm, judges])
 
-  const uncertain = detail ? detail.ownership_state !== "ASSIGNED" : true
   const summary = displayRows ? triageSummary(displayRows) : null
+  const showOpsChrome = route.name !== "demo"
 
   return (
     <div className={judges ? "app judges" : "app demo"}>
       <a className="skip" href="#queue">
         Skip to queue
       </a>
-      <TopBar
-        hideSynthetic={hideSynthetic}
-        onToggleSynthetic={() => setHideSynthetic((value) => !value)}
-        pulse={pulse}
-        precipMm={precipMm}
-        rainMode={precipMm > 5 ? "DEMO" : "IDLE"}
-        counts={
-          summary
-            ? {
-                active: displayRows?.length ?? 0,
-                high: displayRows?.filter((r) => r.priority_rank <= 5).length ?? 0,
-                disputed: summary.disputed,
-                awaiting: summary.awaiting + summary.adjudicate,
-              }
-            : undefined
-        }
-      />
-      <div className="workspace">
-        <section className="queue" id="queue" aria-label="Disputed points queue">
-          {error ? (
-            <p className="error" role="alert">
-              {error}
-            </p>
-          ) : null}
-          {rows === null && !error ? <p>Loading disputed points.</p> : null}
-          {summary ? (
-            <p className="triage-strip" data-testid="triage-summary">
-              {summary.act} act · {summary.adjudicate} adjudicate · {summary.awaiting} awaiting you · {summary.research}{" "}
-              research
-            </p>
-          ) : null}
-          {displayRows ? (
-            <>
-              <QueueTable rows={displayRows} selectedId={selectedId} flashed={flashed} onSelect={setSelectedId} />
-              <MapHUD
-                rows={displayRows}
-                selectedId={selectedId}
-                onSelect={setSelectedId}
-                defaultOpen={false}
-                rainActive={rainActive}
-                forceOpen={mapForceOpen}
-              />
-            </>
-          ) : null}
-        </section>
-        <section className="card" aria-label="Point card">
-          <AdvisoryBanner uncertain={uncertain} />
-          {detail ? <PointCard point={detail} hideSynthetic={hideSynthetic} judges={judges} /> : <p className="muted">Select a point.</p>}
-        </section>
-      </div>
-      <footer className="footer">
-        <span>Rain source verified · Ownership decisions require human confirmation</span>
-        {judges && EvalLink ? <EvalLink /> : null}
-        {judges && CommandPalette ? <CommandPalette onSelect={setSelectedId} /> : null}
-        {!judges ? (
-          <a className="muted judges-link" href="?judges=1">
-            Judges inspection
-          </a>
+      {showOpsChrome ? (
+        <TopBar
+          hideSynthetic={hideSynthetic}
+          onToggleSynthetic={() => setHideSynthetic((value) => !value)}
+          pulse={pulse}
+          precipMm={precipMm}
+          rainMode={precipMm > 5 ? "DEMO" : "IDLE"}
+          counts={
+            summary
+              ? {
+                  active: displayRows?.length ?? 0,
+                  high: displayRows?.filter((r) => r.priority_rank <= 5).length ?? 0,
+                  disputed: summary.disputed,
+                  awaiting: summary.awaiting + summary.adjudicate,
+                }
+              : undefined
+          }
+        />
+      ) : null}
+      <div className={route.name === "command" ? "workspace command-only" : "workspace multipage"}>
+        {route.name === "command" ? (
+          <CommandScreen
+            rows={displayRows}
+            error={error}
+            selectedId={selectedId}
+            flashed={flashed}
+            rainActive={rainActive}
+            mapForceOpen={mapForceOpen}
+            onSelect={openIncident}
+          />
         ) : null}
-      </footer>
+        {route.name === "demo" ? (
+          <DemoScreen
+            rows={displayRows}
+            selectedId={selectedId}
+            rainActive={rainActive}
+            onSelect={openIncident}
+          />
+        ) : null}
+        {detail && route.name === "incident" ? (
+          <IncidentScreen point={detail} route={route} hideSynthetic={hideSynthetic} judges={judges} />
+        ) : null}
+        {detail && route.name === "evidence" ? <EvidenceScreen point={detail} route={route} /> : null}
+        {detail && route.name === "coordination" ? <CoordinationScreen point={detail} route={route} /> : null}
+        {detail && route.name === "audit" ? <AuditScreen point={detail} route={route} /> : null}
+        {routePointId && !detail && !error ? <p className="muted pad">Loading incident…</p> : null}
+      </div>
+      {showOpsChrome ? (
+        <footer className="footer">
+          <span>Rain source verified · Ownership decisions require human confirmation</span>
+          <a className="muted" href="/demo">
+            Demo
+          </a>
+          {judges && EvalLink ? <EvalLink /> : null}
+          {judges && CommandPalette ? <CommandPalette onSelect={openIncident} /> : null}
+          {!judges ? (
+            <a className="muted judges-link" href="/command?judges=1">
+              Judges inspection
+            </a>
+          ) : null}
+        </footer>
+      ) : null}
     </div>
   )
 }

@@ -8,6 +8,7 @@ import {
   type PointDetail,
 } from "../api/client"
 import { ESCALATE_REASONS, type ActorRole } from "../lib/lifecycle"
+import { navigate } from "../lib/router"
 
 const AGENCIES = ["MCD", "PWD", "NDMC", "DJB", "PWD_FLOOD", "NHAI", "DMRC", "OTHER"]
 export const POINT_REFRESH = "dp-point-refresh"
@@ -48,13 +49,14 @@ export function ActionBlock({
     }
   }, [point.id, evidenceIds])
 
-  async function run(work: () => Promise<unknown>) {
+  async function run(work: () => Promise<unknown>, after?: "audit") {
     setBusy(true)
     setError(null)
     try {
       await work()
       window.dispatchEvent(new Event(QUEUE_REFRESH))
       window.dispatchEvent(new CustomEvent(POINT_REFRESH, { detail: point.id }))
+      if (after === "audit") navigate({ name: "audit", id: point.id })
     } catch (err) {
       setError(err instanceof Error ? err.message : "Action failed.")
     } finally {
@@ -92,7 +94,7 @@ export function ActionBlock({
         type="button"
         disabled={!open || busy || !isIc || overrideReason.trim().length === 0 || reviewer.length === 0}
         title={isIc ? undefined : "Requires Incident Commander"}
-        onClick={() => run(() => postOverride(point.id, agency, overrideReason.trim(), reviewer))}
+        onClick={() => run(() => postOverride(point.id, agency, overrideReason.trim(), reviewer), "audit")}
       >
         OVERRIDE
       </button>
@@ -116,7 +118,7 @@ export function ActionBlock({
         className={conflict ? "primary-action" : undefined}
         data-testid="escalate-human-review"
         disabled={busy || escalateReason.trim().length === 0 || reviewer.length === 0}
-        onClick={() => run(() => postEscalate(point.id, escalateReason.trim(), reviewer, actorRole))}
+        onClick={() => run(() => postEscalate(point.id, escalateReason.trim(), reviewer, actorRole), "audit")}
       >
         ESCALATE FOR HUMAN REVIEW
       </button>
@@ -180,7 +182,10 @@ export function ActionBlock({
             }
             title={isIc ? undefined : "Requires Incident Commander"}
             onClick={() =>
-              run(() => postConfirm(point.id, agency, confirmReason.trim(), reviewer, selectedEvidence, actorRole))
+              run(
+                () => postConfirm(point.id, agency, confirmReason.trim(), reviewer, selectedEvidence, actorRole),
+                "audit",
+              )
             }
           >
             CONFIRM DECISION

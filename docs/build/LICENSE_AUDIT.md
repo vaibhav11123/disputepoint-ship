@@ -35,9 +35,15 @@
 | Purana Qila coordinates | Wikipedia Purana Qila Delhi | 2026-10-09 | CC BY-SA | Cite if republished as dataset | true | true with cite | FACT 28.60944, 77.24417 DEMO climax |
 | AWS Architecture Icons | https://aws.amazon.com/architecture/icons/ | pitch | AWS Architecture Icons terms | Per AWS | true (pitch) | false in product UI | Never TopBar / MapHUD |
 
+| @tanstack/react-table ^8 | npm | frontend package.json | MIT | Package license | true | true | Command queue (useReactTable v8 API) |
+| motion | npm | frontend package.json | MIT | Package license | true | true | Restrained tab/panel transitions |
+| clsx / class-variance-authority | npm | frontend package.json | MIT | Package license | true | true | shadcn-style primitive variants |
+| @radix-ui/react-tabs / react-slot | npm | frontend package.json | MIT | Package license | true | true | Tabs + Slot for DP Button |
+| CSS FLIP (rain reorder) | ship CSS | tokens.css | Project | n/a | true | true | Prefer over react-flip-move on React 19 |
+
 ### Contamination gate (V2)
 
-No new `package.json` dependency until this file lists: package, direct+transitive SPDX scan note, bundle impact, maintenance. Existing MapLibre / react-map-gl / @fontsource already pinned above.
+No new `package.json` dependency until this file lists: package, direct+transitive SPDX scan note, bundle impact, maintenance. Existing MapLibre / react-map-gl / @fontsource already pinned above. GREEN stack above: MIT roots; Radix/TanStack/Motion transitive trees are MIT/ISC — no AGPL.
 
 ## Donor Copy/Reference lock (2026-10-08)
 
