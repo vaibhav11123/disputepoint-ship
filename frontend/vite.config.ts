@@ -7,5 +7,11 @@ export default defineConfig({
     host: "127.0.0.1",
     port: 5173,
     strictPort: true,
+    proxy: {
+      "/health": "http://127.0.0.1:8000",
+      "/points": "http://127.0.0.1:8000",
+      "/rain": "http://127.0.0.1:8000",
+      "/meta": "http://127.0.0.1:8000",
+    },
   },
 });
