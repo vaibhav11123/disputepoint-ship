@@ -26,12 +26,13 @@
       ]
     },
     "WP-02": {
-      "state": "READY",
+      "state": "SUCCEEDED",
       "wave": 2,
       "depends_on": [
         "WP-01"
       ],
-      "human_gate": "G-OWNERSHIP"
+      "human_gate": "G-OWNERSHIP",
+      "gate_open": true
     },
     "WP-03": {
       "state": "BLOCKED",
@@ -41,7 +42,7 @@
       ]
     },
     "WP-04": {
-      "state": "READY",
+      "state": "SUCCEEDED",
       "wave": 2,
       "depends_on": [
         "WP-01"

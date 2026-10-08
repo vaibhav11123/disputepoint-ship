@@ -32,3 +32,11 @@ Append-only. Sessions add dated entries. Do not rewrite history.
 - FR-001 stays DOCUMENTED (numeric lat still waits on G-GEO).
 - Same-session MEDIUM review: schema required fields and bbox match the JSON Schema; no schema file edited.
 - WP-02 and WP-04 are READY.
+
+### 2026-10-08 — WP-02 and WP-04, then G-OWNERSHIP
+
+- OwnershipEngine: confidence is `min(1, top_weight_sum / 2.0)`. Below 0.65 the agency is null. A close pair (sums within 0.1 and both above 0.4) is CONFLICT with a null agency even when confidence is at least 0.65.
+- Evidence loader validates fixture rows. Quote ⊆ source is checked against caller-supplied text. Gitignored L0 bodies were not opened.
+- Package tests passed, then `make test` (18 passed). Schemas and OpenAPI were not edited.
+- FR-002, FR-003, and FR-004 are VERIFIED. FR-001 stays DOCUMENTED pending G-GEO. FR-011 stays DOCUMENTED pending E2E-03. FR-019 stays DOCUMENTED until an audit-list check is named against committed sources.
+- **G-OWNERSHIP is open.** WP-03 stays BLOCKED until a human reviews CONFLICT → `responsible_agency` null.

@@ -7,9 +7,9 @@
   },
   "requirements": {
     "FR-001": { "status": "DOCUMENTED", "package": "WP-05", "test": "T-DATA-01", "residual": "numeric lat/lon VERIFIED needs G-GEO" },
-    "FR-002": { "status": "DOCUMENTED", "package": "WP-04", "test": "fixture validate" },
-    "FR-003": { "status": "DOCUMENTED", "package": "WP-02", "test": "unit OwnershipEngine" },
-    "FR-004": { "status": "DOCUMENTED", "package": "WP-02", "test": "T-OWN-θ, T-OWN-CF-NULL" },
+    "FR-002": { "status": "VERIFIED", "package": "WP-04", "test": "fixture validate" },
+    "FR-003": { "status": "VERIFIED", "package": "WP-02", "test": "unit OwnershipEngine" },
+    "FR-004": { "status": "VERIFIED", "package": "WP-02", "test": "T-OWN-θ, T-OWN-CF-NULL" },
     "FR-005": { "status": "DOCUMENTED", "package": "WP-03", "test": "T-RANK-01" },
     "FR-006": { "status": "DOCUMENTED", "package": "WP-06/WP-10", "test": "T-RAIN-01; E2E-02" },
     "FR-007": { "status": "DOCUMENTED", "package": "WP-06/WP-10", "test": "T-RAIN-01; E2E-02" },
