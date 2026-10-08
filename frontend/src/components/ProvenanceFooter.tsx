@@ -3,10 +3,19 @@ import type { PointDetail } from "../api/client"
 export function ProvenanceFooter({ point }: { point: PointDetail }) {
   const provenance = point.provenance
   if (!provenance) return null
+  const hasOsm = Boolean(point.lat != null && point.lon != null && (point.geo_licence || point.geo_source === "nominatim"))
   return (
-    <p className="muted" data-testid="provenance">
-      {provenance.source} · {provenance.retrieved_at} · synthetic {String(provenance.is_synthetic)} · derived{" "}
-      {String(provenance.is_derived)}
-    </p>
+    <div data-testid="provenance">
+      <p className="muted">
+        {provenance.source} · {provenance.retrieved_at} · synthetic {String(provenance.is_synthetic)} · derived{" "}
+        {String(provenance.is_derived)}
+      </p>
+      {point.lat != null && point.lon != null ? (
+        <p className="mono muted">
+          {point.lat.toFixed(5)}, {point.lon.toFixed(5)}
+        </p>
+      ) : null}
+      {hasOsm ? <p className="muted">Data © OpenStreetMap contributors, ODbL</p> : null}
+    </div>
   )
 }

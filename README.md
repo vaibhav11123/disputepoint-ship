@@ -30,7 +30,8 @@ Full layout: [docs/README.md](docs/README.md).
 - Spec package + **Data Ready PASS** — [docs/quality/SPEC_READINESS.md](docs/quality/SPEC_READINESS.md) §F. Planning contracts ready; **entry product build starts at the Oct 8 clock** ([WeMakeDevs rules](https://www.wemakedevs.org/aws/rules)).
 - Fixtures: [`data/fixtures/`](data/fixtures/) v0.2 (evidence promoted). L0 source bodies gitignored under [`data/audit/`](data/audit/) (L1 matrices committed).
 - Geo: `lat`/`lon` null until human VERIFIED ([geocode-candidates](docs/research/geocode-candidates.md)); MapHUD skippable. COURT quotes may still have `needs_review=true`.
-- App code not started; Makefile stubs exist. Do not dump a pre-built app into the submission repo.
+- App: queue-first UI + MapHUD + Rain Strike + Ownership Conflict + HITL. Demo chrome default; `?judges=1` for eval/θ.
+- Demo: [DEMO_SCRIPT](docs/build/DEMO_SCRIPT.md) · [EARTH_STUDIO_SHOT](docs/build/EARTH_STUDIO_SHOT.md) · [AWS_DEMO_BEAT](docs/build/AWS_DEMO_BEAT.md) · [DONOR_MATRIX](docs/build/DONOR_MATRIX.md)
 - AI coding tools: Cursor (must be listed in hackathon write-up). AWS must show in the demo video.
 - Optional secondary memory: `.mex/` (loopback Hub). Phase 6 + root AGENTS hard stops win on conflict.
 - **Git:** no GitHub remote on this tree yet. Policy: [docs/operations/SUBMISSION_GIT.md](docs/operations/SUBMISSION_GIT.md).

@@ -6,10 +6,20 @@ export function EvidenceList({ items }: { items: EvidenceItem[] }) {
     <dl>
       {items.map((item) => (
         <div key={item.id}>
-          <dt>{item.type}</dt>
+          <dt>
+            {item.type}{" "}
+            {item.live_verified ? (
+              <span className="chip ok">live verified</span>
+            ) : (
+              <span className="chip">fixture cache</span>
+            )}
+          </dt>
           <dd>
             <q>{item.quote}</q>{" "}
             <a href={item.url} target="_blank" rel="noreferrer">source</a>
+            {item.live_status && item.live_status !== "ok" ? (
+              <span className="muted"> · {item.live_status}</span>
+            ) : null}
           </dd>
         </div>
       ))}

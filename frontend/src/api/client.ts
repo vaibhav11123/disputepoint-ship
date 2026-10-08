@@ -21,6 +21,22 @@ export type EvidenceItem = {
   type: string
   quote: string
   url: string
+  channel?: "VOLUNTEER_REPORTED" | "OFFICIAL" | string | null
+  live_verified?: boolean
+  live_status?: string
+  retrieved_at?: string
+}
+
+export type HealthInfo = {
+  ok: boolean
+  rain_mode: string
+  precip_mm?: number
+  rain_retrieved_at?: string | null
+  live_fetch?: boolean
+  geo_fill?: string
+  evidence_live_ok?: number
+  evidence_live_fail?: number
+  evidence_live_skipped?: number
 }
 
 export type AuditRow = {
@@ -48,6 +64,8 @@ export type PointDetail = PointRow & {
   human_selected_agency?: string | null
   override_reason?: string
   escalate_reason?: string
+  geo_source?: string
+  geo_licence?: string
 }
 
 export const QUEUE_REFRESH = "dp-queue-refresh"
@@ -77,7 +95,26 @@ export function getPoint(id: string) {
 }
 
 export function getHealth() {
-  return read<{ ok: boolean; rain_mode: string }>("/health")
+  return read<HealthInfo>("/health")
+}
+
+export function postRainRefresh() {
+  return read<{ source: string; precip_mm: number; is_synthetic: boolean; retrieved_at?: string }>("/rain/refresh", {
+    method: "POST",
+    body: "{}",
+  })
+}
+
+export function postEvidenceRefresh() {
+  return read<{
+    ok: boolean
+    evidence_live_ok: number
+    evidence_live_fail: number
+    evidence_live_skipped: number
+  }>("/evidence/refresh", {
+    method: "POST",
+    body: "{}",
+  })
 }
 
 export function postScenario(precipMm: number) {

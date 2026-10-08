@@ -10,7 +10,8 @@ const LABELS: Record<string, string> = {
 export function PriorityExplain({ point }: { point: PointDetail }) {
   const components = point.components ?? {}
   return (
-    <div>
+    <details className="why-rank">
+      <summary>Why this rank</summary>
       <div className="bars" aria-label="Priority components">
         {["R", "S", "C", "Q", "U", "G"].map((key) => {
           const value = components[key] ?? 0
@@ -33,6 +34,6 @@ export function PriorityExplain({ point }: { point: PointDetail }) {
       {(point.explanation ?? []).some((line) => line.includes("coordination_uncertainty")) ? (
         <p className="muted">U is coordination uncertainty, not physical severity.</p>
       ) : null}
-    </div>
+    </details>
   )
 }

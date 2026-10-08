@@ -1,9 +1,11 @@
 import type { PointDetail } from "../api/client"
+import { HumanVerifiedSeal } from "./HumanVerifiedSeal"
 
 export function DecisionAuditPanel({ point }: { point: PointDetail }) {
   const latest = point.audit?.[point.audit.length - 1]
   return (
     <section aria-label="Decision audit" data-testid="decision-audit">
+      <HumanVerifiedSeal point={point} />
       <h3 style={{ fontSize: 14, margin: "12px 0 4px" }}>SYSTEM RECOMMENDED</h3>
       <p>{latest?.previous_recommendation ?? point.recommended_action ?? "—"}</p>
       <h3 style={{ fontSize: 14, margin: "12px 0 4px" }}>HUMAN DECISION</h3>
