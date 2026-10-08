@@ -14,12 +14,12 @@
   "clock_declared": true,
   "packages": {
     "WP-00": {
-      "state": "READY",
+      "state": "SUCCEEDED",
       "wave": 0,
       "depends_on": []
     },
     "WP-01": {
-      "state": "BLOCKED",
+      "state": "READY",
       "wave": 1,
       "depends_on": [
         "WP-00"

@@ -1,33 +1,43 @@
-# DisputePoint — root Makefile
-# Phase 7 Agent A owns real install/test/run. Stubs fail clearly until apps exist.
-# See docs/PHASE6.md and docs/build/GAPS.md.
+# DisputePoint — toolchain (WP-00).
+# install / test / run satisfy NFR-009. deploy stays a later gate.
 
 .PHONY: install test run deploy help
 
+VENV := .venv
+PY := $(VENV)/bin/python
+PIP := $(VENV)/bin/pip
+UVICORN := $(VENV)/bin/uvicorn
+
 help:
 	@echo "Targets: install test run deploy"
-	@echo "Phase 7 app code not started — see docs/PHASE6.md Agent A / docs/build/GAPS.md GAP-BOOT-*"
+	@echo "API defaults to 127.0.0.1:8000; UI defaults to 127.0.0.1:5173"
 
 install:
-	@if [ -d backend ] && [ -f backend/pyproject.toml -o -f backend/requirements.txt ]; then \
-		echo "TODO: install backend deps"; \
-	else \
-		echo "make install: Phase 7 backend not present yet (docs/build/GAPS.md GAP-BOOT-01)"; \
-		exit 1; \
-	fi
-	@if [ -d frontend ] && [ -f frontend/package.json ]; then \
-		echo "TODO: npm/pnpm install frontend"; \
-	else \
-		echo "make install: Phase 7 frontend not present yet"; \
-		exit 1; \
-	fi
+	python3 -m venv $(VENV)
+	$(PIP) install --upgrade pip
+	$(PIP) install -e ".[dev]"
+	npm install
 
 test:
-	@if [ -d backend ]; then echo "TODO: pytest"; else echo "make test: no backend yet"; exit 1; fi
+	@test -x $(PY) || (echo "make test: run make install first"; exit 1)
+	@if [ ! -d tests ]; then \
+		echo "pytest: no tests/ yet (expected until WP-01)"; \
+		exit 0; \
+	fi; \
+	$(PY) -m pytest -q tests; status=$$?; \
+	if [ $$status -eq 5 ]; then \
+		echo "pytest: no tests collected (expected until WP-01)"; \
+		exit 0; \
+	fi; \
+	exit $$status
 
 run:
-	@echo "make run: start API + UI when Phase 7 exists (fixtures under data/fixtures/)"
-	@exit 1
+	@test -x $(UVICORN) || (echo "make run: run make install first"; exit 1)
+	@if [ -f backend/app/main.py ]; then APP=backend.app.main:app; else APP='backend.app:create_app --factory'; fi; \
+	$(UVICORN) $$APP --host 127.0.0.1 --port 8000 & api_pid=$$!; \
+	npm run dev --prefix frontend & ui_pid=$$!; \
+	trap 'kill $$api_pid $$ui_pid 2>/dev/null; wait $$api_pid $$ui_pid 2>/dev/null' INT TERM EXIT; \
+	wait $$api_pid $$ui_pid
 
 deploy:
 	@echo "make deploy: prefer Ship It; see infra/README.md (SAM Build It day-1 recon gate)"

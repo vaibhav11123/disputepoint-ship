@@ -1,0 +1,7 @@
+{
+  "name": "disputepoint",
+  "private": true,
+  "workspaces": [
+    "frontend"
+  ]
+}

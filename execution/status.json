@@ -41,7 +41,7 @@
     "NFR-006": { "status": "DOCUMENTED", "package": "WP-07", "test": "log sample" },
     "NFR-007": { "status": "DOCUMENTED", "package": null, "gate": "G-VIS", "test": "T-VIS-AUDIT" },
     "NFR-008": { "status": "DOCUMENTED", "package": null, "gate": "G-VIS", "test": "T-VIS-AUDIT" },
-    "NFR-009": { "status": "DOCUMENTED", "package": "WP-00", "test": "make install/test/run" },
+    "NFR-009": { "status": "VERIFIED", "package": "WP-00", "test": "make install/test/run" },
     "NFR-010": { "status": "DOCUMENTED", "package": null, "gate": "G-FORM", "test": "LICENSE_AUDIT in copy" },
     "W1": { "status": "DOCUMENTED", "package": "WP-09", "test": "E2E-01", "artifact": "docs/build/DEMO_WOW.md" },
     "W2": { "status": "DOCUMENTED", "package": "WP-10", "test": "E2E-02", "artifact": "docs/build/DEMO_WOW.md" },
