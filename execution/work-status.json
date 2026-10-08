@@ -19,14 +19,14 @@
       "depends_on": []
     },
     "WP-01": {
-      "state": "READY",
+      "state": "SUCCEEDED",
       "wave": 1,
       "depends_on": [
         "WP-00"
       ]
     },
     "WP-02": {
-      "state": "BLOCKED",
+      "state": "READY",
       "wave": 2,
       "depends_on": [
         "WP-01"
@@ -41,7 +41,7 @@
       ]
     },
     "WP-04": {
-      "state": "BLOCKED",
+      "state": "READY",
       "wave": 2,
       "depends_on": [
         "WP-01"

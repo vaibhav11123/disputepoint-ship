@@ -23,3 +23,12 @@ Append-only. Sessions add dated entries. Do not rewrite history.
 - Branch `wp/WP-00`: Makefile install/test/run, root `pyproject.toml` and npm workspace, Vite shell, toolchain `create_app` until `backend/app/main.py` exists.
 - `make install`, `make test` (no `tests/` yet), and `make run` (API `127.0.0.1:8000`, UI `127.0.0.1:5173`) passed.
 - NFR-009 set to VERIFIED. WP-01 is READY. `make deploy` still exits 1 (G-AWS).
+
+### 2026-10-08 — WP-01 models
+
+- `DisputePointSeed` accepts fixture null lat/lon. `DisputePoint` rejects null lat/lon and empty `evidence_ids`.
+- CONFLICT or UNKNOWN with a non-null `responsible_agency` fails validation.
+- `pytest tests/test_models.py -q`: 9 passed. Fixture file was not given coordinates.
+- FR-001 stays DOCUMENTED (numeric lat still waits on G-GEO).
+- Same-session MEDIUM review: schema required fields and bbox match the JSON Schema; no schema file edited.
+- WP-02 and WP-04 are READY.
