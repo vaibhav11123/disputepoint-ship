@@ -34,10 +34,32 @@ def rain_mode(source: str | None) -> str:
     return "cache"
 
 
+def _live_stats(request: Request) -> dict:
+    return getattr(request.app.state, "live_stats", None) or {
+        "live_fetch": False,
+        "evidence_live_ok": 0,
+        "evidence_live_fail": 0,
+        "evidence_live_skipped": 0,
+        "geo_fill": "none",
+    }
+
+
 @router.get("/health")
 def health(request: Request) -> dict:
     rain = get_rain(request.app.state.conn)
-    return {"ok": True, "rain_mode": rain_mode(None if rain is None else rain.get("source"))}
+    source = None if rain is None else rain.get("source")
+    stats = _live_stats(request)
+    return {
+        "ok": True,
+        "rain_mode": rain_mode(source),
+        "precip_mm": 0.0 if rain is None else float(rain.get("precip_mm") or 0),
+        "rain_retrieved_at": None if rain is None else rain.get("retrieved_at"),
+        "live_fetch": bool(stats.get("live_fetch")),
+        "geo_fill": stats.get("geo_fill") or "none",
+        "evidence_live_ok": int(stats.get("evidence_live_ok") or 0),
+        "evidence_live_fail": int(stats.get("evidence_live_fail") or 0),
+        "evidence_live_skipped": int(stats.get("evidence_live_skipped") or 0),
+    }
 
 
 @router.get("/points")
@@ -76,6 +98,34 @@ def rain_scenario(body: ScenarioBody, request: Request) -> dict:
     save_rain(conn, obs)
     rescore(conn, obs["precip_mm"])
     return get_rain(conn)
+
+
+@router.post("/evidence/refresh")
+def evidence_refresh(request: Request) -> dict:
+    from backend.app.db.store import list_evidence, update_evidence
+    from backend.app.main import live_fetch_enabled
+    from backend.app.services.evidence_live import verify_corpus
+
+    stats_state = _live_stats(request)
+    if not live_fetch_enabled() and not stats_state.get("live_fetch") and not getattr(request.app.state, "allow_evidence_refresh", False):
+        raise HTTPException(
+            status_code=503,
+            detail={"code": "DP-503-LIVE", "message": "Live evidence refresh requires DP_LIVE_FETCH=1"},
+        )
+    rows = list_evidence(request.app.state.conn)
+    updated, counts = verify_corpus(rows)
+    for row in updated:
+        update_evidence(request.app.state.conn, row["id"], row)
+    stats = {
+        "evidence_live_ok": counts["ok"],
+        "evidence_live_fail": counts["fail"],
+        "evidence_live_skipped": counts["skipped"],
+    }
+    live = dict(stats_state)
+    live.update(stats)
+    live["live_fetch"] = True
+    request.app.state.live_stats = live
+    return {"ok": True, **stats}
 
 
 @router.get("/meta/honesty")

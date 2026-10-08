@@ -55,7 +55,7 @@ def _score_point(raw: dict[str, Any], evidence: list[Any], readiness: dict[str, 
         action = f"Ask {agency}"
     else:
         action = "Escalate to coordination cell"
-    return {
+    body = {
         "id": raw["id"],
         "name": raw["name"],
         "lat": raw.get("lat"),
@@ -87,6 +87,18 @@ def _score_point(raw: dict[str, Any], evidence: list[Any], readiness: dict[str, 
             "HIGH" if decision.ownership_confidence >= 0.85 else "MEDIUM"
         ),
     }
+    for key in (
+        "geo_source",
+        "geo_query",
+        "geo_osm_id",
+        "geo_licence",
+        "geo_display_name",
+        "verify_status",
+        "geo_cite",
+    ):
+        if key in raw:
+            body[key] = raw[key]
+    return body
 
 
 def build_corpus(root: Path | None = None, precip_mm: float = 0.0) -> tuple[list[dict[str, Any]], list[tuple[str, str, dict[str, Any]]]]:

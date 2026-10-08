@@ -4,8 +4,11 @@ from __future__ import annotations
 
 import json
 import sqlite3
+import threading
 from pathlib import Path
 from typing import Any
+
+_WRITE_LOCK = threading.Lock()
 
 SCHEMA = """
 CREATE TABLE IF NOT EXISTS points (
@@ -51,20 +54,25 @@ def replace_corpus(
     evidence_rows: list[tuple[str, str, dict[str, Any]]],
     rain: dict[str, Any],
 ) -> None:
-    conn.execute("DELETE FROM points")
-    conn.execute("DELETE FROM evidence")
-    for point in points:
+    with _WRITE_LOCK:
+        conn.execute("DELETE FROM points")
+        conn.execute("DELETE FROM evidence")
+        for point in points:
+            conn.execute(
+                "INSERT INTO points (id, body, priority_score, status) VALUES (?, ?, ?, ?)",
+                (point["id"], json.dumps(point), point["priority_score"], point["status"]),
+            )
+        for point_id, evidence_id, body in evidence_rows:
+            conn.execute(
+                "INSERT INTO evidence (id, point_id, body) VALUES (?, ?, ?)",
+                (evidence_id, point_id, json.dumps(body)),
+            )
+        conn.execute("DELETE FROM rain_cache")
         conn.execute(
-            "INSERT INTO points (id, body, priority_score, status) VALUES (?, ?, ?, ?)",
-            (point["id"], json.dumps(point), point["priority_score"], point["status"]),
+            "INSERT INTO rain_cache (id, precip_mm, retrieved_at, mode, body) VALUES (1, ?, ?, ?, ?)",
+            (rain["precip_mm"], rain["retrieved_at"], rain["source"], json.dumps(rain)),
         )
-    for point_id, evidence_id, body in evidence_rows:
-        conn.execute(
-            "INSERT INTO evidence (id, point_id, body) VALUES (?, ?, ?)",
-            (evidence_id, point_id, json.dumps(body)),
-        )
-    save_rain(conn, rain)
-    conn.commit()
+        conn.commit()
 
 
 def list_points(conn: sqlite3.Connection) -> list[dict[str, Any]]:
@@ -84,20 +92,43 @@ def get_point(conn: sqlite3.Connection, point_id: str) -> dict[str, Any] | None:
 
 
 def update_point(conn: sqlite3.Connection, point: dict[str, Any]) -> None:
-    conn.execute(
-        "UPDATE points SET body = ?, priority_score = ?, status = ? WHERE id = ?",
-        (json.dumps(point), point["priority_score"], point["status"], point["id"]),
-    )
-    conn.commit()
+    with _WRITE_LOCK:
+        conn.execute(
+            "UPDATE points SET body = ?, priority_score = ?, status = ? WHERE id = ?",
+            (json.dumps(point), point["priority_score"], point["status"], point["id"]),
+        )
+        conn.commit()
+
+
+def list_evidence(conn: sqlite3.Connection) -> list[dict[str, Any]]:
+    rows = conn.execute("SELECT id, point_id, body FROM evidence ORDER BY id").fetchall()
+    out: list[dict[str, Any]] = []
+    for row in rows:
+        body = json.loads(row["body"])
+        body["_point_id"] = row["point_id"]
+        body["id"] = row["id"]
+        out.append(body)
+    return out
+
+
+def update_evidence(conn: sqlite3.Connection, evidence_id: str, body: dict[str, Any]) -> None:
+    payload = {key: value for key, value in body.items() if key != "_point_id"}
+    with _WRITE_LOCK:
+        conn.execute(
+            "UPDATE evidence SET body = ? WHERE id = ?",
+            (json.dumps(payload), evidence_id),
+        )
+        conn.commit()
 
 
 def save_rain(conn: sqlite3.Connection, rain: dict[str, Any]) -> None:
-    conn.execute("DELETE FROM rain_cache")
-    conn.execute(
-        "INSERT INTO rain_cache (id, precip_mm, retrieved_at, mode, body) VALUES (1, ?, ?, ?, ?)",
-        (rain["precip_mm"], rain["retrieved_at"], rain["source"], json.dumps(rain)),
-    )
-    conn.commit()
+    with _WRITE_LOCK:
+        conn.execute("DELETE FROM rain_cache")
+        conn.execute(
+            "INSERT INTO rain_cache (id, precip_mm, retrieved_at, mode, body) VALUES (1, ?, ?, ?, ?)",
+            (rain["precip_mm"], rain["retrieved_at"], rain["source"], json.dumps(rain)),
+        )
+        conn.commit()
 
 
 def get_rain(conn: sqlite3.Connection) -> dict[str, Any] | None:
@@ -106,11 +137,12 @@ def get_rain(conn: sqlite3.Connection) -> dict[str, Any] | None:
 
 
 def add_audit(conn: sqlite3.Connection, row: dict[str, Any]) -> dict[str, Any]:
-    conn.execute(
-        "INSERT INTO audit (point_id, action, ts, body) VALUES (?, ?, ?, ?)",
-        (row["point_id"], row["action"], row["timestamp"], json.dumps(row)),
-    )
-    conn.commit()
+    with _WRITE_LOCK:
+        conn.execute(
+            "INSERT INTO audit (point_id, action, ts, body) VALUES (?, ?, ?, ?)",
+            (row["point_id"], row["action"], row["timestamp"], json.dumps(row)),
+        )
+        conn.commit()
     return row
 
 

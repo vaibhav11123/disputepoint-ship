@@ -61,6 +61,14 @@ class EvidenceRecord(BaseModel):
     weight: float = Field(ge=0, le=1)
     needs_review: bool = False
     is_synthetic: bool
+    channel: str | None = None
+
+    @field_validator("channel")
+    @classmethod
+    def channel_allowlist(cls, value: str | None) -> str | None:
+        if value is not None and value not in {"VOLUNTEER_REPORTED", "OFFICIAL"}:
+            raise ValueError("channel must be null, VOLUNTEER_REPORTED, or OFFICIAL")
+        return value
 
     @field_validator("agency")
     @classmethod
