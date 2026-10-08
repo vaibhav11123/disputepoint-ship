@@ -40,3 +40,10 @@ Append-only. Sessions add dated entries. Do not rewrite history.
 - Package tests passed, then `make test` (18 passed). Schemas and OpenAPI were not edited.
 - FR-002, FR-003, and FR-004 are VERIFIED. FR-001 stays DOCUMENTED pending G-GEO. FR-011 stays DOCUMENTED pending E2E-03. FR-019 stays DOCUMENTED until an audit-list check is named against committed sources.
 - **G-OWNERSHIP is open.** WP-03 stays BLOCKED until a human reviews CONFLICT → `responsible_agency` null.
+
+### 2026-10-08 — G-OWNERSHIP cleared
+
+- Read-only review of `decide`: the CONFLICT branch returns `responsible_agency=None` and does not pass the top agency through.
+- `DisputePoint` rejects CONFLICT or UNKNOWN when an agency is set.
+- `pytest` on the conflict and null-agency cases: 6 passed.
+- Gate closed. WP-03 is READY.

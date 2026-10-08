@@ -32,10 +32,10 @@
         "WP-01"
       ],
       "human_gate": "G-OWNERSHIP",
-      "gate_open": true
+      "gate_open": false
     },
     "WP-03": {
-      "state": "BLOCKED",
+      "state": "READY",
       "wave": 3,
       "depends_on": [
         "WP-02"
