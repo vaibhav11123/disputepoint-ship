@@ -1,0 +1,40 @@
+note: DERIVED from plan-check.yaml derived.waves. Do not edit by hand.
+source: execution/plan-check.yaml
+waves:
+- index: 0
+  packages:
+  - WP-00
+- index: 1
+  packages:
+  - WP-01
+- index: 2
+  packages:
+  - WP-02
+  - WP-04
+- index: 3
+  packages:
+  - WP-03
+- index: 4
+  packages:
+  - WP-05
+  - WP-06
+  - WP-14
+- index: 5
+  packages:
+  - WP-07
+- index: 6
+  packages:
+  - WP-08
+  - WP-09
+  - WP-15
+- index: 7
+  packages:
+  - WP-10
+  - WP-11
+  - WP-12
+- index: 8
+  packages:
+  - WP-13
+- index: 9
+  packages:
+  - WP-16

@@ -1,0 +1,62 @@
+status: PASS
+errors: []
+warnings:
+- WP-14 has no downstream consumers
+- WP-15 has no downstream consumers
+checks:
+  requirement_coverage: PASS
+  dependency_cycles: PASS
+  path_conflicts: PASS
+  contract_conflicts: PASS
+  missing_tests: PASS
+  missing_owners: PASS
+  invalid_parallelism: PASS
+  orphan_packages: PASS
+  human_gates: PASS
+  artifact_graph: PASS
+derived:
+  waves:
+  - - WP-00
+  - - WP-01
+  - - WP-02
+    - WP-04
+  - - WP-03
+  - - WP-05
+    - WP-06
+    - WP-14
+  - - WP-07
+  - - WP-08
+    - WP-09
+    - WP-15
+  - - WP-10
+    - WP-11
+    - WP-12
+  - - WP-13
+  - - WP-16
+parallel_safe_definition:
+- dependency-safe
+- path-safe
+- contract-safe
+- artifact-safe
+- environment-safe
+package_fingerprints:
+  WP-00: 95f6cf9104f02169
+  WP-01: d00c4576fec164c2
+  WP-02: 5ba0f5922b9cbdd1
+  WP-03: b7f806285f6b8130
+  WP-04: f013fc0335cd932b
+  WP-05: 394e6debdb85c0c6
+  WP-06: 7ea0335ac3401bda
+  WP-07: b6db076ecae6e9d2
+  WP-08: 12bc1a155ae1ee9a
+  WP-09: 08dc6ddaebab0997
+  WP-10: c60f911150febb44
+  WP-11: 9e1945952f8c494b
+  WP-12: 21000bc7796baa48
+  WP-13: ee295110415925f2
+  WP-14: 7fa03a2e5227e9fe
+  WP-15: a8be46ed723bc1b5
+  WP-16: f906500897bd9aca
+scheduler_ref: execution/scheduler.yaml
+spec_version: '6'
+contract_version: 1

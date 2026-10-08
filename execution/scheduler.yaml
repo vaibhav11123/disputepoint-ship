@@ -1,0 +1,31 @@
+# Execution policy — authored. Not the package graph.
+# Orchestrator reads this; does not invent concurrency or review rules.
+
+max_parallel_builders: 3
+max_contract_writers: 1
+
+worktree:
+  isolated: true
+
+failure:
+  retry: false
+  human_decision: true
+
+stale:
+  propagate: true
+
+review:
+  LOW: builder_self
+  MEDIUM: builder_plus_reviewer
+  HIGH: builder_plus_reviewer_plus_barrier
+  CRITICAL: builder_plus_reviewer_plus_barrier_plus_human_gate
+  integration_barrier: reviewer_required
+
+convergence:
+  max_rounds: 3
+
+locks:
+  THETA: 0.65
+  W_NORM: 2.0
+  bedrock: off
+  ml_runtime: false

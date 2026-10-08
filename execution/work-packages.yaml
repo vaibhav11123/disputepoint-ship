@@ -1,0 +1,480 @@
+# Canonical work packages — authored from TRACEABILITY + LLD.
+# Scheduler reads this file. TASKS.md is the human view only.
+# parallelizable is decided by plan-check, not by hand flags.
+# No new T-* ids. No schema edits. App code waits for Oct 8 clock.
+
+spec_version: "6"
+contract_version: 1
+
+packages:
+  - id: WP-00
+    title: Toolchain and Makefile
+    requirements: [NFR-009]
+    depends_on: []
+    owned_paths:
+      - Makefile
+      - pyproject.toml
+      - package.json
+      - backend/app/__init__.py
+      - frontend/package.json
+      - frontend/vite.config.ts
+      - frontend/tsconfig.json
+      - frontend/index.html
+    inputs: []
+    outputs: [ARTIFACT-TOOLCHAIN]
+    contracts:
+      consumes: []
+      produces: []
+    acceptance: [NFR-009]
+    tests:
+      - command: make test
+        note: May pass with zero tests until WP-01
+    risk: LOW
+    agent_profile: fullstack
+    human_gate: false
+    read:
+      - docs/LLD.md §3
+      - docs/operations/SUBMISSION_GIT.md
+      - docs/quality/ACCEPTANCE_CRITERIA.md NFR-009
+    evidence: []
+    fingerprint_fields: [requirements, owned_paths, contracts, inputs, outputs]
+
+  - id: WP-01
+    title: Schema-shaped models and seed validation
+    requirements: [FR-001]
+    depends_on: [WP-00]
+    owned_paths:
+      - backend/app/models/**
+      - tests/test_models.py
+    inputs: [ARTIFACT-TOOLCHAIN]
+    outputs: [ARTIFACT-MODELS]
+    contracts:
+      consumes: [SCHEMA-DISPUTEPOINT-SEED, SCHEMA-DISPUTEPOINT]
+      produces: []
+    acceptance: [FR-001]
+    tests:
+      - command: pytest tests/test_models.py -q
+        note: Seed validates; runtime object with null lat fails
+    risk: MEDIUM
+    agent_profile: backend
+    human_gate: false
+    read:
+      - docs/schemas/DisputePointSeed.schema.json
+      - docs/schemas/DisputePoint.schema.json
+      - docs/contracts/DATA_MODEL.md seed-to-runtime
+    evidence: []
+
+  - id: WP-02
+    title: OwnershipEngine (θ and CONFLICT null)
+    requirements: [FR-003, FR-004, FR-011]
+    depends_on: [WP-01]
+    owned_paths:
+      - backend/app/services/ownership.py
+      - tests/test_ownership.py
+    inputs: [ARTIFACT-MODELS]
+    outputs: [ARTIFACT-OWN-ENGINE]
+    contracts:
+      consumes: [SCHEMA-EVIDENCE]
+      produces: [OWN-ENGINE]
+    acceptance: [FR-003, FR-004]
+    tests:
+      - command: pytest tests/test_ownership.py -q
+        ids: [T-OWN-θ, T-OWN-CF-NULL]
+    risk: CRITICAL
+    agent_profile: backend
+    human_gate: true
+    human_gate_id: G-OWNERSHIP
+    read:
+      - docs/LLD.md §5
+      - docs/quality/ACCEPTANCE_CRITERIA.md FR-003 FR-004
+    evidence: []
+
+  - id: WP-03
+    title: PriorityEngine and counterfactual math
+    requirements: [FR-005, FR-013, FR-023]
+    depends_on: [WP-02]
+    owned_paths:
+      - backend/app/services/priority.py
+      - tests/test_priority.py
+    inputs: [ARTIFACT-OWN-ENGINE]
+    outputs: [ARTIFACT-RANK-ENGINE]
+    contracts:
+      consumes: [SCHEMA-PRIORITY, OWN-ENGINE]
+      produces: [RANK-ENGINE]
+    acceptance: [FR-005, FR-013, FR-023]
+    tests:
+      - command: pytest tests/test_priority.py -q
+        ids: [T-RANK-01]
+    risk: HIGH
+    agent_profile: backend
+    human_gate: false
+    read:
+      - docs/LLD.md §6 §19 §24
+      - docs/quality/ACCEPTANCE_CRITERIA.md FR-005 FR-013 FR-023
+    evidence: []
+
+  - id: WP-04
+    title: Evidence load and quote⊆source
+    requirements: [FR-002, FR-019]
+    depends_on: [WP-01]
+    owned_paths:
+      - backend/app/services/evidence.py
+      - tests/test_evidence.py
+    inputs: [ARTIFACT-MODELS]
+    outputs: [ARTIFACT-EVIDENCE-LOAD]
+    contracts:
+      consumes: [SCHEMA-EVIDENCE]
+      produces: [EVIDENCE-LOAD]
+    acceptance: [FR-002, FR-019]
+    tests:
+      - command: pytest tests/test_evidence.py -q
+        ids: [T-PROV-01]
+    risk: HIGH
+    agent_profile: backend
+    human_gate: false
+    read:
+      - docs/schemas/Evidence.schema.json
+      - docs/quality/ACCEPTANCE_CRITERIA.md FR-002 FR-019
+      - docs/build/DATA_PLAYBOOK.md
+      - data/fixtures/evidence.json
+    evidence: []
+
+  - id: WP-05
+    title: Ingest seed to scored store
+    requirements: [FR-001]
+    depends_on: [WP-02, WP-03, WP-04]
+    owned_paths:
+      - backend/app/services/ingest.py
+      - backend/app/db/**
+      - tests/test_ingest.py
+    inputs: [ARTIFACT-OWN-ENGINE, ARTIFACT-RANK-ENGINE, ARTIFACT-EVIDENCE-LOAD]
+    outputs: [ARTIFACT-INGEST-STORE]
+    contracts:
+      consumes: [SCHEMA-DISPUTEPOINT-SEED, OWN-ENGINE, RANK-ENGINE, EVIDENCE-LOAD]
+      produces: [INGEST-STORE]
+    acceptance: [FR-001]
+    tests:
+      - command: pytest tests/test_ingest.py -q
+        ids: [T-DATA-01]
+        note: Count ≥12 from seed; numeric-lat clause stays DOCUMENTED until human geocodes
+    risk: HIGH
+    agent_profile: backend
+    human_gate: false
+    read:
+      - docs/LLD.md §9
+      - docs/contracts/DATA_MODEL.md
+      - data/fixtures/
+      - docs/quality/ACCEPTANCE_CRITERIA.md FR-001
+      - execution/RESIDUALS.md
+    evidence: []
+
+  - id: WP-06
+    title: Rain client and scenario slider
+    requirements: [FR-006, FR-007]
+    depends_on: [WP-03]
+    owned_paths:
+      - backend/app/services/rain.py
+      - tests/test_rain.py
+    inputs: [ARTIFACT-RANK-ENGINE]
+    outputs: [ARTIFACT-RAIN-SERVICE]
+    contracts:
+      consumes: [SCHEMA-RAIN, RANK-ENGINE]
+      produces: [RAIN-SERVICE]
+    acceptance: [FR-006, FR-007]
+    tests:
+      - command: pytest tests/test_rain.py -q
+        ids: [T-RAIN-01]
+        note: Fake HTTP; live Open-Meteo is not the only proof
+    risk: MEDIUM
+    agent_profile: backend
+    human_gate: false
+    read:
+      - docs/schemas/RainObservation.schema.json
+      - docs/openapi.yaml rain paths
+      - docs/quality/ACCEPTANCE_CRITERIA.md FR-006 FR-007
+    evidence: []
+
+  - id: WP-07
+    title: Read API six routes
+    requirements: [FR-001, FR-005, FR-006, FR-007, NFR-001, NFR-002, NFR-003, NFR-006]
+    depends_on: [WP-05, WP-06]
+    owned_paths:
+      - backend/app/main.py
+      - backend/app/api/__init__.py
+      - backend/app/api/read.py
+      - tests/test_api_read.py
+    inputs: [ARTIFACT-INGEST-STORE, ARTIFACT-RAIN-SERVICE]
+    outputs: [ARTIFACT-READ-API]
+    contracts:
+      consumes: [OPENAPI-READ, INGEST-STORE, RAIN-SERVICE, SCHEMA-DISPUTEPOINT, SCHEMA-RAIN]
+      produces: [API-POINTS]
+    acceptance: [FR-001, FR-005, FR-006, FR-007]
+    tests:
+      - command: pytest tests/test_api_read.py -q
+        note: health, points, point, honesty, rain refresh, rain scenario; geocode residual explicit
+    risk: HIGH
+    agent_profile: backend
+    human_gate: false
+    read:
+      - docs/LLD.md §7 §11
+      - docs/openapi.yaml health points point honesty rain
+      - docs/quality/ACCEPTANCE_CRITERIA.md
+    evidence: []
+
+  - id: WP-08
+    title: HITL API ack override escalate
+    requirements: [FR-012, FR-026]
+    depends_on: [WP-07]
+    owned_paths:
+      - backend/app/api/hitl.py
+      - tests/test_hitl.py
+    inputs: [ARTIFACT-READ-API]
+    outputs: [ARTIFACT-HITL-API]
+    contracts:
+      consumes: [OPENAPI-HITL, API-POINTS]
+      produces: [API-HITL]
+    acceptance: [FR-012, FR-026]
+    tests:
+      - command: pytest tests/test_hitl.py -q
+        ids: [T-HITL-UI]
+        note: Backend portion; UI in WP-11
+    risk: CRITICAL
+    agent_profile: backend
+    human_gate: true
+    human_gate_id: G-HITL-API
+    read:
+      - docs/LLD.md §20
+      - docs/openapi.yaml ack override escalate
+      - docs/quality/ACCEPTANCE_CRITERIA.md FR-012 FR-026
+    evidence: []
+
+  - id: WP-09
+    title: Queue-first UI shell and point card
+    requirements: [FR-008, FR-009, FR-010, FR-011, FR-020, FR-021]
+    depends_on: [WP-07]
+    owned_paths:
+      - frontend/src/App.tsx
+      - frontend/src/main.tsx
+      - frontend/src/styles/**
+      - frontend/src/components/QueueTable.tsx
+      - frontend/src/components/PointCard.tsx
+      - frontend/src/components/EvidenceList.tsx
+      - frontend/src/components/AdvisoryBanner.tsx
+      - frontend/src/components/TopBar.tsx
+      - frontend/src/api/client.ts
+      - frontend/src/components/ReadinessBlock.tsx
+      - frontend/src/components/StateChip.tsx
+      - frontend/src/components/AgencyBlock.tsx
+      - frontend/src/components/ProvenanceFooter.tsx
+    inputs: [ARTIFACT-READ-API]
+    outputs: [ARTIFACT-QUEUE-UI]
+    contracts:
+      consumes: [API-POINTS, OPENAPI-READ]
+      produces: []
+    acceptance: [FR-008, FR-009, FR-010, FR-011, FR-020, FR-021]
+    tests:
+      - command: make test
+        note: Plus browser check of cold queue (E2E-01 behavior)
+      - browser: cold queue visible; not map-first
+    risk: HIGH
+    agent_profile: frontend
+    human_gate: false
+    read:
+      - docs/LLD.md §8
+      - docs/UX.md queue and card
+      - docs/design/DESIGN_SYSTEM.md
+      - docs/quality/ACCEPTANCE_CRITERIA.md FR-008 FR-009 FR-010 FR-011 FR-020 FR-021
+    evidence: []
+
+  - id: WP-10
+    title: Rain control UI
+    requirements: [FR-006, FR-007]
+    depends_on: [WP-09, WP-06]
+    owned_paths:
+      - frontend/src/components/RainControl.tsx
+      - frontend/src/hooks/useRain.ts
+    inputs: [ARTIFACT-QUEUE-UI, ARTIFACT-RAIN-SERVICE]
+    outputs: [ARTIFACT-RAIN-UI]
+    contracts:
+      consumes: [API-POINTS, RAIN-SERVICE, SCHEMA-RAIN]
+      produces: []
+    acceptance: [FR-006, FR-007]
+    tests:
+      - command: make test
+      - browser: scenario precip_mm=40; rank order may change
+    risk: MEDIUM
+    agent_profile: frontend
+    human_gate: false
+    read:
+      - docs/UX.md rain control
+      - docs/quality/ACCEPTANCE_CRITERIA.md FR-006 FR-007
+    evidence: []
+
+  - id: WP-11
+    title: HITL UI and DecisionAuditPanel
+    requirements: [FR-012]
+    depends_on: [WP-09, WP-08]
+    owned_paths:
+      - frontend/src/components/ActionBlock.tsx
+      - frontend/src/components/DecisionAuditPanel.tsx
+    inputs: [ARTIFACT-QUEUE-UI, ARTIFACT-HITL-API]
+    outputs: [ARTIFACT-HITL-UI]
+    contracts:
+      consumes: [API-HITL, OPENAPI-HITL]
+      produces: []
+    acceptance: [FR-012]
+    tests:
+      - command: make test
+        ids: [T-HITL-UI]
+      - browser: ACK OVERRIDE ESCALATE and audit panel
+    risk: CRITICAL
+    agent_profile: frontend
+    human_gate: true
+    human_gate_id: G-HITL-UI
+    read:
+      - docs/UX.md HITL DecisionAuditPanel
+      - docs/quality/ACCEPTANCE_CRITERIA.md FR-012
+    evidence: []
+
+  - id: WP-12
+    title: Explain chips, uncertainty, Cmd+K, eval link
+    requirements: [FR-023, FR-024]
+    depends_on: [WP-09, WP-03]
+    owned_paths:
+      - frontend/src/components/PriorityExplain.tsx
+      - frontend/src/components/CommandPalette.tsx
+      - frontend/src/components/EvalLink.tsx
+      - frontend/src/components/EvalDrawer.tsx
+    inputs: [ARTIFACT-QUEUE-UI, ARTIFACT-RANK-ENGINE]
+    outputs: [ARTIFACT-EXPLAIN-UI]
+    contracts:
+      consumes: [RANK-ENGINE, SCHEMA-PRIORITY]
+      produces: []
+    acceptance: [FR-023, FR-024]
+    tests:
+      - command: make test
+      - browser: counterfactual chips; Cmd+K if landed (E2E-08); eval link (E2E-09)
+    risk: MEDIUM
+    agent_profile: frontend
+    human_gate: false
+    read:
+      - docs/LLD.md §19
+      - docs/UX.md command palette
+      - docs/build/DEMO_WOW.md
+      - docs/quality/ACCEPTANCE_CRITERIA.md FR-023 FR-024
+      - docs/quality/E2E_SCENARIOS.md E2E-08 E2E-09
+    evidence: []
+
+  - id: WP-13
+    title: Browser gate E2E-01 through E2E-06
+    requirements: [FR-017, FR-008, FR-010, FR-011, FR-012]
+    depends_on: [WP-10, WP-11, WP-12]
+    owned_paths:
+      - tests/e2e/**
+      - frontend/playwright.config.ts
+    inputs: [ARTIFACT-RAIN-UI, ARTIFACT-HITL-UI, ARTIFACT-EXPLAIN-UI]
+    outputs: [ARTIFACT-E2E-GATE]
+    contracts:
+      consumes: [API-POINTS, API-HITL]
+      produces: []
+    acceptance: [FR-017]
+    tests:
+      - command: npx playwright test
+        ids: [T-GOLD-PQ, T-UI-01, T-UI-SYN, T-HITL-UI]
+        note: E2E-01 through E2E-06; E2E-07 skipped
+    risk: HIGH
+    agent_profile: qa
+    human_gate: false
+    read:
+      - docs/quality/E2E_SCENARIOS.md E2E-01 through E2E-06
+      - docs/quality/ACCEPTANCE_CRITERIA.md FR-017
+    evidence: []
+
+  - id: WP-14
+    title: Baseline tournament note
+    requirements: [FR-015]
+    depends_on: [WP-03]
+    owned_paths:
+      - tests/eval/baseline_tournament.md
+    inputs: [ARTIFACT-RANK-ENGINE]
+    outputs: [ARTIFACT-EVAL-NOTE]
+    contracts:
+      consumes: [RANK-ENGINE]
+      produces: []
+    acceptance: [FR-015]
+    tests:
+      - command: test -f tests/eval/baseline_tournament.md
+        note: Fill measured cells from pure functions; blank if no gold_order.json; cite GAP-EVAL-02
+    risk: LOW
+    agent_profile: backend
+    human_gate: false
+    read:
+      - docs/LLD.md §22
+      - tests/eval/baseline_tournament.md
+      - docs/build/GAPS.md GAP-EVAL-02
+      - docs/quality/ACCEPTANCE_CRITERIA.md FR-015
+    evidence: []
+
+  - id: WP-15
+    title: Failure injection and AWS path doc
+    requirements: [FR-016, FR-018]
+    depends_on: [WP-07]
+    owned_paths:
+      - tests/test_failures.py
+      - infra/template.yaml
+      - infra/README.md
+    inputs: [ARTIFACT-READ-API]
+    outputs: [ARTIFACT-OPS]
+    contracts:
+      consumes: [API-POINTS, OPENAPI-READ]
+      produces: []
+    acceptance: [FR-016, FR-018]
+    tests:
+      - command: pytest tests/test_failures.py -q
+        note: Open-Meteo timeout, unknown id, ACK on CONFLICT, bad scenario body only
+    risk: MEDIUM
+    agent_profile: backend
+    human_gate: true
+    human_gate_id: G-AWS
+    read:
+      - docs/quality/TEST_STRATEGY.md failure-injection
+      - docs/PHASE6.md §16A only
+      - docs/quality/ACCEPTANCE_CRITERIA.md FR-016 FR-018
+    evidence: []
+
+  - id: WP-16
+    title: Demo rehearsal script
+    requirements: [FR-027, FR-016]
+    depends_on: [WP-13]
+    owned_paths:
+      - docs/build/DEMO_REHEARSAL.md
+    inputs: [ARTIFACT-E2E-GATE]
+    outputs: [ARTIFACT-DEMO]
+    contracts:
+      consumes: []
+      produces: []
+    acceptance: [FR-027]
+    tests:
+      - command: test -f docs/build/DEMO_REHEARSAL.md
+        ids: [T-KPI-TRIAGE]
+        note: Human times Purana Quila path; agent records reported time only
+    risk: LOW
+    agent_profile: docs
+    human_gate: true
+    human_gate_id: G-VIDEO
+    read:
+      - docs/PHASE6.md §39 only
+      - docs/build/DEMO_WOW.md W1–W9
+    evidence: []
+
+explicit_skips:
+  - id: FR-014
+    reason: Optional geometry; out of MVP build
+  - id: FR-022
+    reason: COULD rain source IMD
+  - id: FR-025
+    reason: Bedrock off; LLM extraction not a task
+  - id: E2E-07
+    reason: MapHUD skippable until human VERIFIED geocode
+  - id: MapHUD
+    reason: Collapsed while lat/lon null; queue remains home

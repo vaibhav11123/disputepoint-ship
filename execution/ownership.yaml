@@ -1,0 +1,138 @@
+# Path ownership — authored. Two packages matching the same glob cannot share a wave.
+# docs/schemas and docs/openapi.yaml are human-owned (HUMAN_REVIEW contracts).
+
+groups:
+  human_contracts:
+    owner: human
+    paths:
+      - docs/schemas/**
+      - docs/openapi.yaml
+      - docs/PHASE6.md
+      - docs/contracts/**
+
+  toolchain:
+    owner: WP-00
+    paths:
+      - Makefile
+      - pyproject.toml
+      - package.json
+      - package-lock.json
+      - backend/app/__init__.py
+      - frontend/package.json
+      - frontend/vite.config.*
+      - frontend/tsconfig*.json
+      - frontend/index.html
+
+  models:
+    owner: WP-01
+    paths:
+      - backend/app/models/**
+      - tests/test_models.py
+
+  ownership_engine:
+    owner: WP-02
+    paths:
+      - backend/app/services/ownership.py
+      - tests/test_ownership.py
+
+  priority_engine:
+    owner: WP-03
+    paths:
+      - backend/app/services/priority.py
+      - tests/test_priority.py
+
+  evidence_load:
+    owner: WP-04
+    paths:
+      - backend/app/services/evidence.py
+      - tests/test_evidence.py
+
+  ingest_db:
+    owner: WP-05
+    paths:
+      - backend/app/services/ingest.py
+      - backend/app/db/**
+      - tests/test_ingest.py
+
+  rain_service:
+    owner: WP-06
+    paths:
+      - backend/app/services/rain.py
+      - tests/test_rain.py
+
+  read_api:
+    owner: WP-07
+    paths:
+      - backend/app/main.py
+      - backend/app/api/read.py
+      - backend/app/api/__init__.py
+      - tests/test_api_read.py
+
+  hitl_api:
+    owner: WP-08
+    paths:
+      - backend/app/api/hitl.py
+      - tests/test_hitl.py
+
+  queue_ui:
+    owner: WP-09
+    paths:
+      - frontend/src/App.tsx
+      - frontend/src/main.tsx
+      - frontend/src/styles/**
+      - frontend/src/components/QueueTable.tsx
+      - frontend/src/components/PointCard.tsx
+      - frontend/src/components/EvidenceList.tsx
+      - frontend/src/components/AdvisoryBanner.tsx
+      - frontend/src/components/TopBar.tsx
+      - frontend/src/api/client.ts
+      - frontend/src/components/ReadinessBlock.tsx
+      - frontend/src/components/StateChip.tsx
+      - frontend/src/components/AgencyBlock.tsx
+      - frontend/src/components/ProvenanceFooter.tsx
+
+  rain_ui:
+    owner: WP-10
+    paths:
+      - frontend/src/components/RainControl.tsx
+      - frontend/src/hooks/useRain.ts
+
+  hitl_ui:
+    owner: WP-11
+    paths:
+      - frontend/src/components/ActionBlock.tsx
+      - frontend/src/components/DecisionAuditPanel.tsx
+
+  explain_ui:
+    owner: WP-12
+    paths:
+      - frontend/src/components/PriorityExplain.tsx
+      - frontend/src/components/CommandPalette.tsx
+      - frontend/src/components/EvalLink.tsx
+      - frontend/src/components/EvalDrawer.tsx
+
+  e2e:
+    owner: WP-13
+    paths:
+      - tests/e2e/**
+      - frontend/playwright.config.*
+
+  eval_note:
+    owner: WP-14
+    paths:
+      - tests/eval/baseline_tournament.md
+      - tests/eval/gold_order.example.json
+
+  ops_failures:
+    owner: WP-15
+    paths:
+      - tests/test_failures.py
+      - infra/template.yaml
+      - infra/README.md
+      - docs/operations/DEPLOYMENT.md
+
+  demo_script:
+    owner: WP-16
+    paths:
+      - docs/build/DEMO_REHEARSAL.md
+      - execution/PROGRESS.md

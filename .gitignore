@@ -1,0 +1,26 @@
+.env
+.env.*
+!.env.example
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+node_modules/
+dist/
+build/
+.DS_Store
+runs/
+*.pem
+.aws/
+.terraform/
+docs/research/_geocode_raw/
+
+# Data Ready L0 audit bodies (never commit full sources)
+data/audit/sources/
+data/audit/rain/
+data/audit/geo/
+data/audit/_work/
+

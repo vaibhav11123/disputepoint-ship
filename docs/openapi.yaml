@@ -1,0 +1,710 @@
+openapi: 3.0.3
+info:
+  title: DisputePoint Response Intelligence API
+  version: 0.1.0
+  description: |
+    Frozen DecisionAPI contract for Phase 7. Paths and bodies follow docs/LLD.md §7 and §21.
+    Domain schemas live in docs/schemas/; this file mirrors them for HTTP.
+    Error shape is application/json with DP-* codes (LLD §11), inspired by RFC 9457
+    Problem Details (type/title/status/detail) without requiring application/problem+json.
+    Nine routes only — do not add extras without a Phase 6 amendment.
+  contact:
+    name: DisputePoint
+servers:
+  - url: http://127.0.0.1:8000
+    description: Local Phase 7
+tags:
+  - name: health
+  - name: points
+  - name: rain
+  - name: hitl
+  - name: meta
+
+paths:
+  /health:
+    get:
+      tags: [health]
+      summary: Liveness and rain mode
+      operationId: getHealth
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HealthResponse"
+              example:
+                ok: true
+                rain_mode: live
+
+  /points:
+    get:
+      tags: [points]
+      summary: Ranked disputed points for current rain context
+      operationId: listPoints
+      responses:
+        "200":
+          description: Queue payload sorted by priority_rank ascending (1 = act first)
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PointsListResponse"
+        "500":
+          description: Server failure
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorBody"
+
+  /points/{id}:
+    get:
+      tags: [points]
+      summary: Point card detail
+      operationId: getPoint
+      parameters:
+        - $ref: "#/components/parameters/PointId"
+      responses:
+        "200":
+          description: Card payload + evidence + priority components
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PointCardResponse"
+              example:
+                id: dp-purana-quila
+                ownership_state: CONFLICT
+                responsible_agency: null
+                ownership_confidence: 0.58
+                priority_score: 0.77
+                advisory: true
+                evidence:
+                  - type: COURT_ORDER
+                    quote: Jurisdiction PWD
+                    url: https://www.livelaw.in/example
+                readiness:
+                  state: UNKNOWN
+                  is_synthetic: false
+        "404":
+          description: DP-404-POINT
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorBody"
+              example:
+                code: DP-404-POINT
+                title: Point not found
+                status: 404
+                detail: Unknown point id
+
+  /rain/refresh:
+    post:
+      tags: [rain]
+      summary: Refresh rain from Open-Meteo (or fall back to cache)
+      operationId: refreshRain
+      responses:
+        "200":
+          description: RainObservation (live or cache)
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RainObservation"
+        "503":
+          description: DP-503-RAIN — upstream fail; client should suggest scenario slider
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorBody"
+              example:
+                code: DP-503-RAIN
+                title: Rain upstream unavailable
+                status: 503
+                detail: Open-Meteo failed; use cache or scenario slider
+
+  /rain/scenario:
+    post:
+      tags: [rain]
+      summary: Scenario slider rain (synthetic)
+      operationId: setRainScenario
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/RainScenarioRequest"
+            example:
+              precip_mm: 40
+      responses:
+        "200":
+          description: RainObservation with source scenario_slider
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RainObservation"
+              example:
+                lat: 28.6139
+                lon: 77.209
+                window_hours: 6
+                precip_mm: 40
+                source: scenario_slider
+                retrieved_at: "2026-10-06T00:00:00Z"
+                is_synthetic: true
+        "400":
+          description: DP-400-SCHEMA
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorBody"
+
+  /points/{id}/ack:
+    post:
+      tags: [hitl]
+      summary: ACK — ASSIGNED + OPEN only
+      operationId: ackPoint
+      parameters:
+        - $ref: "#/components/parameters/PointId"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AckRequest"
+      responses:
+        "200":
+          description: Incident ACKED
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/IncidentResponse"
+        "404":
+          description: DP-404-POINT
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorBody"
+        "409":
+          description: DP-409-ACK — illegal transition (e.g. CONFLICT/UNKNOWN or not OPEN)
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorBody"
+              example:
+                code: DP-409-ACK
+                title: Illegal ACK transition
+                status: 409
+                detail: ACK requires ownership_state ASSIGNED and status OPEN
+
+  /points/{id}/override:
+    post:
+      tags: [hitl]
+      summary: OVERRIDE from OPEN — records human agency vs system recommendation
+      operationId: overridePoint
+      parameters:
+        - $ref: "#/components/parameters/PointId"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/OverrideRequest"
+            example:
+              agency: PWD
+              reason: HC section cites PWD for this span
+              reviewer: demo-officer
+      responses:
+        "200":
+          description: ACKED with human agency + audit
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AuditDecisionResponse"
+        "400":
+          description: DP-400-SCHEMA
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorBody"
+        "404":
+          description: DP-404-POINT
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorBody"
+        "409":
+          description: DP-409-ACK — OVERRIDE only from OPEN
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorBody"
+
+  /points/{id}/escalate:
+    post:
+      tags: [hitl]
+      summary: ESCALATE — coordination handoff
+      operationId: escalatePoint
+      parameters:
+        - $ref: "#/components/parameters/PointId"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/EscalateRequest"
+      responses:
+        "200":
+          description: Escalation recorded
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AuditDecisionResponse"
+        "404":
+          description: DP-404-POINT
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorBody"
+
+  /meta/honesty:
+    get:
+      tags: [meta]
+      summary: Policy strings, theta, weights, U semantics
+      operationId: getHonestyMeta
+      responses:
+        "200":
+          description: Honesty / advisory metadata for UI banner and provenance
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HonestyMetaResponse"
+
+components:
+  parameters:
+    PointId:
+      name: id
+      in: path
+      required: true
+      schema:
+        type: string
+        pattern: "^dp-[a-z0-9-]+$"
+      example: dp-purana-quila
+
+  schemas:
+    Agency:
+      type: string
+      enum:
+        - PWD
+        - MCD
+        - NDMC
+        - IFC
+        - DDA
+        - DJB
+        - RAILWAYS
+        - CPWD
+        - OTHER
+        - UNKNOWN
+
+    ErrorBody:
+      type: object
+      description: >
+        Machine-readable error. Fields align with RFC 9457 Problem Details
+        (title/status/detail) plus DisputePoint code extension (LLD §11).
+      required: [code, title, status, detail]
+      properties:
+        code:
+          type: string
+          enum:
+            - DP-400-SCHEMA
+            - DP-404-POINT
+            - DP-503-RAIN
+            - DP-409-ACK
+            - DP-422-THETA
+          description: Stable client-facing error code
+        title:
+          type: string
+        status:
+          type: integer
+        detail:
+          type: string
+        type:
+          type: string
+          description: Optional problem type URI (RFC 9457); omit if unused
+        instance:
+          type: string
+          description: Optional occurrence URI
+
+    HealthResponse:
+      type: object
+      required: [ok, rain_mode]
+      properties:
+        ok:
+          type: boolean
+        rain_mode:
+          type: string
+          enum: [live, cache, slider]
+
+    Provenance:
+      type: object
+      required: [source, retrieved_at, is_synthetic, is_derived]
+      properties:
+        source:
+          type: string
+        source_url:
+          type: string
+        retrieved_at:
+          type: string
+          format: date-time
+        source_date:
+          type: ["string", "null"]
+        evidence_type:
+          type: string
+        confidence:
+          type: number
+        is_synthetic:
+          type: boolean
+        is_derived:
+          type: boolean
+
+    ReadinessSignal:
+      type: object
+      required: [state, is_synthetic]
+      properties:
+        state:
+          type: string
+          enum: [OK, GAP, UNKNOWN]
+        notes:
+          type: string
+        is_synthetic:
+          type: boolean
+
+    DisputePointPublic:
+      type: object
+      description: Queue row / public point fields (docs/schemas/DisputePoint.schema.json)
+      required:
+        - id
+        - name
+        - lat
+        - lon
+        - agencies_claimed
+        - ownership_confidence
+        - ownership_state
+        - priority_score
+        - status
+        - provenance
+      properties:
+        id:
+          type: string
+          pattern: "^dp-[a-z0-9-]+$"
+        name:
+          type: string
+        lat:
+          type: number
+        lon:
+          type: number
+        agencies_claimed:
+          type: array
+          items:
+            $ref: "#/components/schemas/Agency"
+        ownership_confidence:
+          type: number
+          minimum: 0
+          maximum: 1
+        ownership_state:
+          type: string
+          enum: [ASSIGNED, CONFLICT, UNKNOWN]
+        responsible_agency:
+          type: ["string", "null"]
+          description: MUST be null when ownership_state is CONFLICT
+        severity:
+          type: number
+        recurrence_class:
+          type: string
+        is_underpass:
+          type: boolean
+        is_arterial:
+          type: boolean
+        readiness:
+          $ref: "#/components/schemas/ReadinessSignal"
+        priority_score:
+          type: number
+        priority_rank:
+          type: integer
+        recommended_action:
+          type: string
+        sla_hours:
+          type: ["number", "null"]
+        status:
+          type: string
+          enum: [OPEN, ACKED, RESOLVED]
+        provenance:
+          $ref: "#/components/schemas/Provenance"
+
+    PointsListResponse:
+      type: object
+      required: [items]
+      properties:
+        items:
+          type: array
+          items:
+            $ref: "#/components/schemas/DisputePointPublic"
+
+    Evidence:
+      type: object
+      required:
+        - id
+        - type
+        - url
+        - quote
+        - agency
+        - weight
+        - retrieved_at
+        - is_synthetic
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+          enum:
+            - COURT_ORDER
+            - GOV_ORDER
+            - AGENCY_QUOTE
+            - PRESS_REPORT
+            - SPATIAL_HEURISTIC
+        url:
+          type: string
+        quote:
+          type: string
+          minLength: 10
+        agency:
+          type: ["string", "null"]
+        location_span:
+          type: ["string", "null"]
+        source_date:
+          type: ["string", "null"]
+        retrieved_at:
+          type: string
+          format: date-time
+        weight:
+          type: number
+          minimum: 0
+          maximum: 1
+        needs_review:
+          type: boolean
+        is_synthetic:
+          type: boolean
+
+    PriorityComponents:
+      type: object
+      required: [R, S, C, Q, U, G]
+      properties:
+        R:
+          type: number
+          description: Rain urgency
+        S:
+          type: number
+          description: Severity
+        C:
+          type: number
+          description: Recurrence / chronicity
+        Q:
+          type: number
+          description: Criticality / arterial-underpass
+        U:
+          type: number
+          description: Coordination uncertainty (not physical severity)
+        G:
+          type: number
+          description: Readiness gap
+
+    Counterfactual:
+      type: object
+      required: [label, delta]
+      properties:
+        label:
+          type: string
+        delta:
+          type: number
+          description: Rank or score delta if factor removed
+
+    PointCardResponse:
+      allOf:
+        - $ref: "#/components/schemas/DisputePointPublic"
+        - type: object
+          required: [advisory, evidence, components]
+          properties:
+            advisory:
+              type: boolean
+              description: Always true for MVP advisory product posture
+            evidence:
+              type: array
+              items:
+                $ref: "#/components/schemas/Evidence"
+            components:
+              $ref: "#/components/schemas/PriorityComponents"
+            explanation:
+              type: array
+              items:
+                type: string
+            counterfactuals:
+              type: array
+              items:
+                $ref: "#/components/schemas/Counterfactual"
+            audit:
+              $ref: "#/components/schemas/AuditDecisionResponse"
+
+    RainObservation:
+      type: object
+      required:
+        - lat
+        - lon
+        - window_hours
+        - precip_mm
+        - source
+        - retrieved_at
+        - is_synthetic
+      properties:
+        lat:
+          type: number
+        lon:
+          type: number
+        window_hours:
+          type: number
+        precip_mm:
+          type: number
+          minimum: 0
+        source:
+          type: string
+          enum: [open-meteo, imd, fixture, scenario_slider]
+        retrieved_at:
+          type: string
+          format: date-time
+        is_synthetic:
+          type: boolean
+
+    RainScenarioRequest:
+      type: object
+      required: [precip_mm]
+      properties:
+        precip_mm:
+          type: number
+          minimum: 0
+          example: 40
+
+    AckRequest:
+      type: object
+      required: [reviewer]
+      properties:
+        reviewer:
+          type: string
+          minLength: 1
+
+    OverrideRequest:
+      type: object
+      required: [agency, reason, reviewer]
+      properties:
+        agency:
+          $ref: "#/components/schemas/Agency"
+        reason:
+          type: string
+          minLength: 1
+        reviewer:
+          type: string
+          minLength: 1
+
+    EscalateRequest:
+      type: object
+      required: [reason, reviewer]
+      properties:
+        reason:
+          type: string
+          minLength: 1
+        reviewer:
+          type: string
+          minLength: 1
+
+    IncidentResponse:
+      type: object
+      required: [point_id, status, action, reviewer, timestamp]
+      properties:
+        point_id:
+          type: string
+        status:
+          type: string
+          enum: [ACKED]
+        action:
+          type: string
+          enum: [ACK]
+        reviewer:
+          type: string
+        timestamp:
+          type: string
+          format: date-time
+
+    AuditDecisionResponse:
+      type: object
+      description: HITL audit payload (LLD §20)
+      required:
+        - point_id
+        - action
+        - reviewer
+        - timestamp
+        - final_decision
+      properties:
+        point_id:
+          type: string
+        action:
+          type: string
+          enum: [ACK, OVERRIDE, ESCALATE]
+        recommended_agency:
+          type: ["string", "null"]
+        human_selected_agency:
+          type: ["string", "null"]
+        override_reason:
+          type: string
+        reason:
+          type: string
+        reviewer:
+          type: string
+        timestamp:
+          type: string
+          format: date-time
+        previous_recommendation:
+          type: object
+          additionalProperties: true
+        final_decision:
+          type: string
+        status:
+          type: string
+          enum: [OPEN, ACKED]
+
+    HonestyMetaResponse:
+      type: object
+      required:
+        - advisory
+        - theta_assign
+        - w_norm
+        - weights
+        - u_semantics
+        - bedrock_enabled
+      properties:
+        advisory:
+          type: boolean
+          example: true
+        theta_assign:
+          type: number
+          example: 0.65
+        w_norm:
+          type: number
+          example: 2.0
+        weights:
+          type: object
+          additionalProperties:
+            type: number
+        u_semantics:
+          type: string
+          example: U is coordination_uncertainty, not physical severity
+        bedrock_enabled:
+          type: boolean
+          example: false
+        policy_strings:
+          type: array
+          items:
+            type: string

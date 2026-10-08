@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://disputepoint.local/schemas/RainObservation.json",
+  "title": "RainObservation",
+  "type": "object",
+  "required": ["lat", "lon", "window_hours", "precip_mm", "source", "retrieved_at", "is_synthetic"],
+  "properties": {
+    "lat": { "type": "number" },
+    "lon": { "type": "number" },
+    "window_hours": { "type": "number" },
+    "precip_mm": { "type": "number", "minimum": 0 },
+    "source": { "enum": ["open-meteo", "imd", "fixture", "scenario_slider"] },
+    "retrieved_at": { "type": "string", "format": "date-time" },
+    "is_synthetic": { "type": "boolean" }
+  }
+}

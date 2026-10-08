@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://disputepoint.local/schemas/PriorityScore.json",
+  "title": "PriorityScore",
+  "type": "object",
+  "required": ["point_id", "score", "components", "computed_at"],
+  "properties": {
+    "point_id": { "type": "string" },
+    "score": { "type": "number" },
+    "components": {
+      "type": "object",
+      "required": ["R", "S", "C", "Q", "U", "G"],
+      "properties": {
+        "R": { "type": "number" },
+        "S": { "type": "number" },
+        "C": { "type": "number" },
+        "Q": { "type": "number" },
+        "U": { "type": "number" },
+        "G": { "type": "number" }
+      }
+    },
+    "weights": { "type": "object" },
+    "explanation": { "type": "array", "items": { "type": "string" } },
+    "computed_at": { "type": "string", "format": "date-time" }
+  }
+}

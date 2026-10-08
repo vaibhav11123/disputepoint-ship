@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://disputepoint.local/schemas/Evidence.json",
+  "title": "Evidence",
+  "type": "object",
+  "required": ["id", "type", "url", "quote", "agency", "weight", "retrieved_at", "is_synthetic"],
+  "properties": {
+    "id": { "type": "string" },
+    "type": {
+      "enum": ["COURT_ORDER", "GOV_ORDER", "AGENCY_QUOTE", "PRESS_REPORT", "SPATIAL_HEURISTIC"]
+    },
+    "url": { "type": "string" },
+    "quote": { "type": "string", "minLength": 10 },
+    "agency": { "type": ["string", "null"] },
+    "location_span": { "type": ["string", "null"] },
+    "source_date": { "type": ["string", "null"] },
+    "retrieved_at": { "type": "string", "format": "date-time" },
+    "weight": { "type": "number", "minimum": 0, "maximum": 1 },
+    "needs_review": { "type": "boolean", "default": false },
+    "is_synthetic": { "type": "boolean" }
+  }
+}

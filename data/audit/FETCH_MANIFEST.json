@@ -1,0 +1,67 @@
+{
+  "version": "0.1.0",
+  "ua": "DisputePoint/0.1 (hackathon research; https://github.com/vaibhavsingh/disputepoint)",
+  "sources": [
+    {
+      "slug": "livelaw-hc-mmh",
+      "url": "https://www.livelaw.in/pdf_upload/mmh08042024cw75942018185925-533124.pdf",
+      "point_ids": ["dp-purana-quila", "dp-bharat-mandapam-tunnel", "dp-mathura-rd-hc"],
+      "expected_type": "pdf"
+    },
+    {
+      "slug": "toi-drains-hc",
+      "url": "https://timesofindia.indiatimes.com/city/delhi/assign-upkeep-of-all-drains-to-1-dept-hc/articleshow/109207116.cms",
+      "point_ids": ["dp-bharat-mandapam-tunnel"],
+      "expected_type": "html"
+    },
+    {
+      "slug": "ie-barapullah",
+      "url": "https://indianexpress.com/article/cities/delhi/breach-in-barapullah-drain-wall-led-to-south-new-delhi-flooding-9421799/",
+      "point_ids": ["dp-barapullah"],
+      "expected_type": "html"
+    },
+    {
+      "slug": "newslaundry-five",
+      "url": "https://www.newslaundry.com/2024/06/29/whos-responsible-for-delhis-rain-mess-answers-from-5-of-the-worst-hit-spots",
+      "point_ids": ["dp-minto-bridge", "dp-aiims-aurobindo", "dp-lodhi-moolchand", "dp-pragati-bhairon"],
+      "expected_type": "html"
+    },
+    {
+      "slug": "et-seven-hotspot",
+      "url": "https://economictimes.indiatimes.com/news/india/new-drains-sumps-automated-pump-house-delhi-pwds-plan-to-tackle-waterlogging-at-seven-hotspots/articleshow/121268671.cms",
+      "point_ids": ["dp-minto-bridge", "dp-who-ito-ring", "dp-zakhira", "dp-pul-prahladpur", "dp-loni-rd"],
+      "expected_type": "html"
+    },
+    {
+      "slug": "toi-confusion-hc",
+      "url": "https://timesofindia.indiatimes.com/india/much-confusion-on-who-does-what-even-upkeep-of-drains-hc-to-delhi-government/articleshow/122963747.cms",
+      "point_ids": ["dp-maharani-bagh"],
+      "expected_type": "html"
+    },
+    {
+      "slug": "ht-cctv",
+      "url": "https://www.hindustantimes.com/cities/delhi-news/cctvs-in-delhi-underpasses-to-keep-eye-on-waterlogging-101746813831570.html",
+      "point_ids": ["dp-lodhi-moolchand", "dp-pul-prahladpur"],
+      "expected_type": "html"
+    },
+    {
+      "slug": "ht-308",
+      "url": "https://www.hindustantimes.com/cities/delhi-news/delhi-marks-100-new-flooding-spots-many-along-ring-road-101719339431895.html",
+      "point_ids": ["dp-zakhira", "dp-pragati-bhairon", "dp-loni-rd"],
+      "expected_type": "html"
+    },
+    {
+      "slug": "toi-azad-market",
+      "url": "https://timesofindia.indiatimes.com/city/delhi/number-of-waterlogging-hotspots-up-set-to-challenge-delhis-preparedness/articleshow/120652175.cms",
+      "point_ids": ["dp-azad-market"],
+      "expected_type": "html"
+    },
+    {
+      "slug": "theprint-dm71",
+      "url": "https://theprint.in/india/delhi-govt-directs-district-magistrates-to-fix-71-waterlogging-spots-ahead-of-monsoon/2663818/",
+      "point_ids": [],
+      "expected_type": "html",
+      "notes": "DM-71 mandate cite only — not a demo point"
+    }
+  ]
+}

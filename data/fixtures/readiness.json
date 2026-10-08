@@ -1,0 +1,20 @@
+{
+  "version": "0.1.0",
+  "notes": "Scaffold: UNKNOWN + is_synthetic=true until a public non-SCADA fact is copied verbatim.",
+  "readiness": [
+    {"point_id": "dp-purana-quila", "state": "UNKNOWN", "is_synthetic": true},
+    {"point_id": "dp-bharat-mandapam-tunnel", "state": "UNKNOWN", "is_synthetic": true},
+    {"point_id": "dp-mathura-rd-hc", "state": "UNKNOWN", "is_synthetic": true},
+    {"point_id": "dp-barapullah", "state": "UNKNOWN", "is_synthetic": true},
+    {"point_id": "dp-minto-bridge", "state": "UNKNOWN", "is_synthetic": true},
+    {"point_id": "dp-aiims-aurobindo", "state": "UNKNOWN", "is_synthetic": true},
+    {"point_id": "dp-lodhi-moolchand", "state": "UNKNOWN", "is_synthetic": true},
+    {"point_id": "dp-maharani-bagh", "state": "UNKNOWN", "is_synthetic": true},
+    {"point_id": "dp-who-ito-ring", "state": "GAP", "is_synthetic": true},
+    {"point_id": "dp-zakhira", "state": "UNKNOWN", "is_synthetic": true},
+    {"point_id": "dp-pul-prahladpur", "state": "UNKNOWN", "is_synthetic": true},
+    {"point_id": "dp-azad-market", "state": "UNKNOWN", "is_synthetic": true},
+    {"point_id": "dp-pragati-bhairon", "state": "UNKNOWN", "is_synthetic": true},
+    {"point_id": "dp-loni-rd", "state": "UNKNOWN", "is_synthetic": true}
+  ]
+}

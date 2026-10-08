@@ -1,0 +1,46 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://disputepoint.local/schemas/DisputePointSeed.json",
+  "title": "DisputePointSeed",
+  "description": "Fixture seed shape before ingest. Validate data/fixtures/points.json items against this schema. Runtime API responses use DisputePoint.schema.json (strict lat/lon + evidence_ids minItems 1).",
+  "type": "object",
+  "required": ["id", "name", "lat", "lon", "agencies_claimed", "status"],
+  "properties": {
+    "id": { "type": "string", "pattern": "^dp-[a-z0-9-]+$" },
+    "name": { "type": "string", "minLength": 1 },
+    "lat": {
+      "type": ["number", "null"],
+      "description": "null until human VERIFIED geocode; when number, Delhi bbox applies",
+      "minimum": 28.4,
+      "maximum": 28.9
+    },
+    "lon": {
+      "type": ["number", "null"],
+      "description": "null until human VERIFIED geocode; when number, Delhi bbox applies",
+      "minimum": 76.8,
+      "maximum": 77.5
+    },
+    "agencies_claimed": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "enum": ["PWD", "MCD", "NDMC", "IFC", "DDA", "DJB", "RAILWAYS", "CPWD", "OTHER", "UNKNOWN"]
+      }
+    },
+    "evidence_ids": {
+      "type": "array",
+      "items": { "type": "string" },
+      "minItems": 0,
+      "description": "May be empty on seed; runtime DisputePoint requires ≥1 after ingest"
+    },
+    "recurrence_class": { "type": "string" },
+    "status": { "enum": ["OPEN", "ACKED", "RESOLVED"] },
+    "geo_source": { "type": "string" },
+    "geo_query": { "type": "string" },
+    "geo_osm_id": { "type": "string" },
+    "geo_licence": { "type": "string" },
+    "provenance": { "type": "object" }
+  },
+  "additionalProperties": true
+}

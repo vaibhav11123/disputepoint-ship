@@ -1,0 +1,217 @@
+{
+  "version": "0.2.0",
+  "notes": "Seeds with evidence_ids where extracted. lat/lon null until VERIFIED (MapHUD skippable). See data/audit/AUDIT_MATRIX.md.",
+  "points": [
+    {
+      "id": "dp-purana-quila",
+      "name": "Purana Quila Rd storm drain (India Gate\u2192Yamuna)",
+      "lat": null,
+      "lon": null,
+      "agencies_claimed": [
+        "NDMC",
+        "PWD",
+        "MCD",
+        "IFC"
+      ],
+      "recurrence_class": "chronic",
+      "status": "OPEN",
+      "evidence_ids": [
+        "ev-001-dp-purana-quila",
+        "ev-015-dp-purana-quila"
+      ]
+    },
+    {
+      "id": "dp-bharat-mandapam-tunnel",
+      "name": "Bharat Mandapam / Purana Quila tunnel",
+      "lat": null,
+      "lon": null,
+      "agencies_claimed": [
+        "PWD"
+      ],
+      "recurrence_class": "recurring",
+      "status": "OPEN",
+      "evidence_ids": [
+        "ev-004-dp-bharat-mandapam-tunnel"
+      ]
+    },
+    {
+      "id": "dp-mathura-rd-hc",
+      "name": "Mathura Rd / High Court pool bungalows",
+      "lat": null,
+      "lon": null,
+      "agencies_claimed": [
+        "PWD"
+      ],
+      "recurrence_class": "chronic",
+      "status": "OPEN",
+      "evidence_ids": [
+        "ev-005-dp-mathura-rd-hc"
+      ]
+    },
+    {
+      "id": "dp-barapullah",
+      "name": "Barapullah drain (outfall / wall breach)",
+      "lat": null,
+      "lon": null,
+      "agencies_claimed": [
+        "PWD",
+        "MCD",
+        "IFC"
+      ],
+      "recurrence_class": "chronic",
+      "status": "OPEN",
+      "evidence_ids": [
+        "ev-003-dp-barapullah"
+      ]
+    },
+    {
+      "id": "dp-minto-bridge",
+      "name": "Minto Bridge / Minto Road underpass",
+      "lat": null,
+      "lon": null,
+      "agencies_claimed": [
+        "NDMC",
+        "MCD",
+        "PWD",
+        "RAILWAYS"
+      ],
+      "recurrence_class": "chronic",
+      "status": "OPEN",
+      "evidence_ids": [
+        "ev-002-dp-minto-bridge"
+      ]
+    },
+    {
+      "id": "dp-aiims-aurobindo",
+      "name": "AIIMS / Aurobindo Marg",
+      "lat": null,
+      "lon": null,
+      "agencies_claimed": [
+        "PWD",
+        "NDMC",
+        "MCD"
+      ],
+      "recurrence_class": "recurring",
+      "status": "OPEN",
+      "evidence_ids": [
+        "ev-006-dp-aiims-aurobindo"
+      ]
+    },
+    {
+      "id": "dp-lodhi-moolchand",
+      "name": "Lodhi Rd / Moolchand Ring Rd",
+      "lat": null,
+      "lon": null,
+      "agencies_claimed": [
+        "PWD",
+        "CPWD",
+        "MCD"
+      ],
+      "recurrence_class": "recurring",
+      "status": "OPEN",
+      "evidence_ids": [
+        "ev-007-dp-lodhi-moolchand"
+      ]
+    },
+    {
+      "id": "dp-maharani-bagh",
+      "name": "Maharani Bagh / Taimur Nagar drain / Ring Rd wells",
+      "lat": null,
+      "lon": null,
+      "agencies_claimed": [
+        "PWD",
+        "MCD",
+        "DJB"
+      ],
+      "recurrence_class": "chronic",
+      "status": "OPEN",
+      "evidence_ids": [
+        "ev-014-dp-maharani-bagh"
+      ]
+    },
+    {
+      "id": "dp-who-ito-ring",
+      "name": "Ring Road opposite WHO (ITO)",
+      "lat": null,
+      "lon": null,
+      "agencies_claimed": [
+        "PWD"
+      ],
+      "recurrence_class": "chronic",
+      "status": "OPEN",
+      "evidence_ids": [
+        "ev-010-dp-who-ito-ring"
+      ]
+    },
+    {
+      "id": "dp-zakhira",
+      "name": "Zakhira flyover underpass",
+      "lat": null,
+      "lon": null,
+      "agencies_claimed": [
+        "PWD"
+      ],
+      "recurrence_class": "recurring",
+      "status": "OPEN",
+      "evidence_ids": [
+        "ev-009-dp-zakhira"
+      ]
+    },
+    {
+      "id": "dp-pul-prahladpur",
+      "name": "Pul Prahladpur underpass",
+      "lat": null,
+      "lon": null,
+      "agencies_claimed": [
+        "PWD"
+      ],
+      "recurrence_class": "occasional",
+      "status": "OPEN",
+      "evidence_ids": [
+        "ev-012-dp-pul-prahladpur"
+      ]
+    },
+    {
+      "id": "dp-azad-market",
+      "name": "Azad Market underpass",
+      "lat": null,
+      "lon": null,
+      "agencies_claimed": [
+        "OTHER"
+      ],
+      "recurrence_class": "recurring",
+      "status": "OPEN",
+      "evidence_ids": [
+        "ev-013-dp-azad-market"
+      ]
+    },
+    {
+      "id": "dp-pragati-bhairon",
+      "name": "Pragati Maidan / Bhairon corridor tunnel",
+      "lat": null,
+      "lon": null,
+      "agencies_claimed": [
+        "PWD"
+      ],
+      "recurrence_class": "recurring",
+      "status": "OPEN",
+      "evidence_ids": [
+        "ev-008-dp-pragati-bhairon"
+      ]
+    },
+    {
+      "id": "dp-loni-rd",
+      "name": "Loni Rd roundabout",
+      "lat": null,
+      "lon": null,
+      "agencies_claimed": [
+        "PWD"
+      ],
+      "recurrence_class": "occasional",
+      "status": "OPEN",
+      "evidence_ids": [
+        "ev-011-dp-loni-rd"
+      ]
+    }
+  ]
+}

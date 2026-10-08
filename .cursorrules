@@ -1,0 +1,33 @@
+---
+name: agents
+description: Always-loaded Cursor anchor. Thin pointer only — DisputePoint hard stops live in root AGENTS.md.
+last_updated: 2026-10-06
+---
+
+<!-- mex-tool-config: managed copy from .tool-configs/ -- keep this line so `mex check` can detect out-of-sync copies -->
+
+# DisputePoint — Cursor anchor
+
+## Precedence (mandatory)
+
+1. Read root [`AGENTS.md`](AGENTS.md) first — project hard stops and Phase 6 win.
+2. Then read [`.mex/ROUTER.md`](.mex/ROUTER.md) for secondary living memory.
+3. If `.mex/` wiki disagrees with Phase 6 or root AGENTS hard stops, **follow Phase 6 / root AGENTS**.
+
+## What This Is
+
+DM coordination triage for disputed Delhi waterlogging points under rain — queue-first + point-card, not a flood heatmap. Product SoT: `docs/PHASE6.md`.
+
+## Non-Negotiables
+
+- Follow root `AGENTS.md` hard stops (CONFLICT→null, no invent DM-71/SCADA/GPS, U≠severity, no ML KEEP).
+- Git/submission: [`docs/operations/SUBMISSION_GIT.md`](docs/operations/SUBMISSION_GIT.md) — planning OK before clock; no entry product dump; no public judged push before clock; no secrets/L0; history must match event dates.
+- Do not treat this file as a second constitution.
+
+## Commands
+
+Until Makefile lands: document commands you actually run. Prefer `make install` · `make test` · `make run` when present.
+
+## Navigation
+
+Root `AGENTS.md` → `.mex/ROUTER.md` → `docs/PHASE6.md` / extracts as needed.

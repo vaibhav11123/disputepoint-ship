@@ -1,0 +1,140 @@
+nodes:
+- WP-00
+- WP-01
+- WP-02
+- WP-03
+- WP-04
+- WP-05
+- WP-06
+- WP-07
+- WP-08
+- WP-09
+- WP-10
+- WP-11
+- WP-12
+- WP-13
+- WP-14
+- WP-15
+- WP-16
+edges:
+- from: WP-00
+  to: WP-01
+- from: WP-01
+  to: WP-02
+- from: WP-02
+  to: WP-03
+- from: WP-01
+  to: WP-04
+- from: WP-02
+  to: WP-05
+- from: WP-03
+  to: WP-05
+- from: WP-04
+  to: WP-05
+- from: WP-03
+  to: WP-06
+- from: WP-05
+  to: WP-07
+- from: WP-06
+  to: WP-07
+- from: WP-07
+  to: WP-08
+- from: WP-07
+  to: WP-09
+- from: WP-09
+  to: WP-10
+- from: WP-06
+  to: WP-10
+- from: WP-09
+  to: WP-11
+- from: WP-08
+  to: WP-11
+- from: WP-09
+  to: WP-12
+- from: WP-03
+  to: WP-12
+- from: WP-10
+  to: WP-13
+- from: WP-11
+  to: WP-13
+- from: WP-12
+  to: WP-13
+- from: WP-03
+  to: WP-14
+- from: WP-07
+  to: WP-15
+- from: WP-13
+  to: WP-16
+artifact_edges:
+- from: WP-00
+  to: WP-01
+  artifact: ARTIFACT-TOOLCHAIN
+- from: WP-01
+  to: WP-02
+  artifact: ARTIFACT-MODELS
+- from: WP-02
+  to: WP-03
+  artifact: ARTIFACT-OWN-ENGINE
+- from: WP-01
+  to: WP-04
+  artifact: ARTIFACT-MODELS
+- from: WP-02
+  to: WP-05
+  artifact: ARTIFACT-OWN-ENGINE
+- from: WP-03
+  to: WP-05
+  artifact: ARTIFACT-RANK-ENGINE
+- from: WP-04
+  to: WP-05
+  artifact: ARTIFACT-EVIDENCE-LOAD
+- from: WP-03
+  to: WP-06
+  artifact: ARTIFACT-RANK-ENGINE
+- from: WP-05
+  to: WP-07
+  artifact: ARTIFACT-INGEST-STORE
+- from: WP-06
+  to: WP-07
+  artifact: ARTIFACT-RAIN-SERVICE
+- from: WP-07
+  to: WP-08
+  artifact: ARTIFACT-READ-API
+- from: WP-07
+  to: WP-09
+  artifact: ARTIFACT-READ-API
+- from: WP-09
+  to: WP-10
+  artifact: ARTIFACT-QUEUE-UI
+- from: WP-06
+  to: WP-10
+  artifact: ARTIFACT-RAIN-SERVICE
+- from: WP-09
+  to: WP-11
+  artifact: ARTIFACT-QUEUE-UI
+- from: WP-08
+  to: WP-11
+  artifact: ARTIFACT-HITL-API
+- from: WP-09
+  to: WP-12
+  artifact: ARTIFACT-QUEUE-UI
+- from: WP-03
+  to: WP-12
+  artifact: ARTIFACT-RANK-ENGINE
+- from: WP-10
+  to: WP-13
+  artifact: ARTIFACT-RAIN-UI
+- from: WP-11
+  to: WP-13
+  artifact: ARTIFACT-HITL-UI
+- from: WP-12
+  to: WP-13
+  artifact: ARTIFACT-EXPLAIN-UI
+- from: WP-03
+  to: WP-14
+  artifact: ARTIFACT-RANK-ENGINE
+- from: WP-07
+  to: WP-15
+  artifact: ARTIFACT-READ-API
+- from: WP-13
+  to: WP-16
+  artifact: ARTIFACT-E2E-GATE

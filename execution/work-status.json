@@ -1,0 +1,26 @@
+{
+  "note": "Package execution state. Separate from status.json requirement state. SUCCEEDED package may leave an FR DOCUMENTED.",
+  "states": ["BLOCKED", "READY", "RUNNING", "FAILED", "SUCCEEDED", "STALE", "CANCELLED"],
+  "plan_check": "PASS",
+  "plan_gate_accepted": false,
+  "clock_declared": false,
+  "packages": {
+    "WP-00": { "state": "READY", "wave": 0, "depends_on": [] },
+    "WP-01": { "state": "BLOCKED", "wave": 1, "depends_on": ["WP-00"] },
+    "WP-02": { "state": "BLOCKED", "wave": 2, "depends_on": ["WP-01"], "human_gate": "G-OWNERSHIP" },
+    "WP-03": { "state": "BLOCKED", "wave": 3, "depends_on": ["WP-02"] },
+    "WP-04": { "state": "BLOCKED", "wave": 2, "depends_on": ["WP-01"] },
+    "WP-05": { "state": "BLOCKED", "wave": 4, "depends_on": ["WP-02", "WP-03", "WP-04"] },
+    "WP-06": { "state": "BLOCKED", "wave": 4, "depends_on": ["WP-03"] },
+    "WP-07": { "state": "BLOCKED", "wave": 5, "depends_on": ["WP-05", "WP-06"] },
+    "WP-08": { "state": "BLOCKED", "wave": 6, "depends_on": ["WP-07"], "human_gate": "G-HITL-API" },
+    "WP-09": { "state": "BLOCKED", "wave": 6, "depends_on": ["WP-07"] },
+    "WP-10": { "state": "BLOCKED", "wave": 7, "depends_on": ["WP-09", "WP-06"] },
+    "WP-11": { "state": "BLOCKED", "wave": 7, "depends_on": ["WP-09", "WP-08"], "human_gate": "G-HITL-UI" },
+    "WP-12": { "state": "BLOCKED", "wave": 7, "depends_on": ["WP-09", "WP-03"] },
+    "WP-13": { "state": "BLOCKED", "wave": 8, "depends_on": ["WP-10", "WP-11", "WP-12"] },
+    "WP-14": { "state": "BLOCKED", "wave": 4, "depends_on": ["WP-03"] },
+    "WP-15": { "state": "BLOCKED", "wave": 6, "depends_on": ["WP-07"], "human_gate": "G-AWS" },
+    "WP-16": { "state": "BLOCKED", "wave": 9, "depends_on": ["WP-13"], "human_gate": "G-VIDEO" }
+  }
+}

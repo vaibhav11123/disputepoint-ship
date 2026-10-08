@@ -1,0 +1,77 @@
+# Contract ownership — authored. Builders do not edit HUMAN_REVIEW contracts.
+# Change requests go to execution/changes/CHANGE-REQ-*.md and stop.
+
+contracts:
+  SCHEMA-DISPUTEPOINT-SEED:
+    owner: human
+    change_policy: HUMAN_REVIEW
+    consumers: [WP-01, WP-05]
+
+  SCHEMA-DISPUTEPOINT:
+    owner: human
+    change_policy: HUMAN_REVIEW
+    consumers: [WP-01, WP-05, WP-07]
+
+  SCHEMA-EVIDENCE:
+    owner: human
+    change_policy: HUMAN_REVIEW
+    consumers: [WP-04, WP-05, WP-07]
+
+  SCHEMA-RAIN:
+    owner: human
+    change_policy: HUMAN_REVIEW
+    consumers: [WP-06, WP-07, WP-10]
+
+  SCHEMA-PRIORITY:
+    owner: human
+    change_policy: HUMAN_REVIEW
+    consumers: [WP-03, WP-07, WP-12]
+
+  OPENAPI-READ:
+    owner: human
+    change_policy: HUMAN_REVIEW
+    producer_package: WP-07
+    description: health, points, point, honesty, rain refresh, rain scenario
+    consumers: [WP-07, WP-09, WP-10, WP-13]
+
+  OPENAPI-HITL:
+    owner: human
+    change_policy: HUMAN_REVIEW
+    producer_package: WP-08
+    description: ack, override, escalate
+    consumers: [WP-08, WP-11, WP-13]
+
+  API-POINTS:
+    owner: WP-07
+    change_policy: HUMAN_REVIEW
+    consumers: [WP-09, WP-10, WP-13]
+
+  API-HITL:
+    owner: WP-08
+    change_policy: HUMAN_REVIEW
+    consumers: [WP-11, WP-13]
+
+  OWN-ENGINE:
+    owner: WP-02
+    change_policy: PACKAGE
+    consumers: [WP-05, WP-07]
+
+  RANK-ENGINE:
+    owner: WP-03
+    change_policy: PACKAGE
+    consumers: [WP-05, WP-06, WP-07, WP-12, WP-14]
+
+  EVIDENCE-LOAD:
+    owner: WP-04
+    change_policy: PACKAGE
+    consumers: [WP-05]
+
+  INGEST-STORE:
+    owner: WP-05
+    change_policy: PACKAGE
+    consumers: [WP-07]
+
+  RAIN-SERVICE:
+    owner: WP-06
+    change_policy: PACKAGE
+    consumers: [WP-07, WP-10]
