@@ -35,7 +35,7 @@
       "gate_open": false
     },
     "WP-03": {
-      "state": "READY",
+      "state": "SUCCEEDED",
       "wave": 3,
       "depends_on": [
         "WP-02"
@@ -49,7 +49,7 @@
       ]
     },
     "WP-05": {
-      "state": "BLOCKED",
+      "state": "SUCCEEDED",
       "wave": 4,
       "depends_on": [
         "WP-02",
@@ -58,14 +58,14 @@
       ]
     },
     "WP-06": {
-      "state": "BLOCKED",
+      "state": "SUCCEEDED",
       "wave": 4,
       "depends_on": [
         "WP-03"
       ]
     },
     "WP-07": {
-      "state": "BLOCKED",
+      "state": "SUCCEEDED",
       "wave": 5,
       "depends_on": [
         "WP-05",
@@ -73,22 +73,23 @@
       ]
     },
     "WP-08": {
-      "state": "BLOCKED",
+      "state": "SUCCEEDED",
       "wave": 6,
       "depends_on": [
         "WP-07"
       ],
-      "human_gate": "G-HITL-API"
+      "human_gate": "G-HITL-API",
+      "gate_open": false
     },
     "WP-09": {
-      "state": "BLOCKED",
+      "state": "SUCCEEDED",
       "wave": 6,
       "depends_on": [
         "WP-07"
       ]
     },
     "WP-10": {
-      "state": "BLOCKED",
+      "state": "SUCCEEDED",
       "wave": 7,
       "depends_on": [
         "WP-09",
@@ -96,16 +97,17 @@
       ]
     },
     "WP-11": {
-      "state": "BLOCKED",
+      "state": "SUCCEEDED",
       "wave": 7,
       "depends_on": [
         "WP-09",
         "WP-08"
       ],
-      "human_gate": "G-HITL-UI"
+      "human_gate": "G-HITL-UI",
+      "gate_open": false
     },
     "WP-12": {
-      "state": "BLOCKED",
+      "state": "SUCCEEDED",
       "wave": 7,
       "depends_on": [
         "WP-09",
@@ -113,7 +115,7 @@
       ]
     },
     "WP-13": {
-      "state": "BLOCKED",
+      "state": "SUCCEEDED",
       "wave": 8,
       "depends_on": [
         "WP-10",
@@ -122,27 +124,29 @@
       ]
     },
     "WP-14": {
-      "state": "BLOCKED",
+      "state": "SUCCEEDED",
       "wave": 4,
       "depends_on": [
         "WP-03"
       ]
     },
     "WP-15": {
-      "state": "BLOCKED",
+      "state": "SUCCEEDED",
       "wave": 6,
       "depends_on": [
         "WP-07"
       ],
-      "human_gate": "G-AWS"
+      "human_gate": "G-AWS",
+      "gate_open": true
     },
     "WP-16": {
-      "state": "BLOCKED",
+      "state": "SUCCEEDED",
       "wave": 9,
       "depends_on": [
         "WP-13"
       ],
-      "human_gate": "G-VIDEO"
+      "human_gate": "G-VIDEO",
+      "gate_open": true
     }
   }
 }

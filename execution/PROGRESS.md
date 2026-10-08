@@ -47,3 +47,14 @@ Append-only. Sessions add dated entries. Do not rewrite history.
 - `DisputePoint` rejects CONFLICT or UNKNOWN when an agency is set.
 - `pytest` on the conflict and null-agency cases: 6 passed.
 - Gate closed. WP-03 is READY.
+
+### 2026-10-08 — WP-03 through WP-16
+
+- Rank, ingest, rain, read API, and HITL API are on main. `make test`: 33 passed. Schemas and OpenAPI were not edited.
+- Queue is home. Playwright E2E-01 through E2E-06, E2E-08, and E2E-09 passed. E2E-07 stays skipped.
+- Fixture rows are UNKNOWN with a null agency. CONFLICT → null remains the unit case. No coordinates were added.
+- G-HITL-API closed: ACK is 409 unless ASSIGNED and OPEN. OVERRIDE and ESCALATE stay off RESOLVED. Audit row is written.
+- G-HITL-UI closed: ACK stays disabled on the fixture card. OVERRIDE and ESCALATE fill the audit panel.
+- G-AWS stays open. `make deploy` still exits 1. Template and operator note are in `infra/`. No live URL.
+- G-VIDEO and G-KPI stay open. Rehearsal file is tracked. No measured triage time. FR-027, W8, and W9 stay DOCUMENTED.
+- FR-001 stays DOCUMENTED pending G-GEO. FR-015 gold cells stay blank. FR-016 stays DOCUMENTED until AWS is on screen.
