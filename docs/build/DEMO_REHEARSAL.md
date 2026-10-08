@@ -108,9 +108,15 @@ Feature freeze ~**4 hours** before final take. Cut features; do not stretch the 
 
 ### G-VIS (before G-VIDEO)
 
+**SoT:** [HACKATHON_VISUAL_GATE.md](HACKATHON_VISUAL_GATE.md) — do not call the video hackathon-ready until this gate is green.
+
+- [ ] `make visual-qa` produces `runs/visual-qa/latest/V0`…`V7` PNGs + `PASS.md`
+- [ ] Automated V0–V5 asserts green (NO AUTO-ASSIGN, Agency —, Rain Strike map expand, CASE/PENDING HUMAN, HUMAN VERIFIED)
+- [ ] Human mute + thumbnail + 10s stranger checked in `PASS.md`
 - [ ] IBM Plex; queue-first; no Inter/Geist purple glass heatmap-first
 - [ ] T-VIS-AUDIT / UX §12 pass
 - [ ] Video framing starts on **queue**, not map collage
+- [ ] AWS / Earth human slots done or explicitly cut from cut list
 
 ### G-AWS
 

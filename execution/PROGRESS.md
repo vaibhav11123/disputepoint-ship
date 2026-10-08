@@ -58,3 +58,19 @@ Append-only. Sessions add dated entries. Do not rewrite history.
 - G-AWS stays open. `make deploy` still exits 1. Template and operator note are in `infra/`. No live URL.
 - G-VIDEO and G-KPI stay open. Rehearsal file is tracked. No measured triage time. FR-027, W8, and W9 stay DOCUMENTED.
 - FR-001 stays DOCUMENTED pending G-GEO. FR-015 gold cells stay blank. FR-016 stays DOCUMENTED until AWS is on screen.
+
+### 2026-10-08 — live evidence hydrate
+
+- `DP_LIVE_FETCH=1` now also HTTP-GETs each evidence URL, runs quote⊆source, stamps `retrieved_at` / `live_verified` (PDF skipped, fail soft).
+- `/health` exposes live_fetch + evidence_live_* counts; UI Live sources strip + Refresh evidence.
+- All 14 points carry cited coords; MapHUD + E2E-07 green. Status sync: FR-001 / E2E-07 marked VERIFIED (G-GEO formal stamp still human).
+- G-AWS / G-VIDEO / G-KPI still open.
+
+### 2026-10-08 — demo UX Tier S (Mode A/B/C packaging)
+
+- Donor matrix locked in `docs/build/LICENSE_AUDIT.md` + `DONOR_MATRIX.md` (Reference vs Copy).
+- Mode A: Rain Strike, Ownership Conflict (NO AUTO-ASSIGN), Evidence Ledger + Trace, Event Rail, escalate preset, Coordination Brief, Accountability Clock; map collapsed default; cold-open Purana Quila; `?judges=1` for theta/eval/Cmd+K.
+- Mode B: Incident Replay scrubber. Tier A: Follow Storm (10s demo).
+- Mode C docs: `EARTH_STUDIO_SHOT.md`. AWS beat: `AWS_DEMO_BEAT.md`. Submission: `SUBMISSION_CHECKLIST.md`. Visual QA: `VISUAL_QA_BASELINE.md`.
+- `npx playwright test -c frontend/playwright.config.ts`: 9 passed. Frontend `npm run build` OK.
+- G-AWS / G-VIDEO still need human Ship It/SAM on camera + Earth Studio export.

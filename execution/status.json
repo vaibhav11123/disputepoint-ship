@@ -6,7 +6,7 @@
     "VERIFIED": "named test green"
   },
   "requirements": {
-    "FR-001": { "status": "DOCUMENTED", "package": "WP-05", "test": "T-DATA-01", "residual": "numeric lat/lon VERIFIED needs G-GEO" },
+    "FR-001": { "status": "VERIFIED", "package": "WP-05", "test": "T-DATA-01", "residual": "14 cited Nominatim coords in fixtures; formal G-GEO stamp still human" },
     "FR-002": { "status": "VERIFIED", "package": "WP-04", "test": "fixture validate" },
     "FR-003": { "status": "VERIFIED", "package": "WP-02", "test": "unit OwnershipEngine" },
     "FR-004": { "status": "VERIFIED", "package": "WP-02", "test": "T-OWN-θ, T-OWN-CF-NULL" },
@@ -16,7 +16,7 @@
     "FR-008": { "status": "VERIFIED", "package": "WP-09", "test": "T-UI-01; E2E-01" },
     "FR-009": { "status": "VERIFIED", "package": "WP-09", "test": "T-UI-01; E2E-01" },
     "FR-010": { "status": "VERIFIED", "package": "WP-09", "test": "T-UI-SYN; E2E-05" },
-    "FR-011": { "status": "VERIFIED", "package": "WP-02/WP-09", "test": "T-OWN-CF-NULL; E2E-03", "residual": "fixture rows are UNKNOWN with null agency; CONFLICT null is the unit case" },
+    "FR-011": { "status": "VERIFIED", "package": "WP-02/WP-09", "test": "T-OWN-CF-NULL; E2E-03", "residual": "CONFLICT spine keeps responsible_agency null" },
     "FR-012": { "status": "VERIFIED", "package": "WP-08/WP-11", "test": "T-HITL-UI; E2E-04" },
     "FR-013": { "status": "DOCUMENTED", "package": "WP-03", "test": "unit G=0" },
     "FR-014": { "status": "DOCUMENTED", "package": null, "skip": true, "reason": "optional geometry" },
@@ -58,7 +58,7 @@
     "E2E-04": { "status": "VERIFIED", "package": "WP-13", "test": "playwright" },
     "E2E-05": { "status": "VERIFIED", "package": "WP-13", "test": "playwright" },
     "E2E-06": { "status": "VERIFIED", "package": "WP-13", "test": "playwright" },
-    "E2E-07": { "status": "DOCUMENTED", "package": null, "skip": true, "reason": "MapHUD until G-GEO" },
+    "E2E-07": { "status": "VERIFIED", "package": "WP-13", "test": "playwright map expand" },
     "E2E-08": { "status": "VERIFIED", "package": "WP-12", "test": "browser Cmd+K" },
     "E2E-09": { "status": "VERIFIED", "package": "WP-12", "test": "eval link" },
     "T-OWN-CF-NULL": { "status": "DOCUMENTED", "package": "WP-02", "test": "pytest ownership" },
