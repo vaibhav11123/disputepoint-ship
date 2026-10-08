@@ -10,7 +10,7 @@
     "CANCELLED"
   ],
   "plan_check": "PASS",
-  "plan_gate_accepted": false,
+  "plan_gate_accepted": true,
   "clock_declared": true,
   "packages": {
     "WP-00": {
