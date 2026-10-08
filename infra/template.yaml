@@ -1,0 +1,56 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Transform: AWS::Serverless-2016-10-31
+Description: DisputePoint Build It sketch. Do not deploy until G-AWS.
+
+Globals:
+  Function:
+    Timeout: 10
+    MemorySize: 256
+    Runtime: python3.12
+
+Resources:
+  PointsTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      BillingMode: PAY_PER_REQUEST
+      AttributeDefinitions:
+        - AttributeName: id
+          AttributeType: S
+      KeySchema:
+        - AttributeName: id
+          KeyType: HASH
+  EvidenceBucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      PublicAccessBlockConfiguration:
+        BlockPublicAcls: true
+        BlockPublicPolicy: true
+        IgnorePublicAcls: true
+        RestrictPublicBuckets: true
+  DecisionFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: backend.app.main.app
+      CodeUri: ../
+      Environment:
+        Variables:
+          POINTS_TABLE: !Ref PointsTable
+      Events:
+        Api:
+          Type: HttpApi
+          Properties:
+            Path: /{proxy+}
+            Method: ANY
+            ApiId: !Ref DecisionApi
+        RainPoll:
+          Type: Schedule
+          Properties:
+            Schedule: rate(1 hour)
+            Enabled: false
+  DecisionApi:
+    Type: AWS::Serverless::HttpApi
+
+Outputs:
+  ApiUrl:
+    Description: Present only after a human sam deploy
+    Value: !Sub "https://${DecisionApi}.execute-api.${AWS::Region}.amazonaws.com"
