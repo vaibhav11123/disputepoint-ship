@@ -81,7 +81,19 @@ DisputePoint is deployed on AWS. The product is the coordination workflow; AWS i
 | **EventBridge** | Rain refresh (15 min) and evidence verification (1 hour) |
 | **CloudWatch** | Lambda logs |
 
-[Architecture diagram](http://disputepoint-uibucket-nuoadlgtpdko.s3-website.ap-south-1.amazonaws.com/aws-arch.html) · [`docs/operations/AWS_OPERATOR.md`](docs/operations/AWS_OPERATOR.md)
+Ship It deploy path (same stack as [`aws-arch.html`](http://disputepoint-uibucket-nuoadlgtpdko.s3-website.ap-south-1.amazonaws.com/aws-arch.html)): S3 website UI → API Gateway → Lambda, with DynamoDB, S3 evidence/runtime, EventBridge schedules, and CloudWatch logs.
+
+```mermaid
+flowchart TD
+  UI[S3 website UI] --> APIGW[API Gateway]
+  APIGW --> Lambda[Lambda]
+  Lambda --> Dynamo[DynamoDB]
+  Lambda --> S3[S3 evidence and runtime]
+  EB[EventBridge] --> Lambda
+  Lambda --> CW[CloudWatch]
+```
+
+[Live architecture page](http://disputepoint-uibucket-nuoadlgtpdko.s3-website.ap-south-1.amazonaws.com/aws-arch.html) · [`docs/operations/AWS_OPERATOR.md`](docs/operations/AWS_OPERATOR.md)
 
 ## Demo
 
