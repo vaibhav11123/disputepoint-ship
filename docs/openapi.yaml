@@ -155,6 +155,105 @@ paths:
               schema:
                 $ref: "#/components/schemas/ErrorBody"
 
+  /rain/clear-scenario:
+    post:
+      tags: [rain]
+      summary: Clear scenario rainfall; restore last live observation or leave unavailable
+      operationId: clearRainScenario
+      responses:
+        "200":
+          description: Restored live observation, or cleared with null precip (never invents 0.0)
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
+              example:
+                cleared: true
+                precip_mm: null
+                source: null
+                is_synthetic: false
+
+  /replays/{replay_id}:
+    get:
+      tags: [replay]
+      summary: Load stored historical replay package
+      operationId: getReplay
+      parameters:
+        - name: replay_id
+          in: path
+          required: true
+          schema:
+            type: string
+            example: delhi-2025-07-29
+      responses:
+        "200":
+          description: Replay package + milestones
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
+        "404":
+          description: DP-404-REPLAY
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorBody"
+
+  /replays/{replay_id}/seek:
+    post:
+      tags: [replay]
+      summary: Seek historical replay clock; updates priority rain from Safdarjung series only
+      operationId: seekReplay
+      parameters:
+        - name: replay_id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                t:
+                  type: ["string", "null"]
+                step_index:
+                  type: ["integer", "null"]
+            example:
+              step_index: 1
+      responses:
+        "200":
+          description: Projected state; ownership_unchanged always true
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
+
+  /replays/{replay_id}/exit:
+    post:
+      tags: [replay]
+      summary: Exit historical replay; restore last_live or clear
+      operationId: exitReplay
+      parameters:
+        - name: replay_id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
+
   /points/{id}/ack:
     post:
       tags: [hitl]
@@ -333,13 +432,29 @@ components:
 
     HealthResponse:
       type: object
-      required: [ok, rain_mode]
+      required: [ok, rain_mode, scenario_active]
       properties:
         ok:
           type: boolean
         rain_mode:
           type: string
-          enum: [live, cache, slider]
+          enum: [live, cache, slider, none, replay]
+        replay_active:
+          type: boolean
+        precip_mm:
+          type: ["number", "null"]
+          description: Null when no rain observation is stored (never invent 0.0 for missing live)
+        rain_source_state:
+          type: ["string", "null"]
+        scenario_active:
+          type: boolean
+        has_last_live:
+          type: boolean
+        evidence_counts:
+          type: object
+          additionalProperties:
+            type: integer
+          description: stored / verified / unavailable / verification_failed / not_reverified / volunteer
 
     Provenance:
       type: object
@@ -560,7 +675,6 @@ components:
       required:
         - lat
         - lon
-        - window_hours
         - precip_mm
         - source
         - retrieved_at
@@ -571,18 +685,40 @@ components:
         lon:
           type: number
         window_hours:
-          type: number
+          type: ["number", "null"]
+          description: Hours for live/scenario 6h contract; null for historical station totals
         precip_mm:
-          type: number
+          type: ["number", "null"]
           minimum: 0
+          description: Null when no observation; never invent 0 for missing live
         source:
           type: string
-          enum: [open-meteo, imd, fixture, scenario_slider]
+          enum: [open-meteo, imd, fixture, scenario_slider, historical_replay]
         retrieved_at:
           type: string
           format: date-time
         is_synthetic:
           type: boolean
+        observation_time:
+          type: ["string", "null"]
+          format: date-time
+        priority_uses:
+          type: boolean
+          description: False when mm must not drive the 6h priority R term
+        observation_type:
+          type: string
+          description: e.g. reported_station_total for historical
+        station:
+          type: ["string", "null"]
+        period_start:
+          type: ["string", "null"]
+          format: date-time
+        period_end:
+          type: ["string", "null"]
+          format: date-time
+        period_hours:
+          type: ["number", "null"]
+          description: Derived display hint; prefer period_start/end when present
 
     RainScenarioRequest:
       type: object

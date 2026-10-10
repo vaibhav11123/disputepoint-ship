@@ -32,16 +32,19 @@ def observation(
     source: str,
     is_synthetic: bool,
     retrieved_at: str | None = None,
+    observation_time: str | None = None,
 ) -> dict[str, Any]:
     if precip_mm < 0:
         raise ValueError("precip_mm")
+    retrieved = retrieved_at or _now()
     return {
         "lat": DELHI_LAT,
         "lon": DELHI_LON,
         "window_hours": WINDOW_HOURS,
         "precip_mm": precip_mm,
         "source": source,
-        "retrieved_at": retrieved_at or _now(),
+        "retrieved_at": retrieved,
+        "observation_time": observation_time or retrieved,
         "is_synthetic": is_synthetic,
     }
 
@@ -51,6 +54,14 @@ def precip_from_payload(payload: dict[str, Any]) -> float:
     return float(sum(value or 0 for value in hourly))
 
 
+def observation_time_from_payload(payload: dict[str, Any]) -> str | None:
+    times = (payload.get("hourly") or {}).get("time") or []
+    if not times:
+        return None
+    # Last slot in the past_hours window (Asia/Kolkata wall clock from Open-Meteo)
+    return str(times[-1])
+
+
 def fetch_open_meteo(opener=urlopen, timeout: float = 5.0) -> dict[str, Any]:
     try:
         with opener(OPEN_METEO_URL, timeout=timeout) as response:
@@ -58,9 +69,14 @@ def fetch_open_meteo(opener=urlopen, timeout: float = 5.0) -> dict[str, Any]:
             if status != 200:
                 raise RainUnavailable(f"open-meteo status {status}")
             payload = json.loads(response.read().decode())
-    except (URLError, TimeoutError, RainUnavailable) as exc:
+    except (URLError, TimeoutError, RainUnavailable, json.JSONDecodeError, ValueError) as exc:
         raise RainUnavailable(str(exc)) from exc
-    return observation(precip_from_payload(payload), source="open-meteo", is_synthetic=False)
+    return observation(
+        precip_from_payload(payload),
+        source="open-meteo",
+        is_synthetic=False,
+        observation_time=observation_time_from_payload(payload),
+    )
 
 
 def scenario(precip_mm: float) -> dict[str, Any]:
@@ -68,11 +84,10 @@ def scenario(precip_mm: float) -> dict[str, Any]:
 
 
 def refresh(opener=urlopen, cache: dict[str, Any] | None = None) -> dict[str, Any]:
+    """Fetch live rain. On failure: return last-good cache unchanged (do not invent 0.0)."""
     try:
         return fetch_open_meteo(opener)
     except RainUnavailable:
         if cache is not None:
-            cached = dict(cache)
-            cached["source"] = "fixture" if cached.get("source") == "open-meteo" else cached.get("source", "fixture")
-            return cached
+            return dict(cache)
         raise

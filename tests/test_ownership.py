@@ -69,3 +69,55 @@ def test_null_agency_evidence_does_not_assign() -> None:
     decision = decide([EvidenceScore(type="COURT_ORDER", agency=None)])
     assert decision.responsible_agency is None
     assert decision.ownership_state is OwnershipState.UNKNOWN
+
+
+def test_o1_volunteer_reported_alone_cannot_establish_assigned() -> None:
+    """O1: VOLUNTEER_REPORTED rows never establish official ownership."""
+    decision = decide(
+        [
+            EvidenceScore(
+                type="COURT_ORDER",
+                agency="PWD",
+                channel="VOLUNTEER_REPORTED",
+            ),
+            EvidenceScore(
+                type="GOV_ORDER",
+                agency="PWD",
+                channel="VOLUNTEER_REPORTED",
+            ),
+            EvidenceScore(
+                type="SPATIAL_HEURISTIC",
+                agency="PWD",
+                channel="VOLUNTEER_REPORTED",
+            ),
+        ]
+    )
+    assert decision.ownership_state is OwnershipState.UNKNOWN
+    assert decision.responsible_agency is None
+    assert decision.scores == {}
+
+
+def test_o1_volunteer_does_not_push_official_across_threshold() -> None:
+    # Official press alone is below θ; volunteer court must not tip to ASSIGNED.
+    decision = decide(
+        [
+            EvidenceScore(type="PRESS_REPORT", agency="PWD", channel="OFFICIAL"),
+            EvidenceScore(type="COURT_ORDER", agency="PWD", channel="VOLUNTEER_REPORTED"),
+        ]
+    )
+    assert decision.ownership_state is not OwnershipState.ASSIGNED
+    assert decision.responsible_agency is None
+
+
+def test_o2_conflict_responsible_agency_remains_null() -> None:
+    """O2: CONFLICT always clears responsible_agency (channel-aware scores)."""
+    items = [
+        EvidenceScore(type="COURT_ORDER", agency="PWD", channel="OFFICIAL"),
+        EvidenceScore(type="PRESS_REPORT", agency="PWD", channel="OFFICIAL"),
+        EvidenceScore(type="COURT_ORDER", agency="MCD", channel="OFFICIAL"),
+        EvidenceScore(type="PRESS_REPORT", agency="MCD", channel="OFFICIAL"),
+        EvidenceScore(type="GOV_ORDER", agency="PWD", channel="VOLUNTEER_REPORTED"),
+    ]
+    decision = decide(items)
+    assert decision.ownership_state is OwnershipState.CONFLICT
+    assert decision.responsible_agency is None

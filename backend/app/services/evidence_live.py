@@ -54,13 +54,29 @@ def fetch_url(url: str, *, opener: Opener | None = None) -> tuple[bytes, str]:
     return raw, content_type
 
 
+def _http_error_status(exc: BaseException) -> str:
+    if isinstance(exc, urllib.error.HTTPError):
+        if exc.code == 403:
+            return "fetch_forbidden"
+        if exc.code == 429:
+            return "fetch_rate_limited"
+        return "fetch_failed"
+    return "fetch_failed"
+
+
 def verify_row(
     row: dict[str, Any],
     *,
     opener: Opener | None = None,
 ) -> dict[str, Any]:
-    """Return an updated evidence body with live_verified / live_status. Never drops the quote."""
+    """Return an updated evidence body with live_verified / live_status. Never drops the quote.
+
+    Preserves prior retrieved_at / live_verified on retrieval failure so decision history stays defensible.
+    HTTP 403 is retrieval failure, not a false claim.
+    """
     updated = dict(row)
+    prior_retrieved = row.get("retrieved_at")
+    prior_verified = row.get("live_verified")
     url = str(row.get("url") or "")
     quote = str(row.get("quote") or "")
     if not url or len(quote) < 10:
@@ -73,22 +89,28 @@ def verify_row(
         return updated
     try:
         raw, content_type = fetch_url(url, opener=opener)
-    except (urllib.error.URLError, TimeoutError, OSError, ValueError):
-        updated["live_verified"] = False
-        updated["live_status"] = "fetch_failed"
+    except (urllib.error.HTTPError, urllib.error.URLError, TimeoutError, OSError, ValueError) as exc:
+        updated["live_verified"] = bool(prior_verified) if prior_verified is not None else False
+        updated["live_status"] = _http_error_status(exc)
+        updated["last_fetch_attempt_at"] = _utcnow()
+        if prior_retrieved:
+            updated["retrieved_at"] = prior_retrieved
         return updated
     if _is_pdf(url, content_type):
         updated["live_verified"] = False
         updated["live_status"] = "skipped_pdf"
         return updated
     text = html_to_text(raw)
+    updated["last_fetch_attempt_at"] = _utcnow()
     if quote_subseteq_source(quote, text):
         updated["live_verified"] = True
         updated["live_status"] = "ok"
         updated["retrieved_at"] = _utcnow()
         return updated
+    # Content reachable but quote miss — do not erase prior verified history stamp
     updated["live_verified"] = False
     updated["live_status"] = "quote_miss"
+    updated["content_changed_at"] = _utcnow()
     return updated
 
 

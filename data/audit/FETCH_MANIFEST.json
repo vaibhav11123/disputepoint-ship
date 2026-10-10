@@ -97,6 +97,83 @@
       "point_ids": ["dp-sarita-vihar", "dp-jahangirpuri-metro", "dp-azad-market"],
       "expected_type": "html",
       "notes": "Named hotspot list for Expansion B densify"
+    },
+    {
+      "slug": "ht-ngt-barapullah",
+      "url": "https://www.hindustantimes.com/cities/delhi-news/ngt-slams-agencies-over-choked-barapullah-drain-101722817653841.html",
+      "point_ids": ["dp-barapullah"],
+      "expected_type": "html",
+      "notes": "v0.3.1 enrichment — NGT desilt responsibility gap"
+    },
+    {
+      "slug": "ht-minto-again",
+      "url": "https://www.hindustantimes.com/india-news/delhis-minto-bridge-waterlogged-again-bjp-questions-aap-mayors-big-promises-101719546630515.html",
+      "point_ids": ["dp-minto-bridge"],
+      "expected_type": "html",
+      "notes": "v0.3.1 enrichment — Minto recurrence after hotspot delist"
+    },
+    {
+      "slug": "theprint-lodhi-pwd-pumps",
+      "url": "https://theprint.in/india/waterlogging-in-lutyens-delhi-due-to-malfunctioning-pwd-pumps-ndmc-slams-aap-govt/2152351/",
+      "point_ids": ["dp-lodhi-moolchand"],
+      "expected_type": "html",
+      "notes": "v0.3.1 enrichment — NDMC on PWD Kushak pumps / Lodhi Colony"
+    },
+    {
+      "slug": "toi-zakhira-pul",
+      "url": "https://timesofindia.indiatimes.com/city/delhi/delhi-waterlogging-woes-from-zakhira-to-pul-prahladpur/articleshow/112207005.cms",
+      "point_ids": ["dp-zakhira", "dp-pul-prahladpur", "dp-who-ito-ring"],
+      "expected_type": "html",
+      "notes": "v0.3.2 full-board — Zakhira railway waste; Pul Prahladpur sump/pump"
+    },
+    {
+      "slug": "toi-pragati-drain",
+      "url": "https://timesofindia.indiatimes.com/city/delhi/new-drain-construction-to-prevent-flooding-in-pragati-tunnel/articleshow/111617356.cms",
+      "point_ids": ["dp-pragati-bhairon", "dp-bharat-mandapam-tunnel", "dp-mathura-rd-hc"],
+      "expected_type": "html",
+      "notes": "v0.3.2 — supplementary drain; ITPO parking seepage; Mathura VIP"
+    },
+    {
+      "slug": "ht-maharani-flood",
+      "url": "https://www.hindustantimes.com/cities/delhi-news/carpets-furniture-damaged-as-delhi-neighbourhoods-flooded-101719599032443.html",
+      "point_ids": ["dp-maharani-bagh"],
+      "expected_type": "html",
+      "notes": "v0.3.2 — Taimoor Nagar drain / Maharani Bagh flooding"
+    },
+    {
+      "slug": "ndtv-dhaula-kuan",
+      "url": "https://www.ndtv.com/india-news/take-measures-to-prevent-waterlogging-at-dhaula-kuan-aaps-atishi-to-officials-6429237",
+      "point_ids": ["dp-dhaula-kuan"],
+      "expected_type": "html",
+      "notes": "v0.3.2 — bowl-shape drainage upgrade order"
+    },
+    {
+      "slug": "toi-saket-drone",
+      "url": "https://timesofindia.indiatimes.com/city/delhi/delhi-rain-drone-visuals-show-heavy-waterlogging-near-saket-metro-station/articleshow/112036486.cms",
+      "point_ids": ["dp-mehrauli-badarpur-saket"],
+      "expected_type": "html",
+      "notes": "v0.3.2 — Saket Metro waterlogging"
+    },
+    {
+      "slug": "ht-aug29-snarls",
+      "url": "https://www.hindustantimes.com/india-news/heavy-rainfall-inundates-parts-of-delhi-triggers-traffic-snarls-101724906705594.html",
+      "point_ids": [
+        "dp-sarita-vihar",
+        "dp-qutub-minar-metro",
+        "dp-outer-ring-mukarba-madhuban",
+        "dp-outer-ring-bhera-enclave",
+        "dp-mahipalpur-tpoint",
+        "dp-mehrauli-badarpur-saket"
+      ],
+      "expected_type": "html",
+      "notes": "v0.3.2 — multi-corridor Aug 2024 waterlogging / advisories"
+    },
+    {
+      "slug": "toi-zakhira-railways-letter",
+      "url": "https://timesofindia.indiatimes.com/city/delhi/zakhira-underpass-waterlogging-issue-in-delhi/articleshow/112664691.cms",
+      "point_ids": ["dp-zakhira", "dp-loni-rd", "dp-karala-kanjhawala"],
+      "expected_type": "html",
+      "notes": "v0.3.2 — Railways culvert; Loni/Karala remodel plans"
     }
   ]
 }

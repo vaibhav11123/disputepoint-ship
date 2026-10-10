@@ -3,14 +3,28 @@
   "$id": "https://disputepoint.local/schemas/RainObservation.json",
   "title": "RainObservation",
   "type": "object",
-  "required": ["lat", "lon", "window_hours", "precip_mm", "source", "retrieved_at", "is_synthetic"],
+  "required": ["lat", "lon", "precip_mm", "source", "retrieved_at", "is_synthetic"],
   "properties": {
     "lat": { "type": "number" },
     "lon": { "type": "number" },
-    "window_hours": { "type": "number" },
-    "precip_mm": { "type": "number", "minimum": 0 },
-    "source": { "enum": ["open-meteo", "imd", "fixture", "scenario_slider"] },
+    "window_hours": {
+      "type": ["number", "null"],
+      "description": "Observation window in hours for live/scenario 6h contract; null for historical station totals"
+    },
+    "precip_mm": { "type": ["number", "null"], "minimum": 0 },
+    "source": {
+      "enum": ["open-meteo", "imd", "fixture", "scenario_slider", "historical_replay"]
+    },
     "retrieved_at": { "type": "string", "format": "date-time" },
-    "is_synthetic": { "type": "boolean" }
+    "is_synthetic": { "type": "boolean" },
+    "observation_time": { "type": ["string", "null"], "format": "date-time" },
+    "priority_uses": {
+      "type": "boolean",
+      "description": "False for historical station totals that must not drive 6h R scoring"
+    },
+    "observation_type": { "type": "string" },
+    "station": { "type": ["string", "null"] },
+    "period_start": { "type": ["string", "null"], "format": "date-time" },
+    "period_end": { "type": ["string", "null"], "format": "date-time" }
   }
 }

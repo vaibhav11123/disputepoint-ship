@@ -60,10 +60,14 @@ def test_health_points_point_and_honesty() -> None:
     assert elapsed < 0.3
     with_coords = [item for item in listing["items"] if item["lat"] is not None and item["lon"] is not None]
     without = [item for item in listing["items"] if item["lat"] is None or item["lon"] is None]
-    assert len(with_coords) == 14  # Gate A VERIFIED
-    assert len(without) >= 18  # Expansion B null until VERIFIED
+    assert len(with_coords) >= 14  # Gate A VERIFIED (+ Expansion B geocodes)
+    assert len(with_coords) + len(without) == len(listing["items"])
     assert listing["items"][0]["priority_rank"] == 1
     assert "precip_mm" in health
+    assert "scenario_active" in health
+    assert isinstance(health["scenario_active"], bool)
+    assert "evidence_counts" in health
+    assert health["evidence_counts"]["stored"] >= 1
     assert health["live_fetch"] is False
     assert "evidence_live_ok" in health
     assert "evidence_live_fail" in health

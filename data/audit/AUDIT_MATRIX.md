@@ -54,3 +54,21 @@ Residual AMBER: maharani-bagh, who-ito-ring, pul-prahladpur, azad-market, pragat
 - Expansion B: ~21 press-named areas (demo volume; lat/lon null until VERIFIED).
 - Total board ~35 points / ~120+ evidence. Not a 445-row dump; not DM-71.
 - Generators: `scripts/build_fullboard_fixtures.py`, `scripts/fix_fullboard_spine.py`.
+
+## D. Enrichment v0.3.1 (2026-10-09)
+
+- Research OS / Exa pass: [`docs/research/enrichment-source-pass.md`](../../docs/research/enrichment-source-pass.md).
+- Points: `incident_summary` (35) + `claim_summaries` on six CONFLICT.
+- Evidence: `source_date` / `title` / `publisher` / `establishes` / `does_not_establish`; sourced gap rows + illustrative volunteer (`is_synthetic=true`).
+- New L1 slugs: `ht-ngt-barapullah`, `ht-minto-again`, `theprint-lodhi-pwd-pumps` (+ densify of existing underpass/HC URLs).
+- Ownership: six CONFLICT preserved (agency tags on new rows kept null where scoring would flip).
+- Generator: `scripts/enrich_fixtures_v031.py`.
+
+## E. Full-board deep enrichment v0.3.2 (2026-10-09)
+
+- Exa batches A–D for **all 35** points; FACT log extended in enrichment-source-pass.md.
+- Every point: deep `incident_summary` + `claim_summaries` + ≥5 evidence_ids.
+- Corpus ~201 evidence rows; sourced gap-fill (agency null) + illustrative volunteer pads.
+- New L1 slugs: `toi-zakhira-pul`, `toi-pragati-drain`, `ht-maharani-flood`, `ndtv-dhaula-kuan`, `toi-saket-drone`, `ht-aug29-snarls`.
+- Ownership: six CONFLICT preserved.
+- Generator: `scripts/enrich_fixtures_v032.py`.

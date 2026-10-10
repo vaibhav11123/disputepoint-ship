@@ -123,10 +123,14 @@ def update_evidence(conn: sqlite3.Connection, evidence_id: str, body: dict[str, 
 
 def save_rain(conn: sqlite3.Connection, rain: dict[str, Any]) -> None:
     with _WRITE_LOCK:
+        # Column is NOT NULL; body JSON may carry null precip for parked historical start.
+        column_mm = rain.get("precip_mm")
+        if column_mm is None:
+            column_mm = -1.0
         conn.execute("DELETE FROM rain_cache")
         conn.execute(
             "INSERT INTO rain_cache (id, precip_mm, retrieved_at, mode, body) VALUES (1, ?, ?, ?, ?)",
-            (rain["precip_mm"], rain["retrieved_at"], rain["source"], json.dumps(rain)),
+            (column_mm, rain["retrieved_at"], rain["source"], json.dumps(rain)),
         )
         conn.commit()
 
@@ -134,6 +138,13 @@ def save_rain(conn: sqlite3.Connection, rain: dict[str, Any]) -> None:
 def get_rain(conn: sqlite3.Connection) -> dict[str, Any] | None:
     row = conn.execute("SELECT body FROM rain_cache WHERE id = 1").fetchone()
     return None if row is None else json.loads(row["body"])
+
+
+def clear_rain(conn: sqlite3.Connection) -> None:
+    """Remove rain cache entirely — do not invent a 0.0 observation."""
+    with _WRITE_LOCK:
+        conn.execute("DELETE FROM rain_cache")
+        conn.commit()
 
 
 def add_audit(conn: sqlite3.Connection, row: dict[str, Any]) -> dict[str, Any]:

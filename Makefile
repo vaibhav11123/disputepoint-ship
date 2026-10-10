@@ -45,5 +45,5 @@ deploy:
 
 visual-qa:
 	@mkdir -p runs/visual-qa/latest
-	CI=1 npx playwright test -c frontend/playwright.config.ts tests/e2e/visual-hackathon.spec.ts
+	CI=1 DP_E2E_FRESH=1 npx playwright test -c frontend/playwright.config.ts tests/e2e/visual-hackathon.spec.ts
 	@echo "Screenshots + PASS.md → runs/visual-qa/latest/ (human mute/AWS/Earth still required)"

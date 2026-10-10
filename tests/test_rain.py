@@ -47,7 +47,8 @@ def test_t_rain_01_timeout_uses_cache() -> None:
     cache["is_synthetic"] = False
     rain = refresh(opener, cache=cache)
     assert rain["precip_mm"] == 0
-    assert rain["source"] == "fixture"
+    # Last-good preserved — do not rewrite source to "fixture" on timeout
+    assert rain["source"] == "open-meteo"
 
 
 def test_t_rain_01_scenario_slider_is_synthetic() -> None:

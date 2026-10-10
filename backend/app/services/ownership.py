@@ -27,6 +27,7 @@ class EvidenceScore:
     type: str
     agency: str | None
     weight: float | None = None
+    channel: str | None = None
 
 
 @dataclass(frozen=True)
@@ -41,6 +42,9 @@ def decide(items: list[EvidenceScore]) -> OwnershipDecision:
     totals: dict[str, float] = {}
     for item in items:
         if item.agency is None:
+            continue
+        # Volunteer reports are conditions evidence, not jurisdiction claims.
+        if item.channel == "VOLUNTEER_REPORTED":
             continue
         if item.type not in TYPE_WEIGHTS:
             raise ValueError(f"unknown evidence type {item.type}")

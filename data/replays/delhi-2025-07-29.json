@@ -1,0 +1,209 @@
+{
+  "replay_id": "delhi-2025-07-29",
+  "label": "29 July 2025 · Delhi monsoon day",
+  "timezone": "Asia/Kolkata",
+  "disclaimer": "Historical replay from published observations; gaps explicit; not live telemetry; not a complete city reconstruction.",
+  "priority_uses": {
+    "station": "Safdarjung",
+    "rule": "latest_completed_window_mm"
+  },
+  "stations_context": ["Ridge", "Pragati Maidan", "Lodhi Road", "Pusa", "Ayanagar"],
+  "steps": [
+    {
+      "t": "2025-07-29T11:30:00+05:30",
+      "kind": "weather",
+      "station": "Safdarjung",
+      "precip_mm": 63.5,
+      "period_start": "2025-07-29T08:30:00+05:30",
+      "period_end": "2025-07-29T11:30:00+05:30",
+      "source_url": "https://theprint.in/india/red-alert-issued-as-heavy-rain-batters-delhi-causes-waterlogging-and-traffic-snarls/2705877/",
+      "is_synthetic": false,
+      "affects_priority": true
+    },
+    {
+      "t": "2025-07-29T11:30:00+05:30",
+      "kind": "weather",
+      "station": "Ridge",
+      "precip_mm": 129.4,
+      "period_start": "2025-07-29T08:30:00+05:30",
+      "period_end": "2025-07-29T11:30:00+05:30",
+      "source_url": "https://theprint.in/india/red-alert-issued-as-heavy-rain-batters-delhi-causes-waterlogging-and-traffic-snarls/2705877/",
+      "is_synthetic": false,
+      "affects_priority": false
+    },
+    {
+      "t": "2025-07-29T11:30:00+05:30",
+      "kind": "weather",
+      "station": "Pragati Maidan",
+      "precip_mm": 44.4,
+      "period_start": "2025-07-29T08:30:00+05:30",
+      "period_end": "2025-07-29T11:30:00+05:30",
+      "source_url": "https://theprint.in/india/red-alert-issued-as-heavy-rain-batters-delhi-causes-waterlogging-and-traffic-snarls/2705877/",
+      "is_synthetic": false,
+      "affects_priority": false
+    },
+    {
+      "t": "2025-07-29T11:30:00+05:30",
+      "kind": "weather",
+      "station": "Lodhi Road",
+      "precip_mm": 64.5,
+      "period_start": "2025-07-29T08:30:00+05:30",
+      "period_end": "2025-07-29T11:30:00+05:30",
+      "source_url": "https://timesofindia.indiatimes.com/city/delhi/heavy-rainfall-disrupts-delhi-air-india-and-igi-airport-issue-travel-advisories/articleshow/122965653.cms",
+      "is_synthetic": false,
+      "affects_priority": false
+    },
+    {
+      "t": "2025-07-29T11:30:00+05:30",
+      "kind": "weather",
+      "station": "Pusa",
+      "precip_mm": 37.5,
+      "period_start": "2025-07-29T08:30:00+05:30",
+      "period_end": "2025-07-29T11:30:00+05:30",
+      "source_url": "https://theprint.in/india/red-alert-issued-as-heavy-rain-batters-delhi-causes-waterlogging-and-traffic-snarls/2705877/",
+      "is_synthetic": false,
+      "affects_priority": false
+    },
+    {
+      "t": "2025-07-29T11:30:00+05:30",
+      "kind": "weather",
+      "station": "Ayanagar",
+      "precip_mm": 23.0,
+      "period_start": "2025-07-29T08:30:00+05:30",
+      "period_end": "2025-07-29T11:30:00+05:30",
+      "source_url": "https://theprint.in/india/red-alert-issued-as-heavy-rain-batters-delhi-causes-waterlogging-and-traffic-snarls/2705877/",
+      "is_synthetic": false,
+      "affects_priority": false
+    },
+    {
+      "t": "2025-07-29T11:45:00+05:30",
+      "kind": "incident_activate",
+      "point_id": "dp-zakhira",
+      "time_basis": "publication_earliest",
+      "source_url": "https://theprint.in/india/red-alert-issued-as-heavy-rain-batters-delhi-causes-waterlogging-and-traffic-snarls/2705877/",
+      "note": "Zakhira Railway Underpass waterlogging; traffic diversions near Inderlok Chowk.",
+      "is_synthetic": false
+    },
+    {
+      "t": "2025-07-29T11:45:00+05:30",
+      "kind": "incident_activate",
+      "point_id": "dp-azad-market",
+      "time_basis": "publication_earliest",
+      "source_url": "https://theprint.in/india/red-alert-issued-as-heavy-rain-batters-delhi-causes-waterlogging-and-traffic-snarls/2705877/",
+      "note": "Azad Market Railway Underpass / Ram Bagh Road waterlogging with diversions.",
+      "is_synthetic": false
+    },
+    {
+      "t": "2025-07-29T11:45:00+05:30",
+      "kind": "incident_activate",
+      "point_id": "dp-dhaula-kuan",
+      "time_basis": "publication_earliest",
+      "source_url": "https://timesofindia.indiatimes.com/city/delhi/heavy-rainfall-disrupts-delhi-air-india-and-igi-airport-issue-travel-advisories/articleshow/122965653.cms",
+      "note": "Dhaula Kuan named in Delhi Traffic Police disruption / waterlogging list.",
+      "is_synthetic": false
+    },
+    {
+      "t": "2025-07-29T11:45:00+05:30",
+      "kind": "incident_activate",
+      "point_id": "dp-who-ito-ring",
+      "time_basis": "publication_earliest",
+      "source_url": "https://indianexpress.com/article/cities/delhi/delhi-downpour-triggers-waterlogging-traffic-chaos-and-political-sparring-10158311/",
+      "note": "ITO corridor waterlogging reported; maps to Ring Road WHO/ITO fixture — not ownership proof.",
+      "is_synthetic": false
+    },
+    {
+      "t": "2025-07-29T11:50:00+05:30",
+      "kind": "incident_activate",
+      "point_id": "dp-sarai-kale-khan",
+      "time_basis": "publication_earliest",
+      "source_url": "https://theprint.in/india/red-alert-issued-as-heavy-rain-batters-delhi-causes-waterlogging-and-traffic-snarls/2705877/",
+      "note": "Ring Road carriageway Sarai Kale Khan toward INA disrupted near Seva Nagar / Barapullah.",
+      "is_synthetic": false
+    },
+    {
+      "t": "2025-07-29T11:50:00+05:30",
+      "kind": "incident_activate",
+      "point_id": "dp-barapullah",
+      "time_basis": "publication_earliest",
+      "source_url": "https://theprint.in/india/red-alert-issued-as-heavy-rain-batters-delhi-causes-waterlogging-and-traffic-snarls/2705877/",
+      "note": "Barapullah named with Seva Nagar Bus Depot waterlogging on Ring Road.",
+      "is_synthetic": false
+    },
+    {
+      "t": "2025-07-29T11:50:00+05:30",
+      "kind": "incident_activate",
+      "point_id": "dp-lodhi-moolchand",
+      "time_basis": "publication_earliest",
+      "source_url": "https://theprint.in/india/red-alert-issued-as-heavy-rain-batters-delhi-causes-waterlogging-and-traffic-snarls/2705877/",
+      "note": "Bhishma Pitamah Marg (Lodhi Road toward Kotla) waterlogging at JN Stadium roundabout.",
+      "is_synthetic": false
+    },
+    {
+      "t": "2025-07-29T11:55:00+05:30",
+      "kind": "incident_activate",
+      "point_id": "dp-gtk-depot",
+      "time_basis": "publication_earliest",
+      "source_url": "https://www.ndtv.com/delhi-news/delhi-rain-video-delhis-connaught-place-other-areas-flooded-after-heavy-rain-8972439",
+      "note": "GTK Bus Depot stretch traffic advisory / diversions via Mukarba Chowk.",
+      "is_synthetic": false
+    },
+    {
+      "t": "2025-07-29T11:55:00+05:30",
+      "kind": "incident_activate",
+      "point_id": "dp-mehrauli-badarpur-saket",
+      "time_basis": "publication_earliest",
+      "source_url": "https://theprint.in/india/red-alert-issued-as-heavy-rain-batters-delhi-causes-waterlogging-and-traffic-snarls/2705877/",
+      "note": "Mehrauli–Gurgaon Road named in disruption list; pin is nearest board corridor.",
+      "is_synthetic": false
+    },
+    {
+      "t": "2025-07-29T12:00:00+05:30",
+      "kind": "incident_activate",
+      "point_id": "dp-pragati-bhairon",
+      "time_basis": "publication_earliest",
+      "source_url": "https://www.ndtv.com/delhi-news/delhi-rain-video-delhis-connaught-place-other-areas-flooded-after-heavy-rain-8972439",
+      "note": "Pragati Maidan road visuals of vehicles in water; not proof of tunnel closure clock.",
+      "is_synthetic": false
+    },
+    {
+      "t": "2025-07-29T17:30:00+05:30",
+      "kind": "weather",
+      "station": "Safdarjung",
+      "precip_mm": 68.1,
+      "period_start": "2025-07-29T08:30:00+05:30",
+      "period_end": "2025-07-29T17:30:00+05:30",
+      "source_url": "https://indianexpress.com/article/cities/delhi/delhi-downpour-triggers-waterlogging-traffic-chaos-and-political-sparring-10158311/",
+      "is_synthetic": false,
+      "affects_priority": true
+    }
+  ],
+  "gaps": {
+    "points_without_day_evidence": [
+      "dp-purana-quila",
+      "dp-bharat-mandapam-tunnel",
+      "dp-mathura-rd-hc",
+      "dp-minto-bridge",
+      "dp-aiims-aurobindo",
+      "dp-maharani-bagh",
+      "dp-pul-prahladpur",
+      "dp-loni-rd",
+      "dp-azadpur-underpass",
+      "dp-samaypur-badli",
+      "dp-okhla-underpass",
+      "dp-sarita-vihar",
+      "dp-karala-kanjhawala",
+      "dp-jahangirpuri-metro",
+      "dp-tilak-bridge",
+      "dp-ashram-underpass",
+      "dp-shalimar-bagh-underpass",
+      "dp-outer-ring-bhera-enclave",
+      "dp-outer-ring-mukarba-madhuban",
+      "dp-kali-mandir",
+      "dp-qutub-minar-metro",
+      "dp-patparganj-nh24",
+      "dp-mahipalpur-tpoint",
+      "dp-kartavya-path-boat-club",
+      "dp-dwarka-underpass"
+    ]
+  }
+}

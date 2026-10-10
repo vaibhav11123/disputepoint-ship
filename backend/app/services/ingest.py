@@ -33,7 +33,12 @@ def _dry_rain() -> dict[str, Any]:
 
 
 def _score_point(raw: dict[str, Any], evidence: list[Any], readiness: dict[str, Any] | None, precip_mm: float) -> dict[str, Any]:
-    decision = decide([EvidenceScore(type=item.type.value, agency=item.agency) for item in evidence])
+    decision = decide(
+        [
+            EvidenceScore(type=item.type.value, agency=item.agency, channel=item.channel)
+            for item in evidence
+        ]
+    )
     readiness_body = None if readiness is None else {
         "state": readiness["state"],
         "is_synthetic": readiness["is_synthetic"],
@@ -95,6 +100,8 @@ def _score_point(raw: dict[str, Any], evidence: list[Any], readiness: dict[str, 
         "geo_display_name",
         "verify_status",
         "geo_cite",
+        "incident_summary",
+        "claim_summaries",
     ):
         if key in raw:
             body[key] = raw[key]
@@ -135,7 +142,7 @@ def ingest_fixtures(conn, root: Path | None = None, precip_mm: float = 0.0) -> l
 
 def rescore(conn, precip_mm: float) -> list[dict[str, Any]]:
     current = list_points(conn)
-    rain = get_rain(conn) or _dry_rain()
+    rain = get_rain(conn)
     previous_rank = {point["id"]: point.get("priority_rank") for point in current}
     probes = []
     for point in current:
@@ -160,10 +167,13 @@ def rescore(conn, precip_mm: float) -> list[dict[str, Any]]:
         point["priority_rank"] = index
         point["rain_delta"] = None if prior is None else prior - index
         update_point(conn, point)
-    rain["precip_mm"] = precip_mm
-    from backend.app.db.store import save_rain
+    # Do not invent a dry fixture observation when rain cache is empty.
+    # Historical replay keeps display mm (station/period context) while scoring uses precip_mm arg.
+    if rain is not None and rain.get("source") != "historical_replay" and rain.get("priority_uses") is not False:
+        rain["precip_mm"] = precip_mm
+        from backend.app.db.store import save_rain
 
-    save_rain(conn, rain)
+        save_rain(conn, rain)
     return probes
 
 
