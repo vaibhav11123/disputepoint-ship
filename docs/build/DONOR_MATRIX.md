@@ -30,6 +30,7 @@ Synced from fuse-catalog 2026-10-09. Visual language always `--dp-*`. Zero AGPL 
 | G-03 | COPY_ADAPT | Nav/Motion | IncidentNav | Motion | motion.dev | MIT | COPY_ADAPT | restrained tab/panel fade | IncidentNav, screens/* | motion | no vanity motion | DONE |
 | G-04 | COPY_ADAPT | Rain | App FLIP | CSS FLIP | web.dev/articles/flip | cite | COPY_ADAPT | rain reorder FLIP | App.tsx | none (WAAPI) | reorder works | DONE |
 | G-05 | REFERENCE | IA | router | PagerDuty/ServiceNow/Linear | — | — | REFERENCE | drill-down multipage IA only | router.ts, screens/* | none | URLs work | DONE |
+| G-06 | COPY_ADAPT | Incident | PointFocusMap | MapLibre focus | maplibre.org | BSD-3 | COPY_ADAPT | single-pin flyTo beside record | PointFocusMap, IncidentWorkspace, PlaceStrip | maplibre-gl (existing) | place visible on drill-down | DONE |
 | REJECT-AEGIS | REFERENCE | — | — | AEGIS | alejadxr/AEGIS | AGPL-3.0 | REFERENCE | never vendor | — | none | — | LOCKED |
 | REJECT-RAINVIEWER-HERO | REFERENCE | Demo | — | RainViewer | rainviewer API | API terms | REFERENCE | subtle only; not Demo hero | — | none | — | LOCKED |
 

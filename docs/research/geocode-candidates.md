@@ -39,35 +39,35 @@
 
 All 14 Gate A points now carry cited coordinates (FR-001 map markers).
 
-## Expansion B candidates (2026-10-08) — not promoted
+## Expansion B promoted (2026-10-09)
 
-Demo volume points. **`lat`/`lon` stay null** until a human marks VERIFIED. Suggested Nominatim queries only:
+Nominatim ≤1 req/s + Exa cross-check. All 21 Expansion B points now have cited `lat`/`lon` in fixtures (`geo_source=nominatim`, ODbL). Corridor pins use nearest named OSM feature when the underpass itself is unmapped.
 
-| id | suggested query | status |
-|----|-----------------|--------|
-| dp-azadpur-underpass | Azadpur underpass Delhi | CANDIDATE |
-| dp-samaypur-badli | Samaypur Badli Delhi | CANDIDATE |
-| dp-okhla-underpass | Okhla underpass Delhi | CANDIDATE |
-| dp-dhaula-kuan | Dhaula Kuan flyover Delhi | CANDIDATE |
-| dp-sarita-vihar | Sarita Vihar underpass Delhi | CANDIDATE |
-| dp-karala-kanjhawala | Karala Kanjhawala Road Delhi | CANDIDATE |
-| dp-jahangirpuri-metro | Jahangirpuri Metro Station Delhi | CANDIDATE |
-| dp-tilak-bridge | Tilak Bridge ITO Delhi | CANDIDATE |
-| dp-ashram-underpass | Ashram underpass Delhi | CANDIDATE |
-| dp-shalimar-bagh-underpass | Shalimar Bagh underpass Delhi | CANDIDATE |
-| dp-mehrauli-badarpur-saket | Saket Metro Station Delhi | CANDIDATE |
-| dp-outer-ring-bhera-enclave | Bhera Enclave Outer Ring Road Delhi | CANDIDATE |
-| dp-outer-ring-mukarba-madhuban | Mukarba Chowk Delhi | CANDIDATE |
-| dp-gtk-depot | GTK Depot Delhi | CANDIDATE |
-| dp-kali-mandir | Kali Mandir Delhi | CANDIDATE |
-| dp-qutub-minar-metro | Qutub Minar Metro Station Delhi | CANDIDATE |
-| dp-sarai-kale-khan | Sarai Kale Khan Delhi | CANDIDATE |
-| dp-patparganj-nh24 | Pandav Nagar NH-24 Delhi | CANDIDATE |
-| dp-mahipalpur-tpoint | Mahipalpur Delhi | CANDIDATE |
-| dp-kartavya-path-boat-club | Kartavya Path Delhi | CANDIDATE |
-| dp-dwarka-underpass | Dwarka underpass Delhi | CANDIDATE |
+| id | query | lat | lon | osm_id | cite | verify_status |
+|----|-------|-----|-----|--------|------|---------------|
+| dp-azadpur-underpass | Azadpur underpass Delhi | 28.7089739 | 77.1771245 | way/202770674 | https://www.openstreetmap.org/way/202770674 | VERIFIED |
+| dp-samaypur-badli | Samaypur Badli Delhi | 28.7446411 | 77.1382701 | node/2837147019 | https://www.openstreetmap.org/node/2837147019 | VERIFIED |
+| dp-okhla-underpass | Okhla Flyover Delhi | 28.5569884 | 77.2697599 | node/4510725389 | https://www.openstreetmap.org/node/4510725389 | VERIFIED |
+| dp-dhaula-kuan | Dhaula Kuan flyover Delhi | 28.5944421 | 77.1665613 | way/77868696 | https://www.openstreetmap.org/way/77868696 | VERIFIED |
+| dp-sarita-vihar | Sarita Vihar, Delhi | 28.5334785 | 77.2935232 | relation/3465885 | https://www.openstreetmap.org/relation/3465885 | VERIFIED |
+| dp-karala-kanjhawala | Karala Kanjhawala Road Delhi | 28.7321173 | 77.037425 | node/7138632156 | https://www.openstreetmap.org/node/7138632156 | VERIFIED |
+| dp-jahangirpuri-metro | Jahangirpuri Metro Station Delhi | 28.7256463 | 77.1631321 | node/10202035294 | https://www.openstreetmap.org/node/10202035294 | VERIFIED |
+| dp-tilak-bridge | Tilak Bridge Delhi | 28.6281166 | 77.2374037 | node/1988513599 | https://www.openstreetmap.org/node/1988513599 | VERIFIED |
+| dp-ashram-underpass | Ashram underpass Delhi | 28.5716132 | 77.2589169 | way/1252762967 | https://www.openstreetmap.org/way/1252762967 | VERIFIED |
+| dp-shalimar-bagh-underpass | Shalimar Bagh Delhi | 28.7019574 | 77.1654317 | node/6458202840 | https://www.openstreetmap.org/node/6458202840 | VERIFIED |
+| dp-mehrauli-badarpur-saket | Saket Metro Station Delhi | 28.5205168 | 77.2014464 | node/5511370878 | https://www.openstreetmap.org/node/5511370878 | VERIFIED |
+| dp-outer-ring-bhera-enclave | Bhera Enclave Delhi | 28.6716308 | 77.0912913 | way/262629847 | https://www.openstreetmap.org/way/262629847 | VERIFIED |
+| dp-outer-ring-mukarba-madhuban | Mukarba Chowk Delhi | 28.7323054 | 77.1520709 | node/5818161557 | https://www.openstreetmap.org/node/5818161557 | VERIFIED |
+| dp-gtk-depot | Jahangirpuri Bus Depot | 28.7241685 | 77.1804548 | way/1159082618 | https://www.openstreetmap.org/way/1159082618 | VERIFIED |
+| dp-kali-mandir | Kali Mandir Delhi | 28.5367951 | 77.2475278 | way/89814445 | https://www.openstreetmap.org/way/89814445 | VERIFIED |
+| dp-qutub-minar-metro | Qutub Minar Metro Station Delhi | 28.5141054 | 77.1861737 | node/5371748022 | https://www.openstreetmap.org/node/5371748022 | VERIFIED |
+| dp-sarai-kale-khan | Sarai Kale Khan Delhi | 28.5891891 | 77.2580654 | node/10700089586 | https://www.openstreetmap.org/node/10700089586 | VERIFIED |
+| dp-patparganj-nh24 | Pandav Nagar Delhi | 28.619553 | 77.2830355 | node/10815246203 | https://www.openstreetmap.org/node/10815246203 | VERIFIED |
+| dp-mahipalpur-tpoint | Mahipalpur Delhi | 28.544537 | 77.1279229 | node/7788133645 | https://www.openstreetmap.org/node/7788133645 | VERIFIED |
+| dp-kartavya-path-boat-club | Kartavya Path Delhi | 28.6132364 | 77.2230666 | way/537797267 | https://www.openstreetmap.org/way/537797267 | VERIFIED |
+| dp-dwarka-underpass | Dwarka Sector 21 underpass Delhi | 28.5475663 | 77.0565457 | way/1341419322 | https://www.openstreetmap.org/way/1341419322 | VERIFIED |
 
-Do not invent decimals. Offline Nominatim ≤1 req/s when human promotes.
+**Notes:** GTK Depot uses Jahangirpuri Electric Bus Depot OSM way (named GTK depot missing in Nominatim). Okhla uses Okhla Junction / Modi Mill Flyover (first “Okhla underpass” hit was Magenta Line outside preferred corridor). Kali Mandir is South Delhi Kali Mandir/Kali Bari OSM way (Lodhi Road temple node not in Nominatim).
 
 ## Failed / weak queries (history)
 
