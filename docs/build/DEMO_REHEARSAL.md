@@ -14,7 +14,7 @@
 |-------------|--------|----------------|
 | `dry` | Baseline queue ranks | `precip_mm = 0` slider or dry fixture |
 | `rain-spike` | Re-rank flash (W2) | Wet demo precip **40 mm** ([DEPLOYMENT](../operations/DEPLOYMENT.md)) |
-| `conflict-open` | Okhla (or Samaypur) null agency (W3–W4) | Engine CONFLICT + `responsible_agency` null on spine (Okhla, Samaypur, Barapullah, Lodhi, Minto Bridge). Corpus evidence **0.3.5** — do not invent owners. |
+| `conflict-open` | Okhla (or Samaypur) null agency (W3–W4) | Engine CONFLICT + `responsible_agency` null on spine (Okhla, Samaypur, Barapullah, Lodhi, Minto Bridge). Corpus evidence **0.3.6** — do not invent owners. |
 
 Requirements:
 

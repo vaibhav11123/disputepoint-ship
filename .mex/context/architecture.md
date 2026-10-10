@@ -76,7 +76,7 @@ revision: 1
 ## External Dependencies
 
 - **Open-Meteo** — metro precipitation. Public HTTP. Attribute CC-BY 4.0. Not required to be up for the demo because the scenario slider is the fallback.
-- **Fixtures and schemas** — `data/fixtures/` points 0.3.3 / evidence 0.3.5 and `docs/schemas/` plus `docs/openapi.yaml`. L0 audit bodies under `data/audit/sources/` stay gitignored.
+- **Fixtures and schemas** — `data/fixtures/` points 0.3.3 / evidence 0.3.6 and `docs/schemas/` plus `docs/openapi.yaml`. L0 audit bodies under `data/audit/sources/` stay gitignored.
 - **AWS (Ship It, deployed 2026-10-10)** — EventBridge rain (15m) + evidence (1h) → Lambda `disputepoint-decision` → DynamoDB stamps + private evidence S3 (runtime SQLite snapshot) + public UI S3 website → API Gateway HTTPS; CloudWatch logs. Live Open-Meteo on cold start / invoke. Local `make run` remains the offline path.
 - **IMD** — optional only when `IMD_API_KEY` is set. Demo must not block on it. Ship It leaves IMD as `key_required` (honest).
 

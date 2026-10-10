@@ -9,7 +9,7 @@ DisputePoint documentation. **Phase 6 wins** if anything disagrees.
 3. Contracts: [schemas/](schemas/) · [openapi.yaml](openapi.yaml) · [contracts/DATA_MODEL.md](contracts/DATA_MODEL.md)  
 4. Quality gate: [quality/SPEC_READINESS.md](quality/SPEC_READINESS.md) — Spec + **Data Ready both PASS**; product shipped  
 5. Execution control plane: [`../execution/START.md`](../execution/START.md) — router; product ships; G-VIDEO still open for YouTube  
-6. Fixtures / audit: [`../data/fixtures/`](../data/fixtures/) (points 0.3.3 · evidence 0.3.5) · [`../data/audit/`](../data/audit/) · [build/DATA_PLAYBOOK.md](build/DATA_PLAYBOOK.md) · [research/enrichment-source-pass.md](research/enrichment-source-pass.md) · [build/GAPS.md](build/GAPS.md)  
+6. Fixtures / audit: [`../data/fixtures/`](../data/fixtures/) (points 0.3.3 · evidence 0.3.6) · [`../data/audit/`](../data/audit/) · [build/DATA_PLAYBOOK.md](build/DATA_PLAYBOOK.md) · [research/enrichment-source-pass.md](research/enrichment-source-pass.md) · [build/GAPS.md](build/GAPS.md)  
 7. Demo video: [build/DEMO_SCRIPT.md](build/DEMO_SCRIPT.md) (spoken VO) · [build/DEMO_WOW.md](build/DEMO_WOW.md) · [build/DEMO_REHEARSAL.md](build/DEMO_REHEARSAL.md) · [build/AWS_DEMO_BEAT.md](build/AWS_DEMO_BEAT.md) · [research/public-cost-of-waterlogging.md](research/public-cost-of-waterlogging.md) · [research/demo-win-tactics.md](research/demo-win-tactics.md) · [research/video-win-pass-2026-10-10.md](research/video-win-pass-2026-10-10.md) · [build/BUILDER_BLOG.md](build/BUILDER_BLOG.md)  
 8. Agents: root [AGENTS.md](../AGENTS.md) → [agent/AGENT_CONSTITUTION.md](agent/AGENT_CONSTITUTION.md)
 

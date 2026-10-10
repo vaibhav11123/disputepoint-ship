@@ -21,7 +21,6 @@ function evidenceTitle(ev: { id: string; type: string; quote: string; live_statu
 }
 
 function evidenceStatus(ev: {
-  type?: string | null
   channel?: string | null
   live_verified?: boolean
   live_status?: string

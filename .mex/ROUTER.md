@@ -35,7 +35,7 @@ last_updated: 2026-10-10
 
 **Working:**
 - Frozen Phase 6 contract plus PRD, HLD, LLD, and UX extracts
-- Schemas, OpenAPI, fixtures points 0.3.3 / evidence 0.3.5, and audit L1. Spec package and Data Ready PASS
+- Schemas, OpenAPI, fixtures points 0.3.3 / evidence 0.3.6, and audit L1. Spec package and Data Ready PASS
 - Submission tree: `clock_declared` true, `plan_gate_accepted` true; waves WP-00–WP-16 product code landed
 - Local: `make install` · `make test` · `make run` (API `127.0.0.1:8000`, UI `127.0.0.1:5173`)
 - **Ship It live (2026-10-10)** stack `disputepoint` / `ap-south-1`: API Gateway → Lambda → DynamoDB + S3 + EventBridge + CloudWatch; `DP_LIVE_FETCH=1`; Open-Meteo rain LIVE; evidence LIVE batch; CORS allowlist; `/docs` off

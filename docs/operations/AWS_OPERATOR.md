@@ -72,7 +72,7 @@ Stack **`disputepoint`** in **`ap-south-1`** via `make deploy` / SAM.
 
 Smoked (live mode): `GET /health` → `live_fetch=true`, `rain_mode=live`, `rain_source_state=LIVE` (Open-Meteo); `evidence-live=LIVE` after evidence job; Dynamo stamps + S3 `runtime/disputepoint.sqlite` snapshot for cold-start continuity. Honest gates unchanged: IMD `key_required`, Google Flood `waitlist`, NWDP `investigating`.
 
-**Demo board mix (2026-10-10):** fixtures `evidence.json` corpus **0.3.5** — honest `PRESS_REPORT` (never press typed as `GOV_ORDER`); ASSIGNED / CONFLICT / UNKNOWN under real engines (no DEMO MIX banner, no frontend rank rewrite). Dispute spine (Okhla, Samaypur, Barapullah, …) stays CONFLICT + null agency. `ensure_fixture_corpus` re-ingests when S3 sqlite lags package version; `DP_SEED_DEMO_ACK=1` ACKs Mathura Rd + Bharat Mandapam via the same HITL store path as the API.
+**Demo board mix (2026-10-10):** fixtures `evidence.json` corpus **0.3.6** — curated `GOV_ORDER` upgrades on PWD hotspot press rows for ASSIGNED mix; ASSIGNED / CONFLICT / UNKNOWN under real engines (no DEMO MIX banner, no frontend rank rewrite). Dispute spine (Okhla, Samaypur, Barapullah, …) stays CONFLICT + null agency. `ensure_fixture_corpus` re-ingests when S3 sqlite lags package version; `DP_SEED_DEMO_ACK=1` ACKs Mathura Rd + Bharat Mandapam via the same HITL store path as the API.
 
 ---
 
