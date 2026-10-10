@@ -17,13 +17,17 @@ Three artifacts: **public repo** · **YouTube ≤3 min** · **short write-up**. 
 - [x] Ship It live — [DEPLOYMENT.md](../operations/DEPLOYMENT.md) · [AWS_OPERATOR.md](../operations/AWS_OPERATOR.md)
 - [x] Security pass for demo — [SECURITY.md](../operations/SECURITY.md)
 
-## Video (G-VIDEO — open)
+## Video (G-VIDEO — open — human record)
+
+Record from [DEMO_SCRIPT.md](DEMO_SCRIPT.md) (people-first VO; Okhla CONFLICT; AWS **2:10–2:35**). Warm Ship It first ([AWS_OPERATOR.md](../operations/AWS_OPERATOR.md)).
 
 - [ ] [EARTH_STUDIO_SHOT.md](EARTH_STUDIO_SHOT.md) open (or skip if time)
-- [ ] [DEMO_SCRIPT.md](DEMO_SCRIPT.md) VO
+- [ ] [DEMO_SCRIPT.md](DEMO_SCRIPT.md) VO recorded ≤3 min
 - [ ] Rain Strike → CONFLICT null (Okhla / Samaypur) → evidence → ESCALATE or OVERRIDE → audit (ACK only on assigned cutaway)
 - [ ] AWS on screen 2:10–2:35 (live UI + `/aws-arch.html` or console `/health`)
+- [ ] Upload YouTube → paste URL into [README.md](../../README.md) Demo video + [BUILDER_BLOG.md](BUILDER_BLOG.md)
 - [ ] Signed-out YouTube check
+- [ ] Publish Builder Center → replace `_ARTICLE_URL_` in BUILDER_BLOG short form
 
 ## Write-up
 
