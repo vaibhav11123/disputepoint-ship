@@ -4,9 +4,12 @@
 
 **Not the short form.** Form still needs a separate short write-up. Publish at [builder.aws.com/create/content](https://builder.aws.com/create/content).
 
-**Tags (≤5):** `Hackathon` · `Environmental Hacks` · `Serverless` · `DynamoDB` · `AWS`
+**Tags (≤5):** `Hackathon` · `Environmental Hacks` · `Serverless` · `DynamoDB` · `AWS`  
+*(Do not use Artificial Intelligence / Bedrock as headline tags — MVP has no ML runtime. Story research: [research/builder-blog-story-pass-2026-10-10.md](../research/builder-blog-story-pass-2026-10-10.md).)*
 
-**Hackathon note (sidebar / author line, not the lede):** Built for WeMakeDevs × AWS Environmental Hacks (Heat and Water). AI coding tools: Cursor.
+**Central argument:** Make responsibility and uncertainty visible — do not invent an owner when claims conflict (`CONFLICT` → `responsible_agency` null).
+
+**Hackathon note (sidebar / author line, not the lede):** Built for WeMakeDevs × AWS Environmental Hacks (Heat and Water). AI coding tools: Cursor (disclose; not the product thesis).
 
 ---
 
@@ -16,7 +19,7 @@ When Delhi’s Roads Flood, Who Needs to Act? Building DisputePoint on AWS
 
 ## Description (paste — 1–2 sentences)
 
-When Delhi roads flood, response teams still need to know what is disputed and who should act. DisputePoint is an AWS prototype that prioritizes waterlogging incidents, keeps conflicting ownership visible, and records human decisions — without inventing an agency when claims conflict.
+Waterlogging is not just an infrastructure problem. Coordinating a response can also mean navigating incomplete evidence and competing claims of responsibility. This article explores how we built DisputePoint on AWS to help incident commanders review evidence, handle disputed ownership, and record decisions without manufacturing certainty.
 
 ---
 
@@ -42,7 +45,7 @@ A map can show where an incident is reported. The response team still needs to a
 - What should happen when available claims conflict?
 - How can a decision and its rationale be recorded?
 
-We focused on the coordination problem rather than building another citywide flood visualization.
+We focused on the coordination problem rather than building another citywide flood visualization. On Builder Center, flood-map and AI-alert projects already occupy that lane — DisputePoint is deliberately **not** a heatmap, citizen inbox, or flood predictor.
 
 The prototype is designed for an incident commander or coordination officer who needs to review incidents, understand responsibility claims, and coordinate the next action.
 
@@ -54,7 +57,7 @@ DisputePoint brings an incident queue, a map, an evidence view, and a responsibi
 
 The workflow is:
 
-`INCIDENT → PRIORITY → EVIDENCE → RESPONSIBILITY DECISION → ACTION → AUDIT`
+`INCIDENT → PRIORITY → CLAIMS → EVIDENCE → DECISION → ACTION → AUDIT`
 
 The application distinguishes three ownership states:
 

@@ -1,6 +1,6 @@
 # Builder Center blog tactics — Research OS live pass
 
-**Date:** 2026-10-07 · refresh **2026-10-10** (Ship It URLs live; VO cite log [video-win-pass-2026-10-10.md](video-win-pass-2026-10-10.md))  
+**Date:** 2026-10-07 · refresh **2026-10-10** (Ship It URLs live; VO cite log [video-win-pass-2026-10-10.md](video-win-pass-2026-10-10.md); story pass [builder-blog-story-pass-2026-10-10.md](builder-blog-story-pass-2026-10-10.md))  
 **Purpose:** Auditable sources behind [build/BUILDER_BLOG.md](../build/BUILDER_BLOG.md) for Environmental Hacks **Top 5 blogs (AirPods)**. Planning only — does not reopen Phase 6 product locks.
 
 **Hard stop:** Do not edit `market-research/src/research_os/**` for DisputePoint work. Cite and promote into this repo. Process: sibling `market-research` docs `RESEARCH_PLAYBOOK.md` + `TOOLS.md` (Exa MCP only for this pass).
@@ -38,7 +38,8 @@ Sources: [Your Guide to Builder Center](https://builder.aws.com/content/2zcHXEQE
 5. Open URL **signed out**; paste that URL into the hackathon submission form.
 6. Edit in place if needed (do not orphan the linked URL).
 
-Suggested tags for DisputePoint (≤5): `Hackathon`, `Environmental Hacks`, `Serverless`, `DynamoDB`, `AWS`.
+Suggested tags for DisputePoint (≤5): `Hackathon`, `Environmental Hacks`, `Serverless`, `DynamoDB`, `AWS`.  
+Do **not** headline-tag Artificial Intelligence (no ML runtime MVP). Differentiate vs Builder [Waterlog Watch](https://builder.aws.com/learn/topics/hackathon?tab=article) flood-map lane.
 
 ---
 
