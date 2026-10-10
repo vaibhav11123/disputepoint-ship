@@ -25,7 +25,11 @@ Waterlogging is not just an infrastructure problem. Coordinating a response can 
 
 ## Article body (paste)
 
-# When Delhi’s Roads Flood, Who Needs to Act? Building DisputePoint on AWS
+Builder Center markdown (from their editor cheatsheet): `##`–`######`, `**bold**`, `*italic*`, lists, `` `code` ``, fenced code blocks, `[text](url)`. **No tables, no `#` H1 in body** (title is a form field). Upload images in the UI, not as markdown.
+
+Start paste below this line ↓
+
+---
 
 When a road floods during Delhi’s monsoon, the consequences are immediate. Commuters lose time, vehicles can become stranded, and residents may face recurring disruption.
 
@@ -61,11 +65,9 @@ The workflow is:
 
 The application distinguishes three ownership states:
 
-| State | Meaning |
-|-------|---------|
-| `ASSIGNED` | Responsibility is assigned to an agency |
-| `CONFLICT` | Competing claims remain unresolved |
-| `UNKNOWN` | Available evidence does not establish responsibility |
+- `ASSIGNED` — responsibility is assigned to an agency
+- `CONFLICT` — competing claims remain unresolved
+- `UNKNOWN` — available evidence does not establish responsibility
 
 These states are not just labels. They determine what the system is allowed to do next.
 
@@ -107,12 +109,12 @@ We deployed the DisputePoint frontend as a static web application on S3 and expo
 
 We chose this serverless shape to build and deploy the prototype without managing a fleet of application servers. The current deployment demonstrates the application’s workflow. It does not establish production readiness for a citywide emergency-management system.
 
-- **Repository:** https://github.com/vaibhav11123/disputepoint-ship  
-- **Live application:** http://disputepoint-uibucket-nuoadlgtpdko.s3-website.ap-south-1.amazonaws.com  
-- **Backend API:** https://olnsv0shee.execute-api.ap-south-1.amazonaws.com  
-- **Architecture:** http://disputepoint-uibucket-nuoadlgtpdko.s3-website.ap-south-1.amazonaws.com/aws-arch.html  
+- **Repository:** [github.com/vaibhav11123/disputepoint-ship](https://github.com/vaibhav11123/disputepoint-ship)
+- **Live application:** [DisputePoint UI](http://disputepoint-uibucket-nuoadlgtpdko.s3-website.ap-south-1.amazonaws.com)
+- **Backend API:** [API Gateway base URL](https://olnsv0shee.execute-api.ap-south-1.amazonaws.com)
+- **Architecture:** [aws-arch.html](http://disputepoint-uibucket-nuoadlgtpdko.s3-website.ap-south-1.amazonaws.com/aws-arch.html)
 
-*(Upload screenshot: `docs/assets/readme-queue.png` — alt: DisputePoint incident queue showing waterlogging places with disputed responsibility visible.)*
+Upload screenshot in the Builder UI (not markdown): `docs/assets/readme-queue.png` — alt text: DisputePoint incident queue showing waterlogging places with disputed responsibility visible.
 
 When Open-Meteo is unavailable, the UI can fall back to cache or a labeled scenario slider. When ownership conflicts, the agency field stays empty until a human decision is recorded. Missing fixture points produce an empty state — we do not invent owners.
 
@@ -164,6 +166,8 @@ Explore the [live DisputePoint application](http://disputepoint-uibucket-nuoadlg
 **For builders:** How would you model conflicting responsibility claims in an operational workflow? Would you use explicit ownership states, an evidence graph, or another approach?
 
 I’d be interested in how others would handle the boundary between automated prioritization and a decision that must remain with an authorized human.
+
+↑ End paste
 
 ---
 
