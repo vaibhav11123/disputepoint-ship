@@ -10,7 +10,7 @@ Three artifacts: **public repo** · **YouTube ≤3 min** · **short write-up**. 
 - [x] Data honesty / SYNTHETIC labels
 - [x] AI tools listed (Cursor)
 - [ ] Screenshots of queue + CONFLICT null + escalate audit *(for form / Builder blog)*
-- [ ] History matches event dates + **public** repo ([SUBMISSION_GIT.md](../operations/SUBMISSION_GIT.md))
+- [x] History matches event dates + **public** repo ([SUBMISSION_GIT.md](../operations/SUBMISSION_GIT.md)) — public 2026-10-10
 
 ## AWS (G-AWS — cleared)
 
