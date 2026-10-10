@@ -1,13 +1,14 @@
 import { motion } from "motion/react"
+import { copy } from "../lib/copy"
 import { navigate, type AppRoute } from "../lib/router"
 import { Button } from "./ui/button"
 import { Tabs, TabsList, TabsTrigger } from "./ui/tabs"
 
 const TABS = [
-  { value: "incident", label: "Incident" },
-  { value: "evidence", label: "Evidence" },
-  { value: "coordination", label: "Coordination" },
-  { value: "audit", label: "Audit" },
+  { value: "incident", label: copy.nav.incident },
+  { value: "evidence", label: copy.nav.evidence },
+  { value: "coordination", label: copy.nav.coordination },
+  { value: "audit", label: copy.nav.audit },
 ] as const
 
 type TabValue = (typeof TABS)[number]["value"]
@@ -44,7 +45,7 @@ export function IncidentNav({
           onClick={() => navigate({ name: "command" })}
           data-testid="back-command"
         >
-          ← Command
+          {copy.nav.back}
         </Button>
         {title ? <h2 className="incident-title">{title}</h2> : null}
       </div>
@@ -56,7 +57,7 @@ export function IncidentNav({
           else navigate({ name, id })
         }}
       >
-        <TabsList aria-label="Incident sections">
+        <TabsList aria-label={copy.nav.sections}>
           {TABS.map((tab) => (
             <TabsTrigger key={tab.value} value={tab.value}>
               {tab.label}

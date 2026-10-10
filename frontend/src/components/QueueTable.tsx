@@ -6,13 +6,14 @@ import {
 } from "@tanstack/react-table"
 import { useMemo } from "react"
 import type { PointRow } from "../api/client"
-import { AgencyBlock, StateChip } from "./StateChip"
-import { TriageChip } from "./TriageChip"
+import { copy } from "../lib/copy"
+import { AgencyBlock } from "./StateChip"
+import { nextActionLabel, TriageChip } from "./TriageChip"
 import { Badge } from "./ui/badge"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "./ui/table"
 
 function rankLabel(rank: number) {
-  return `[${String(rank).padStart(2, "0")}]`
+  return String(rank).padStart(2, "0")
 }
 
 type QueueRow = PointRow & { escalated?: boolean; officer_confirmed?: boolean }
@@ -31,55 +32,42 @@ export function QueueTable({
   const columns = useMemo<ColumnDef<QueueRow>[]>(
     () => [
       {
-        id: "rank",
-        header: "Rank",
-        cell: ({ row }) => <span className="rank">{rankLabel(row.original.priority_rank)}</span>,
-      },
-      {
         accessorKey: "name",
-        header: "Name",
-        cell: ({ row }) => <span title={row.original.name}>{row.original.name}</span>,
+        header: copy.queue.incident,
+        cell: ({ row }) => (
+          <span title={row.original.name}>
+            <span className="rank mono dp-meta">{rankLabel(row.original.priority_rank)} </span>
+            {row.original.name}
+          </span>
+        ),
       },
       {
-        id: "triage",
-        header: "Triage",
+        id: "status",
+        header: copy.queue.status,
         cell: ({ row }) => (
           <TriageChip state={row.original.ownership_state} escalated={Boolean(row.original.escalated)} />
         ),
       },
       {
-        id: "state",
-        header: "State",
-        cell: ({ row }) => (
-          <StateChip
-            state={row.original.ownership_state}
-            compact
-            escalated={Boolean(row.original.escalated)}
-            officerConfirmed={Boolean(row.original.officer_confirmed)}
-          />
-        ),
-      },
-      {
-        id: "agency",
-        header: "Agency",
+        id: "responsibility",
+        header: copy.queue.responsibility,
         cell: ({ row }) => (
           <AgencyBlock agency={row.original.responsible_agency} claimed={row.original.agencies_claimed} />
         ),
       },
       {
         id: "priority",
-        header: "Priority",
-        cell: ({ row }) => <span className="mono">{row.original.priority_score.toFixed(2)}</span>,
+        header: copy.queue.priority,
+        cell: ({ row }) => <span className="mono dp-meta">{row.original.priority_score.toFixed(2)}</span>,
       },
       {
-        id: "rain",
-        header: "RainΔ",
-        cell: ({ row }) => {
-          const d = row.original.rain_delta
-          return (
-            <span className="mono">{d == null ? "—" : d > 0 ? `+${d}` : String(d)}</span>
-          )
-        },
+        id: "next",
+        header: copy.queue.nextAction,
+        cell: ({ row }) => (
+          <span className="muted dp-meta">
+            {nextActionLabel(row.original.ownership_state, Boolean(row.original.escalated))}
+          </span>
+        ),
       },
     ],
     [],
@@ -93,7 +81,7 @@ export function QueueTable({
   })
 
   if (rows.length === 0) {
-    return <p>No disputed points loaded. Check fixtures.</p>
+    return <p>{copy.command.empty}</p>
   }
 
   const awaiting = rows.filter((r) => r.ownership_state === "CONFLICT" || r.escalated)
@@ -101,9 +89,9 @@ export function QueueTable({
   return (
     <div className="queue-wrap">
       {awaiting.length > 0 ? (
-        <div className="awaiting-region" data-testid="awaiting-you-region">
-          <Badge variant="warn">AWAITING YOU</Badge>
-          <span className="muted"> · {awaiting.length} need human review / disputed</span>
+        <div className="awaiting-region visually-hidden" data-testid="awaiting-you-region" aria-hidden="true">
+          <Badge variant="warn">{copy.command.awaitingStrip(awaiting.length)}</Badge>
+          <span className="muted"> {copy.queue.awaitingRegion(awaiting.length)}</span>
         </div>
       ) : null}
       <Table data-testid="command-queue">
@@ -126,7 +114,7 @@ export function QueueTable({
                 key={row.id}
                 tabIndex={0}
                 role="button"
-                aria-label={`Open incident ${r.name}`}
+                aria-label={copy.queue.openIncident(r.name)}
                 aria-selected={r.id === selectedId}
                 className={[
                   flashed.has(r.id) ? "flash flip-target" : "flip-target",

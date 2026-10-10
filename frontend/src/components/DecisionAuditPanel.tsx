@@ -1,40 +1,46 @@
 import type { PointDetail } from "../api/client"
+import { copy } from "../lib/copy"
 import { HumanVerifiedSeal } from "./HumanVerifiedSeal"
 
 export function DecisionAuditPanel({ point }: { point: PointDetail }) {
   const latest = point.audit?.[point.audit.length - 1]
   const decision = point.decision_record
   const timeline = point.audit ?? []
+  const conflict = point.ownership_state === "CONFLICT"
 
   return (
-    <section aria-label="Decision audit" data-testid="decision-audit">
+    <section aria-label={copy.audit.region} data-testid="decision-audit">
       <HumanVerifiedSeal point={point} />
-      <h3 className="section-h">SYSTEM RECOMMENDED</h3>
-      <p>{latest?.previous_recommendation ?? point.recommended_action ?? "—"}</p>
-      <h3 className="section-h">HUMAN DECISION</h3>
+      <h3 className="section-h">{copy.audit.systemFinding}</h3>
+      <p>
+        {conflict
+          ? copy.audit.systemFindingBody
+          : (latest?.previous_recommendation ?? point.recommended_action ?? "—")}
+      </p>
+      <h3 className="section-h">{copy.audit.humanDecision}</h3>
       {decision ? (
         <div className="decision-record" data-testid="decision-record">
           <p>
-            <strong>Incident:</strong> {point.id}
+            <strong>{copy.audit.incident}</strong> {point.id}
           </p>
           <p>
-            <strong>Decision:</strong> ASSIGN TO {String(decision.agency)}
+            <strong>{copy.audit.decision}</strong> {copy.audit.confirmed(String(decision.agency))}
           </p>
           <p>
-            <strong>Actor:</strong> {String(decision.actorRole ?? "INCIDENT_COMMANDER")}
+            <strong>{copy.audit.decisionMaker}:</strong> {String(decision.actorRole ?? "INCIDENT_COMMANDER")}
           </p>
           <p>
-            <strong>Reason:</strong> {String(decision.reason)}
+            <strong>{copy.audit.reason}</strong> {String(decision.reason)}
           </p>
           <p>
-            <strong>Evidence reviewed:</strong>{" "}
+            <strong>{copy.audit.evidenceReviewed}</strong>{" "}
             {Array.isArray(decision.evidenceIds) ? decision.evidenceIds.length : 0} items
           </p>
           <p>
-            <strong>Timestamp:</strong> {String(decision.timestamp ?? latest?.timestamp ?? "—")}
+            <strong>{copy.audit.timestamp}</strong> {String(decision.timestamp ?? latest?.timestamp ?? "—")}
           </p>
           <p>
-            <strong>Audit:</strong> <span className="mono">{String(decision.auditId)}</span>
+            <strong>{copy.audit.auditId}:</strong> <span className="mono">{String(decision.auditId)}</span>
           </p>
         </div>
       ) : latest ? (
@@ -45,7 +51,7 @@ export function DecisionAuditPanel({ point }: { point: PointDetail }) {
           {point.escalate_reason ? ` · ${point.escalate_reason}` : ""}
         </p>
       ) : (
-        <p className="muted">No human decision yet.</p>
+        <p className="muted">{copy.audit.awaiting}</p>
       )}
       {timeline.length > 0 ? (
         <ol className="audit-timeline" data-testid="audit-timeline">

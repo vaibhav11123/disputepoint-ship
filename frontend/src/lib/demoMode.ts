@@ -8,6 +8,23 @@ export function isJudgesMode(): boolean {
   return q.get("judges") === "1" || q.has("judges")
 }
 
+/** Quieter topbar for camera (`?demo=1`) or default non-judges chrome. */
+export function isQuietDemoChrome(): boolean {
+  if (typeof window === "undefined") return true
+  const q = new URLSearchParams(window.location.search)
+  if (q.get("demo") === "1") return true
+  if (isJudgesMode()) return false
+  return true
+}
+
+/** Footer AWS honesty — never invent Ship It without VITE_AWS_MODE=ship. */
+export function awsHonestyLabel(): string {
+  const mode = (import.meta.env.VITE_AWS_MODE as string | undefined)?.toLowerCase()
+  if (mode === "ship" || mode === "shipit") return "AWS · Ship It"
+  if (mode === "sam" || mode === "build") return "AWS · Build It (SAM local)"
+  return "AWS · local fixtures"
+}
+
 export function isDemoRoute(): boolean {
   if (typeof window === "undefined") return false
   return window.location.pathname === "/demo" || window.location.hash === "#demo"
@@ -29,18 +46,35 @@ export function pickConflictFocusId(items: { id: string; ownership_state: string
 }
 
 /**
- * Dry demo presentation: ACT/ASSIGNED first, CONFLICT mid-list, RESEARCH last.
- * Wet (precip > 5): keep API priority order so Rain Strike visibly reorders.
+ * Dry cold-open presentation only (ASSIGNED first). Never switches on rainfall —
+ * citywide R cannot change relative order, so wet "engine reorder" is dishonest.
  */
-export function presentQueueForDemo(items: PointRow[], precipMm: number): PointRow[] {
-  if (precipMm > 5) {
-    return items.map((row, index) => ({ ...row, priority_rank: index + 1 }))
-  }
+export function presentQueueForDemo(items: PointRow[], _precipMm?: number): PointRow[] {
   const assigned = items.filter((row) => row.ownership_state === "ASSIGNED")
   const conflict = items.filter((row) => row.ownership_state === "CONFLICT")
   const rest = items.filter((row) => row.ownership_state !== "ASSIGNED" && row.ownership_state !== "CONFLICT")
   const ordered = [...assigned, ...conflict, ...rest]
   return ordered.map((row, index) => ({ ...row, priority_rank: index + 1 }))
+}
+
+/**
+ * Historical replay view: documented activations by clock t, in activation order.
+ * Does not fabricate points; remainder count is for UI honesty.
+ */
+export function presentReplayQueue(
+  items: PointRow[],
+  activatedIds: string[],
+): { active: PointRow[]; undocumentedCount: number } {
+  const byId = new Map(items.map((row) => [row.id, row]))
+  const active: PointRow[] = []
+  for (const id of activatedIds) {
+    const row = byId.get(id)
+    if (row) active.push({ ...row, priority_rank: active.length + 1 })
+  }
+  return {
+    active,
+    undocumentedCount: Math.max(0, items.length - active.length),
+  }
 }
 
 export function awaitingYouCount(items: { ownership_state: string; escalated?: boolean }[]): number {

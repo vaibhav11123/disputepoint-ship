@@ -3,7 +3,6 @@ import {
   getHealth,
   getPoint,
   listPoints,
-  postScenario,
   QUEUE_REFRESH,
   SELECT_POINT,
   type PointDetail,
@@ -12,14 +11,17 @@ import {
 import { POINT_REFRESH } from "./components/ActionBlock"
 import { TopBar } from "./components/TopBar"
 import { triageSummary } from "./components/TriageChip"
+import { copy } from "./lib/copy"
 import {
   isJudgesMode,
   MAP_EXPAND_EVENT,
   pickColdOpenId,
   pickConflictFocusId,
   presentQueueForDemo,
+  presentReplayQueue,
   RAIN_STRIKE_EVENT,
 } from "./lib/demoMode"
+import { periodHoursBetween, rainAvailabilityLabel } from "./lib/rainStatus"
 import { incidentIdFromRoute, navigate, useRoute } from "./lib/router"
 import { AuditScreen } from "./screens/AuditScreen"
 import { CommandScreen } from "./screens/CommandScreen"
@@ -29,15 +31,12 @@ import { EvidenceScreen } from "./screens/EvidenceScreen"
 import { IncidentScreen } from "./screens/IncidentScreen"
 
 type PaletteProps = { onSelect: (id: string) => void }
-type EvalProps = Record<string, never>
 
 const paletteMods = import.meta.glob("./components/CommandPalette.tsx", { eager: true }) as Record<
   string,
   { CommandPalette?: ComponentType<PaletteProps> }
 >
-const evalMods = import.meta.glob("./components/EvalLink.tsx", { eager: true }) as Record<string, { EvalLink?: ComponentType<EvalProps> }>
 const CommandPalette = Object.values(paletteMods)[0]?.CommandPalette
-const EvalLink = Object.values(evalMods)[0]?.EvalLink
 
 export function App() {
   const route = useRoute()
@@ -52,6 +51,15 @@ export function App() {
   const [detailTick, setDetailTick] = useState(0)
   const [rainActive, setRainActive] = useState(false)
   const [precipMm, setPrecipMm] = useState(0)
+  const [rainMode, setRainMode] = useState("none")
+  const [rainSourceState, setRainSourceState] = useState<string | null>(null)
+  const [scenarioActive, setScenarioActive] = useState(false)
+  const [replayActive, setReplayActive] = useState(false)
+  const [rainStation, setRainStation] = useState<string | null>(null)
+  const [rainPeriodStart, setRainPeriodStart] = useState<string | null>(null)
+  const [rainPeriodEnd, setRainPeriodEnd] = useState<string | null>(null)
+  const [rainPriorityUses, setRainPriorityUses] = useState<boolean | null>(null)
+  const [replayActivatedIds, setReplayActivatedIds] = useState<string[]>([])
   const [mapForceOpen, setMapForceOpen] = useState(false)
   const pendingStrikeFocus = useRef(false)
   const flipRects = useRef<Map<string, DOMRect>>(new Map())
@@ -70,6 +78,29 @@ export function App() {
     return listing.items
   }
 
+  async function syncHealth() {
+    const health = await getHealth()
+    setRainMode(health.rain_mode)
+    setRainSourceState(health.rain_source_state ?? null)
+    setScenarioActive(Boolean(health.scenario_active))
+    const active = Boolean(health.replay_active)
+    setReplayActive(active)
+    setReplayActivatedIds(active ? listOrEmpty(health.replay_activated_point_ids) : [])
+    setRainStation(health.rain_station ?? null)
+    setRainPeriodStart(health.rain_period_start ?? null)
+    setRainPeriodEnd(health.rain_period_end ?? null)
+    setRainPriorityUses(
+      typeof health.rain_priority_uses === "boolean" ? health.rain_priority_uses : null,
+    )
+    if (health.precip_mm == null) setPrecipMm(0)
+    else if (typeof health.precip_mm === "number") setPrecipMm(health.precip_mm)
+    return health
+  }
+
+  function listOrEmpty(ids: string[] | undefined): string[] {
+    return Array.isArray(ids) ? ids : []
+  }
+
   function openIncident(id: string) {
     setSelectedId(id)
     navigate({ name: "incident", id })
@@ -80,14 +111,7 @@ export function App() {
     let cancelled = false
     ;(async () => {
       try {
-        const health = await getHealth()
-        if (cancelled) return
-        if (typeof health.precip_mm === "number" && health.precip_mm > 5) {
-          await postScenario(0)
-          if (!cancelled) setPrecipMm(0)
-        } else if (typeof health.precip_mm === "number") {
-          setPrecipMm(health.precip_mm)
-        }
+        await syncHealth()
         if (cancelled) return
         await loadQueue(null, true)
       } catch {
@@ -95,7 +119,7 @@ export function App() {
         try {
           await loadQueue(null, true)
         } catch (inner: unknown) {
-          setError(inner instanceof Error ? inner.message : "Queue failed to load.")
+          setError(inner instanceof Error ? inner.message : copy.chrome.queueFail)
         }
       }
     })()
@@ -120,7 +144,7 @@ export function App() {
         if (!cancelled) setDetail(point)
       })
       .catch((err: unknown) => {
-        if (!cancelled) setError(err instanceof Error ? err.message : "Point failed to load.")
+        if (!cancelled) setError(err instanceof Error ? err.message : copy.chrome.pointFail)
       })
     return () => {
       cancelled = true
@@ -170,13 +194,16 @@ export function App() {
       captureFlip()
       const detailPrecip = (event as CustomEvent<{ precip_mm?: number }>).detail?.precip_mm
       if (typeof detailPrecip === "number") setPrecipMm(detailPrecip)
+      void syncHealth().catch(() => undefined)
       const previous = new Map((rows ?? []).map((row) => [row.id, row.priority_rank]))
       const focusAfterStrike = pendingStrikeFocus.current
       pendingStrikeFocus.current = false
       loadQueue(focusAfterStrike ? null : selectedId)
         .then((items) => {
-          const wet = typeof detailPrecip === "number" ? detailPrecip > 5 : precipMm > 5
-          const presented = judges ? items : presentQueueForDemo(items, wet ? 42 : precipMm)
+          const demoMm = typeof detailPrecip === "number" ? detailPrecip : precipMm
+          const wet = demoMm > 5
+          // Never invent relative reorder from citywide rain — use API ranks or dry cold-open only.
+          const presented = judges ? items : presentQueueForDemo(items)
           const moved = new Set(
             presented.filter((row) => previous.get(row.id) !== row.priority_rank).map((row) => row.id),
           )
@@ -196,7 +223,7 @@ export function App() {
           }, 450)
           window.setTimeout(() => setRainActive(false), 8000)
         })
-        .catch((err: unknown) => setError(err instanceof Error ? err.message : "Queue failed to load."))
+        .catch((err: unknown) => setError(err instanceof Error ? err.message : copy.chrome.queueFail))
     }
     function onSelect(event: Event) {
       const id = (event as CustomEvent<string>).detail
@@ -222,19 +249,38 @@ export function App() {
     }
   }, [rows, selectedId, precipMm, judges])
 
+  const replayView = useMemo(() => {
+    if (!rows || !replayActive || route.name !== "demo") return null
+    return presentReplayQueue(rows, replayActivatedIds)
+  }, [rows, replayActive, route.name, replayActivatedIds])
+
   const displayRows = useMemo(() => {
     if (!rows) return null
     if (judges) return rows
-    return presentQueueForDemo(rows, precipMm)
-  }, [rows, precipMm, judges])
+    if (replayView) return replayView.active
+    // Command / non-replay: dry cold-open presentation only when precip unavailable.
+    if (!scenarioActive && precipMm <= 0 && rainMode !== "live" && rainMode !== "slider") {
+      return presentQueueForDemo(rows)
+    }
+    return rows
+  }, [rows, judges, replayView, scenarioActive, precipMm, rainMode])
+
+  const undocumentedReplayCount = replayView?.undocumentedCount ?? 0
 
   const summary = displayRows ? triageSummary(displayRows) : null
   const showOpsChrome = route.name !== "demo"
+  const footerLabel = rainAvailabilityLabel({
+    scenarioActive,
+    replayActive,
+    rainSourceState,
+    rainMode,
+    precipMm,
+  })
 
   return (
     <div className={judges ? "app judges" : "app demo"}>
       <a className="skip" href="#queue">
-        Skip to queue
+        {copy.chrome.skip}
       </a>
       {showOpsChrome ? (
         <TopBar
@@ -242,7 +288,14 @@ export function App() {
           onToggleSynthetic={() => setHideSynthetic((value) => !value)}
           pulse={pulse}
           precipMm={precipMm}
-          rainMode={precipMm > 5 ? "DEMO" : "IDLE"}
+          rainMode={rainMode}
+          rainSourceState={rainSourceState}
+          scenarioActive={scenarioActive}
+          replayActive={replayActive}
+          rainStation={rainStation}
+          rainPeriodStart={rainPeriodStart}
+          rainPeriodEnd={rainPeriodEnd}
+          rainPriorityUses={rainPriorityUses}
           counts={
             summary
               ? {
@@ -271,8 +324,10 @@ export function App() {
           <DemoScreen
             rows={displayRows}
             selectedId={selectedId}
-            rainActive={rainActive}
+            rainActive={rainActive || replayActive}
             onSelect={openIncident}
+            onHighlight={(id) => setSelectedId(id)}
+            undocumentedCount={undocumentedReplayCount}
           />
         ) : null}
         {detail && route.name === "incident" ? (
@@ -281,21 +336,29 @@ export function App() {
         {detail && route.name === "evidence" ? <EvidenceScreen point={detail} route={route} /> : null}
         {detail && route.name === "coordination" ? <CoordinationScreen point={detail} route={route} /> : null}
         {detail && route.name === "audit" ? <AuditScreen point={detail} route={route} /> : null}
-        {routePointId && !detail && !error ? <p className="muted pad">Loading incident…</p> : null}
+        {routePointId && !detail && !error ? <p className="muted pad">{copy.chrome.loadingIncident}</p> : null}
       </div>
       {showOpsChrome ? (
         <footer className="footer">
-          <span>Rain source verified · Ownership decisions require human confirmation</span>
+          <span className="muted" data-testid="footer-rain-status">
+            {replayActive
+              ? copy.rain.replayLine(precipMm, {
+                  station: rainStation || "Safdarjung",
+                  periodHours: periodHoursBetween(rainPeriodStart, rainPeriodEnd),
+                })
+              : scenarioActive
+                ? copy.rain.scenarioLine(precipMm)
+                : footerLabel}
+          </span>
           <a className="muted" href="/demo">
-            Demo
+            {copy.chrome.footerDemo}
           </a>
-          {judges && EvalLink ? <EvalLink /> : null}
-          {judges && CommandPalette ? <CommandPalette onSelect={openIncident} /> : null}
-          {!judges ? (
-            <a className="muted judges-link" href="/command?judges=1">
-              Judges inspection
+          {judges ? (
+            <a className="muted" href="/aws-arch.html">
+              {copy.chrome.footerArchitecture}
             </a>
           ) : null}
+          {judges && CommandPalette ? <CommandPalette onSelect={openIncident} /> : null}
         </footer>
       ) : null}
     </div>

@@ -1,4 +1,13 @@
+import { copy } from "../lib/copy"
+
 export type TriageBand = "ACT" | "ADJUDICATE" | "RESEARCH" | "AWAITING YOU"
+
+const LABEL: Record<TriageBand, string> = {
+  ACT: copy.triage.actionRequired,
+  ADJUDICATE: copy.triage.reviewRequired,
+  RESEARCH: copy.triage.evidenceNeeded,
+  "AWAITING YOU": copy.triage.awaitingDecision,
+}
 
 export function triageFor(state: string, escalated = false): TriageBand {
   if (escalated) return "AWAITING YOU"
@@ -7,12 +16,17 @@ export function triageFor(state: string, escalated = false): TriageBand {
   return "RESEARCH"
 }
 
+export function triageLabel(state: string, escalated = false): string {
+  return LABEL[triageFor(state, escalated)]
+}
+
 export function TriageChip({ state, escalated = false }: { state: string; escalated?: boolean }) {
   const band = triageFor(state, escalated)
-  const klass = band === "ACT" ? "chip ok" : "chip warn"
+  // ACTION REQUIRED must never use success-green
+  const klass = band === "ACT" ? "chip action" : "chip warn"
   return (
     <span className={klass} data-testid={band === "AWAITING YOU" ? "awaiting-you" : undefined}>
-      {band}
+      {LABEL[band]}
     </span>
   )
 }
@@ -30,4 +44,11 @@ export function triageSummary(rows: { ownership_state: string; escalated?: boole
     else research += 1
   }
   return { act, adjudicate, research, awaiting, disputed: adjudicate + awaiting }
+}
+
+export function nextActionLabel(state: string, escalated = false): string {
+  const band = triageFor(state, escalated)
+  if (band === "ADJUDICATE" || band === "AWAITING YOU") return copy.hitl.escalate
+  if (band === "ACT") return copy.hitl.confirm
+  return copy.triage.evidenceNeeded
 }

@@ -1,6 +1,7 @@
 import type { PointDetail } from "../api/client"
+import { copy } from "../lib/copy"
 
-/** Visible after OVERRIDE or OFFICER_CONFIRMED — closes the accountability loop. */
+/** Visible after OFFICER_CONFIRMED — closes the accountability loop. */
 export function HumanVerifiedSeal({ point }: { point: PointDetail }) {
   const confirmed = [...(point.audit ?? [])].reverse().find((row) => row.action === "OFFICER_CONFIRMED")
   const override = [...(point.audit ?? [])].reverse().find((row) => row.action === "OVERRIDE")
@@ -12,14 +13,16 @@ export function HumanVerifiedSeal({ point }: { point: PointDetail }) {
   const auditId = String(decision?.auditId ?? `DP-AUD-${point.id.replace(/^dp-/, "").slice(0, 12).toUpperCase()}`)
 
   return (
-    <section className="human-verified" data-testid="human-verified" aria-label="Officer confirmed">
-      <p className="seal-title">OFFICER CONFIRMED</p>
+    <section className="human-verified" data-testid="human-verified" aria-label={copy.audit.sealAria}>
+      <p className="seal-title">{copy.audit.sealTitle}</p>
       <p>
         <span className="claim-agency">{agency}</span>{" "}
-        <span className="chip ok">HUMAN DECISION</span>
+        <span className="chip ok">{copy.audit.humanDecision}</span>
       </p>
-      <p className="mono muted">AUDIT {auditId}</p>
-      <p className="muted">System refused auto-assign; Incident Commander recorded operational responsibility.</p>
+      <p className="mono muted">
+        {copy.audit.auditId} {auditId}
+      </p>
+      <p className="muted">{copy.audit.sealBody}</p>
     </section>
   )
 }

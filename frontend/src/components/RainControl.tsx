@@ -1,20 +1,29 @@
 import { useEffect } from "react"
 import { useRain } from "../hooks/useRain"
 import { FollowStorm } from "./FollowStorm"
+import { copy } from "../lib/copy"
 import { isJudgesMode, MAP_EXPAND_EVENT, RAIN_STRIKE_EVENT } from "../lib/demoMode"
 
-const MODE_LABEL = { live: "Live", cache: "Cache", slider: "Slider" } as const
 const STRIKE_MM = 42
+
+function productMode(mode: string, sourceState: string | null, scenarioActive: boolean): string {
+  if (scenarioActive || mode === "slider" || sourceState === "SCENARIO") return copy.rain.scenario
+  if (mode === "live" || sourceState === "LIVE") return copy.rain.live
+  if (sourceState === "STALE") return copy.rain.lastObservation
+  return copy.rain.unavailable
+}
 
 export function RainControl({ pulse }: { pulse: boolean }) {
   const rain = useRain()
   const judges = isJudgesMode()
+  const onDemoRoute = typeof window !== "undefined" && window.location.pathname.startsWith("/demo")
   useEffect(() => {
     rain.refreshMode().catch(() => undefined)
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- mount refresh only
   }, [])
-  const label = MODE_LABEL[rain.mode as keyof typeof MODE_LABEL] ?? "Cache"
+  const modeChip = productMode(rain.mode, rain.sourceState, rain.scenarioActive)
 
-  async function strike() {
+  async function applyScenario() {
     window.dispatchEvent(new Event(RAIN_STRIKE_EVENT))
     window.dispatchEvent(new Event(MAP_EXPAND_EVENT))
     await rain.apply(STRIKE_MM)
@@ -34,16 +43,20 @@ export function RainControl({ pulse }: { pulse: boolean }) {
         data-testid="rain-strike"
         disabled={rain.busy}
         aria-busy={rain.busy}
-        onClick={() => void strike()}
+        onClick={() => void applyScenario()}
       >
-        Rain Strike
+        {copy.rain.apply}
       </button>
       <span className="mono" aria-live="polite" data-testid="rain-mm">
-        {rain.mode === "slider" || rain.precip > 5
-          ? `RAINFALL SCENARIO · ${rain.precip.toFixed(0)} mm`
-          : `${rain.precip.toFixed(1)} mm`}
+        {rain.scenarioActive || rain.mode === "slider"
+          ? copy.rain.scenarioLine(rain.precip)
+          : typeof rain.precip === "number"
+            ? `${rain.precip.toFixed(1)} mm`
+            : "— mm"}
       </span>
-      <span className="chip">{rain.mode === "slider" ? "DEMO" : label}</span>
+      <span className="chip" data-testid="rain-mode-chip">
+        {modeChip}
+      </span>
       {rain.retrievedAt ? (
         <span className="muted mono" title={rain.retrievedAt}>
           {rain.retrievedAt.replace("T", " ").slice(0, 16)}Z
@@ -52,12 +65,23 @@ export function RainControl({ pulse }: { pulse: boolean }) {
       {judges ? (
         <>
           <button type="button" disabled={rain.busy} aria-busy={rain.busy} onClick={() => void rain.refreshLive()}>
-            Refresh live rain
+            {copy.rain.refreshLive}
           </button>
+          {rain.scenarioActive ? (
+            <button
+              type="button"
+              data-testid="clear-scenario"
+              disabled={rain.busy}
+              aria-busy={rain.busy}
+              onClick={() => void rain.clearScenario()}
+            >
+              {copy.rain.clearScenario}
+            </button>
+          ) : null}
           <label className="field">
-            Scenario mm
+            {copy.rain.label}
             <input
-              aria-label="Scenario rain millimetres"
+              aria-label={copy.rain.aria}
               type="number"
               min={0}
               step={1}
@@ -66,14 +90,14 @@ export function RainControl({ pulse }: { pulse: boolean }) {
             />
           </label>
           <button type="submit" disabled={rain.busy} aria-busy={rain.busy}>
-            Apply rain
+            {copy.rain.apply}
           </button>
         </>
       ) : (
         <label className="field visually-hidden">
-          Scenario mm
+          {copy.rain.label}
           <input
-            aria-label="Scenario rain millimetres"
+            aria-label={copy.rain.aria}
             type="number"
             min={0}
             step={1}
@@ -82,8 +106,12 @@ export function RainControl({ pulse }: { pulse: boolean }) {
           />
         </label>
       )}
-      {rain.mode === "slider" ? <span>Using scenario rain · DEMO</span> : null}
-      <FollowStorm />
+      {rain.scenarioActive ? (
+        <span className="muted">
+          {copy.rain.scenarioRainfall(rain.precip)} <span className="chip">{copy.rain.scenario}</span>
+        </span>
+      ) : null}
+      {onDemoRoute ? <FollowStorm /> : null}
       {rain.error ? (
         <span className="error" role="alert">
           {rain.error}

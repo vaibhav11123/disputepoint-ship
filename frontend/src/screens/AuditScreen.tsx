@@ -4,6 +4,8 @@ import type { PointDetail } from "../api/client"
 import { AccountabilityClock } from "../components/AccountabilityClock"
 import { IncidentNav } from "../components/IncidentNav"
 import { IncidentReplay } from "../components/IncidentReplay"
+import { IncidentWorkspace } from "../components/IncidentWorkspace"
+import { copy } from "../lib/copy"
 import type { AppRoute } from "../lib/router"
 
 type AuditProps = { point: PointDetail }
@@ -15,23 +17,25 @@ const DecisionAuditPanel = Object.values(auditMods)[0]?.DecisionAuditPanel
 
 export function AuditScreen({ point, route }: { point: PointDetail; route: AppRoute }) {
   return (
-    <section className="audit-screen" aria-label="Decision audit" data-testid="audit-screen">
-      <IncidentNav id={point.id} route={route} title={point.name} />
-      <motion.div
-        className="audit-timeline"
-        initial={{ opacity: 0, y: 6 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.22 }}
-      >
-        {point.officer_confirmed ? (
-          <p className="chip ok" data-testid="officer-confirmed-banner">
-            OFFICER CONFIRMED
-          </p>
-        ) : null}
-        {DecisionAuditPanel ? <DecisionAuditPanel point={point} /> : null}
-        <AccountabilityClock point={point} />
-        <IncidentReplay point={point} />
-      </motion.div>
+    <section className="audit-screen" aria-label={copy.audit.region} data-testid="audit-screen">
+      <IncidentWorkspace point={point} compactMap mapHeight={200}>
+        <IncidentNav id={point.id} route={route} title={point.name} />
+        <motion.div
+          className="audit-timeline"
+          initial={{ opacity: 0, y: 6 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.22 }}
+        >
+          {point.officer_confirmed ? (
+            <p className="chip ok" data-testid="officer-confirmed-banner">
+              {copy.state.officerConfirmed}
+            </p>
+          ) : null}
+          {DecisionAuditPanel ? <DecisionAuditPanel point={point} /> : null}
+          <AccountabilityClock point={point} />
+          <IncidentReplay point={point} />
+        </motion.div>
+      </IncidentWorkspace>
     </section>
   )
 }

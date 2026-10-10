@@ -11,6 +11,8 @@ export default defineConfig({
       "/health": "http://127.0.0.1:8000",
       "/points": "http://127.0.0.1:8000",
       "/rain": "http://127.0.0.1:8000",
+      "/replays": "http://127.0.0.1:8000",
+      "/evidence": "http://127.0.0.1:8000",
       "/meta": "http://127.0.0.1:8000",
     },
   },

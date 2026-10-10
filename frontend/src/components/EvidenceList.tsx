@@ -15,8 +15,10 @@ export function EvidenceList({ items }: { items: EvidenceItem[] }) {
             )}
           </dt>
           <dd>
+            {item.title ? <p className="dp-meta">{item.title}</p> : null}
             <q>{item.quote}</q>{" "}
             <a href={item.url} target="_blank" rel="noreferrer">source</a>
+            {item.source_date ? <span className="muted"> · {item.source_date}</span> : null}
             {item.live_status && item.live_status !== "ok" ? (
               <span className="muted"> · {item.live_status}</span>
             ) : null}

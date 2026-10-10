@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { postScenario, QUEUE_REFRESH } from "../api/client"
+import { postClearScenario, postScenario, QUEUE_REFRESH } from "../api/client"
 
 /** Tier A: ≤10s radar→priority cascade demo, then calm. Not permanent radar. */
 export function FollowStorm({ onDone }: { onDone?: () => void }) {
@@ -23,8 +23,12 @@ export function FollowStorm({ onDone }: { onDone?: () => void }) {
         await new Promise((r) => window.setTimeout(r, 2200))
       }
       setStatus("Returning to calm queue")
-      await postScenario(0)
-      window.dispatchEvent(new Event(QUEUE_REFRESH))
+      const cleared = await postClearScenario()
+      window.dispatchEvent(
+        new CustomEvent(QUEUE_REFRESH, {
+          detail: { precip_mm: typeof cleared.precip_mm === "number" ? cleared.precip_mm : undefined },
+        }),
+      )
       await new Promise((r) => window.setTimeout(r, 800))
       setStatus(null)
       onDone?.()

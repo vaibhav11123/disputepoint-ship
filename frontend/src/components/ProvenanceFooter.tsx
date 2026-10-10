@@ -1,4 +1,5 @@
 import type { PointDetail } from "../api/client"
+import { copy } from "../lib/copy"
 
 export function ProvenanceFooter({ point }: { point: PointDetail }) {
   const provenance = point.provenance
@@ -15,7 +16,7 @@ export function ProvenanceFooter({ point }: { point: PointDetail }) {
           {point.lat.toFixed(5)}, {point.lon.toFixed(5)}
         </p>
       ) : null}
-      {hasOsm ? <p className="muted">Data © OpenStreetMap contributors, ODbL</p> : null}
+      {hasOsm ? <p className="muted">{copy.provenance.osmData}</p> : null}
     </div>
   )
 }

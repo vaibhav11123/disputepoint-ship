@@ -1,10 +1,11 @@
 import { useState } from "react"
 import type { PointDetail } from "../api/client"
+import { copy } from "../lib/copy"
 
 const CHANNELS = [
-  { role: "I&FC flood control room", value: "011-21210867", asOf: "2026-10" },
-  { role: "PWD helpline", value: "155305", asOf: "2026-10" },
-  { role: "Disaster helpline", value: "1077", asOf: "2026-10" },
+  { role: "I&FC Flood Control Room", value: "011-21210867" },
+  { role: "PWD helpline", value: "155305" },
+  { role: "Disaster helpline", value: "1077" },
 ]
 
 export function CoordinationBrief({ point }: { point: PointDetail }) {
@@ -14,13 +15,13 @@ export function CoordinationBrief({ point }: { point: PointDetail }) {
   if (!escalated && point.ownership_state !== "CONFLICT") return null
 
   const brief = [
-    `CASE: ${point.id}`,
-    `Location: ${point.name}`,
-    `State: RESPONSIBILITY DISPUTED / ${point.ownership_state}`,
-    `Claims: ${point.agencies_claimed.join(" ↔ ") || "—"}`,
-    `Reason: ${point.escalate_reason || "Competing agency claims; evidence does not establish exclusive responsibility"}`,
-    `NEXT ACTION: Confirm operational responsibility (Incident Commander)`,
-    `Route: District EOC → IC → Agency division → Engineering officer`,
+    copy.coordination.briefHeader,
+    `Incident: ${point.name}`,
+    `Status: ${copy.state.responsibilityDisputed}`,
+    `Responsibility: ${point.agencies_claimed.join(" / ") || "—"}`,
+    `Reason for review: ${point.escalate_reason || copy.coordination.fallbackReason}`,
+    `Required action: Incident Commander to confirm operational responsibility.`,
+    `Route: ${copy.coordination.routeBody}`,
   ].join("\n")
 
   async function copyBrief() {
@@ -34,36 +35,42 @@ export function CoordinationBrief({ point }: { point: PointDetail }) {
   }
 
   return (
-    <section className="coordination-brief" data-testid="coordination-brief" aria-label="Coordination brief">
-      <h3 className="section-h">HUMAN REVIEW REQUIRED</h3>
+    <section className="coordination-brief" data-testid="coordination-brief" aria-label={copy.coordination.briefAria}>
+      <h3 className="section-h">{copy.coordination.title}</h3>
       <ul>
         <li>
-          <strong>Reason:</strong> {point.escalate_reason || "Competing agency claims + no exclusive responsibility"}
+          <strong>{copy.coordination.why}</strong>
+          <br />
+          {point.escalate_reason || copy.coordination.fallbackReason}
         </li>
         <li>
-          <strong>Route:</strong> District EOC → Incident Commander → Agency division → Engineering officer
+          <strong>{copy.coordination.route}</strong>
+          <br />
+          {copy.coordination.routeBody}
         </li>
         <li>
-          <strong>NEXT ACTION:</strong> Confirm operational responsibility
+          <strong>{copy.coordination.next}</strong>
+          <br />
+          {copy.coordination.nextBody}
         </li>
         <li>
-          <strong>Point:</strong> {point.name} · {point.agencies_claimed.join(", ") || "—"}
+          <strong>{copy.coordination.point}</strong> {point.name} · {point.agencies_claimed.join(", ") || "—"}
         </li>
       </ul>
       <button type="button" data-testid="copy-brief" onClick={() => void copyBrief()}>
-        {copied ? "COPIED" : "COPY BRIEF"}
+        {copied ? copy.coordination.copied : copy.coordination.copy}
       </button>
       <button type="button" className="linkish" onClick={() => setOpenChannels((v) => !v)} aria-expanded={openChannels}>
-        Official coordination channels {openChannels ? "▾" : "▸"}
+        {copy.coordination.channels} {openChannels ? "▾" : "▸"}
       </button>
       {openChannels ? (
         <ul className="channels" data-testid="official-channels">
           {CHANNELS.map((row) => (
             <li key={row.value}>
-              <span className="muted">{row.role}</span> · <span className="mono">{row.value}</span>{" "}
-              <span className="muted">as-of {row.asOf}</span>
+              <span className="muted">{row.role}</span> · <span className="mono">{row.value}</span>
             </li>
           ))}
+          <li className="muted">{copy.coordination.verifiedContacts}</li>
         </ul>
       ) : null}
     </section>

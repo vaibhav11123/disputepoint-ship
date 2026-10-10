@@ -1,52 +1,83 @@
 import type { PointDetail } from "../api/client"
-import { AgencyBlock } from "./StateChip"
+import { copy } from "../lib/copy"
 
+/**
+ * Responsibility Assessment — signature component.
+ * Equal-weight claims; no implied winner; data-state honest.
+ */
 export function OwnershipConflict({ point }: { point: PointDetail }) {
-  if (point.ownership_state !== "CONFLICT") return null
-  const left = point.agencies_claimed[0] ?? "MCD"
-  const right = point.agencies_claimed[1] ?? "PWD"
+  if (point.ownership_state !== "CONFLICT") {
+    if (point.officer_confirmed && point.responsible_agency) {
+      return (
+        <section
+          className="responsibility-assessment"
+          data-testid="ownership-confirmed"
+          aria-label={copy.conflict.region}
+        >
+          <p className="responsibility-assessment-title">{copy.conflict.title}</p>
+          <p className="dp-body">
+            Recorded decision: <strong>{point.responsible_agency}</strong>
+            {point.decision_record?.auditId
+              ? ` · Audit ${String(point.decision_record.auditId)}`
+              : ""}
+          </p>
+        </section>
+      )
+    }
+    return null
+  }
+
+  const claims = point.agencies_claimed.filter(Boolean)
+  const agencies = claims.join(" and ")
 
   return (
-    <section className="ownership-conflict" data-testid="ownership-conflict" aria-label="Responsibility disputed">
-      <p className="ownership-conflict-title">RESPONSIBILITY DISPUTED · CLAIMS OVERLAP</p>
-      <div className="claim-duel">
-        <div className="claim-side">
-          <span className="claim-agency">{left}</span>
-          <span className="muted">CLAIM</span>
-        </div>
-        <div className="claim-vs" aria-hidden="true">
-          ↔
-        </div>
-        <div className="claim-side">
-          <span className="claim-agency">{right}</span>
-          <span className="muted">CLAIM</span>
-        </div>
-      </div>
-      <p className="claimed-row">
-        <span className="muted">Claimed </span>
-        <AgencyBlock agency={null} claimed={point.agencies_claimed} />
+    <section
+      className="responsibility-assessment ownership-conflict"
+      data-testid="ownership-conflict"
+      aria-label={copy.conflict.region}
+    >
+      <p className="responsibility-assessment-title">{copy.conflict.title}</p>
+
+      <p className="dp-section" style={{ fontSize: 14, marginBottom: 8 }}>
+        Competing claims
       </p>
+      {claims.length === 0 ? (
+        <p className="muted">No responsibility claims are recorded for this incident.</p>
+      ) : (
+        <div className="claim-grid" data-testid="claim-grid">
+          {claims.map((agency) => (
+            <div key={agency} className="claim-side">
+              <span className="claim-agency">{agency}</span>
+              <span className="muted">
+                {point.claim_summaries?.[agency] ?? copy.conflict.claim}
+              </span>
+            </div>
+          ))}
+        </div>
+      )}
+
+      <hr className="assessment-divider" />
+
+      <p className="section-h">{copy.conflict.whatEstablishes}</p>
+      <p className="dp-body muted">
+        {agencies
+          ? copy.incident.competingClaimsLine(agencies)
+          : copy.conflict.body}
+      </p>
+
+      <p className="section-h">{copy.conflict.whatUnresolved}</p>
       <p className="agency-null" data-testid="agency-null">
-        <strong>Operational responsibility:</strong> <span className="mono">—</span>
-        <span className="muted"> (no auto-assignment)</span>
+        <strong>{copy.conflict.operational}</strong>{" "}
+        <span className="mono">{copy.conflict.none}</span>
       </p>
+      <p className="dp-body muted">{copy.conflict.body}</p>
+
       <p className="no-auto" data-testid="no-auto-assign">
-        NO AUTO-ASSIGN
+        {copy.conflict.noAutoAssign}
       </p>
       <p className="conflict-effect" data-testid="conflict-effect">
-        Evidence supports overlapping claims. It does not establish exclusive operational responsibility.
+        {copy.conflict.next}
       </p>
-      <div className="missing-evidence" data-testid="what-would-resolve">
-        <p className="section-h">WHAT WOULD RESOLVE THIS?</p>
-        <ul className="missing-list">
-          <li>□ Current jurisdiction order</li>
-          <li>□ Drain ownership record</li>
-          <li>□ Recent maintenance responsibility</li>
-          <li>□ Agency confirmation</li>
-          <li>□ Field verification</li>
-        </ul>
-        <p className="muted">Competing claims present — exclusive responsibility not established.</p>
-      </div>
     </section>
   )
 }

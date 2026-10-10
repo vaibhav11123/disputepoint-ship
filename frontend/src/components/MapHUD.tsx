@@ -3,6 +3,7 @@ import Map, { Marker, NavigationControl, type MapRef } from "react-map-gl/maplib
 import "maplibre-gl/dist/maplibre-gl.css"
 import type { PointRow } from "../api/client"
 import { MAP_EXPAND_EVENT } from "../lib/demoMode"
+import { copy } from "../lib/copy"
 import { DEMO_CHAPTERS, POSITRON_FALLBACK, POSITRON_STYLE, PURANA_QUILA } from "../lib/lifecycle"
 
 const DELHI = { longitude: 77.21, latitude: 28.61, zoom: 11 }
@@ -33,6 +34,7 @@ export function MapHUD({
   rainActive = false,
   forceOpen = false,
   chapterIndex = null,
+  fillHeight = false,
 }: {
   rows: PointRow[]
   selectedId: string | null
@@ -42,6 +44,7 @@ export function MapHUD({
   forceOpen?: boolean
   /** Demo Signature Interaction chapter index into DEMO_CHAPTERS */
   chapterIndex?: number | null
+  fillHeight?: boolean
 }) {
   const mapped = useMemo(() => rows.filter(hasCoords), [rows])
   const [open, setOpen] = useState(defaultOpen)
@@ -87,17 +90,17 @@ export function MapHUD({
   return (
     <div className={rainActive ? "maphud rain-active" : "maphud"} data-testid="map-hud">
       <button type="button" className="maphud-toggle" aria-expanded={open} onClick={() => setOpen((value) => !value)}>
-        {open ? "Hide map" : "Show map"} ({mapped.length} geocoded)
+        {copy.map.geocoded(mapped.length, open)}
       </button>
       {open ? (
-        <div className="maphud-frame" aria-label="District map context">
+        <div className="maphud-frame" aria-label={copy.map.region}>
           {rainActive ? <div className="rain-veil" aria-hidden="true" /> : null}
           <Map
             ref={mapRef}
             initialViewState={DELHI}
             mapStyle={styleUrl}
-            style={{ width: "100%", height: 280 }}
-            attributionControl
+            style={{ width: "100%", height: fillHeight ? "100%" : 280, minHeight: 280 }}
+            attributionControl={{ compact: true }}
             onError={() => {
               if (styleUrl !== POSITRON_FALLBACK) setStyleUrl(POSITRON_FALLBACK)
             }}
@@ -106,6 +109,8 @@ export function MapHUD({
             {mapped.map((row) => {
               const lon = row.id === PURANA_QUILA.id ? (row.lon ?? PURANA_QUILA.lon) : (row.lon as number)
               const lat = row.id === PURANA_QUILA.id ? (row.lat ?? PURANA_QUILA.lat) : (row.lat as number)
+              const disputed = row.ownership_state === "CONFLICT"
+              const selected = row.id === selectedId
               return (
                 <Marker
                   key={row.id}
@@ -119,8 +124,10 @@ export function MapHUD({
                 >
                   <button
                     type="button"
-                    className={row.id === selectedId ? "map-pin selected" : "map-pin"}
-                    aria-label={`Select ${row.name}`}
+                    className={["map-pin", disputed ? "disputed" : "", selected ? "selected" : ""]
+                      .filter(Boolean)
+                      .join(" ")}
+                    aria-label={copy.map.pin}
                     title={row.name}
                   />
                 </Marker>
@@ -128,7 +135,8 @@ export function MapHUD({
             })}
           </Map>
           <p className="muted maphud-credit">
-            Positron basemap · © OpenStreetMap / OpenFreeMap · DEMO climax {PURANA_QUILA.lat}, {PURANA_QUILA.lon}
+            {copy.map.credit}
+            {selectedId === PURANA_QUILA.id ? ` · ${copy.map.scenarioLocation}` : ""}
           </p>
         </div>
       ) : null}

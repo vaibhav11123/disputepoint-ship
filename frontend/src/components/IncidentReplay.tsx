@@ -1,26 +1,28 @@
 import { useMemo, useState } from "react"
 import type { PointDetail } from "../api/client"
+import { copy } from "../lib/copy"
 import { buildEventSteps } from "./EventRail"
 
 type Frame = { t: string; label: string; stepId: string }
 
 function framesFor(point: PointDetail): Frame[] {
   const steps = buildEventSteps(point)
-  const base = "09:41"
-  const labels: Record<string, string> = {
-    rain: "RAIN",
-    priority: "PRIORITY ↑",
-    conflict: "RESPONSIBILITY DISPUTED",
-    evidence: "EVIDENCE · WE DON’T GUESS",
-    escalate: "HUMAN REVIEW",
-    human: "OFFICER CONFIRMED",
+  const story = copy.replay.frames
+  const map: Record<string, string> = {
+    received: story[0],
+    triaged: story[1],
+    conflict: story[2],
+    evidence: story[3],
+    escalate: story[4],
+    confirmed: story[5],
+    assigned: story[6],
   }
-  const done = steps.filter((s) => s.done)
+  const done = steps.filter((s) => s.done && map[s.id])
   return done.map((step, index) => {
     const minute = 41 + index
     return {
       t: `09:${String(minute).padStart(2, "0")}`,
-      label: labels[step.id] ?? step.label,
+      label: map[step.id] ?? step.label,
       stepId: step.id,
     }
   })
@@ -33,10 +35,10 @@ export function IncidentReplay({ point }: { point: PointDetail }) {
 
   const frame = frames[Math.min(index, frames.length - 1)]
   return (
-    <section className="incident-replay" data-testid="incident-replay" aria-label="Incident replay">
+    <section className="incident-replay" data-testid="incident-replay" aria-label={copy.replay.aria}>
       <div className="replay-head">
-        <h3 className="section-h">Incident replay</h3>
-        <span className="chip">MODE B</span>
+        <h3 className="section-h">{copy.replay.title}</h3>
+        <span className="chip">{copy.replay.mode}</span>
       </div>
       <label className="replay-scrub">
         <span className="mono">

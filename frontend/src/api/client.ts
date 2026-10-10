@@ -25,18 +25,92 @@ export type EvidenceItem = {
   live_verified?: boolean
   live_status?: string
   retrieved_at?: string
+  source_date?: string | null
+  title?: string | null
+  publisher?: string | null
+  establishes?: string | null
+  does_not_establish?: string | null
+  is_synthetic?: boolean
+  agency?: string | null
+}
+
+export type SourceHealth = {
+  source_id: string
+  source_name: string
+  access_status: string
+  source_state: "LIVE" | "STALE" | "UNAVAILABLE" | "UNKNOWN" | "SCENARIO" | string
+  observation_time?: string | null
+  retrieved_at?: string | null
+  last_attempt_at?: string | null
+  last_success_at?: string | null
+  units?: string | null
+  freshness_limit_seconds?: number | null
+  last_error_category?: string | null
+  allowed_effects?: string[]
+  value?: unknown
+  location_or_station_id?: string | null
+  retrieval_ok?: boolean | null
+}
+
+export type EvidenceCounts = {
+  stored: number
+  verified: number
+  unavailable: number
+  verification_failed: number
+  not_reverified: number
+  volunteer: number
 }
 
 export type HealthInfo = {
   ok: boolean
   rain_mode: string
-  precip_mm?: number
+  precip_mm?: number | null
   rain_retrieved_at?: string | null
+  rain_observation_time?: string | null
+  rain_source_state?: string | null
+  rain_station?: string | null
+  rain_period_start?: string | null
+  rain_period_end?: string | null
+  rain_window_hours?: number | null
+  rain_priority_uses?: boolean | null
+  scenario_active?: boolean
+  replay_active?: boolean
+  replay_id?: string | null
+  replay_clock?: string | null
+  replay_activated_point_ids?: string[]
+  has_last_live?: boolean
   live_fetch?: boolean
   geo_fill?: string
   evidence_live_ok?: number
   evidence_live_fail?: number
   evidence_live_skipped?: number
+  evidence_counts?: EvidenceCounts
+  sources?: SourceHealth[]
+}
+
+export type ReplayStation = {
+  station: string
+  precip_mm: number
+  period_start?: string
+  period_end?: string
+  affects_priority?: boolean
+  source_url?: string
+}
+
+export type ReplayState = {
+  replay_id: string
+  label?: string
+  disclaimer?: string
+  mode: string
+  clock: string | null
+  precip_mm: number | null
+  priority_station?: string
+  priority_rule?: string
+  stations: ReplayStation[]
+  activated_point_ids: string[]
+  milestones?: string[]
+  gaps?: { points_without_day_evidence?: string[] }
+  ownership_unchanged?: boolean
 }
 
 export type AuditRow = {
@@ -70,6 +144,8 @@ export type PointDetail = PointRow & {
   decision_record?: Record<string, unknown>
   geo_source?: string
   geo_licence?: string
+  incident_summary?: string
+  claim_summaries?: Record<string, string>
 }
 
 export const QUEUE_REFRESH = "dp-queue-refresh"
@@ -103,7 +179,14 @@ export function getHealth() {
 }
 
 export function postRainRefresh() {
-  return read<{ source: string; precip_mm: number; is_synthetic: boolean; retrieved_at?: string }>("/rain/refresh", {
+  return read<{
+    source: string
+    precip_mm: number | null
+    is_synthetic?: boolean
+    retrieved_at?: string
+    display_unchanged?: boolean
+    last_live_updated?: boolean
+  }>("/rain/refresh", {
     method: "POST",
     body: "{}",
   })
@@ -122,9 +205,45 @@ export function postEvidenceRefresh() {
 }
 
 export function postScenario(precipMm: number) {
-  return read<{ source: string; precip_mm: number; is_synthetic: boolean }>("/rain/scenario", {
+  return read<{ source: string; precip_mm: number; is_synthetic: boolean; last_live?: Record<string, unknown> }>(
+    "/rain/scenario",
+    {
+      method: "POST",
+      body: JSON.stringify({ precip_mm: precipMm }),
+    },
+  )
+}
+
+export function postClearScenario() {
+  return read<{
+    cleared?: boolean
+    precip_mm?: number | null
+    source?: string | null
+    is_synthetic?: boolean
+    last_live?: Record<string, unknown>
+  }>("/rain/clear-scenario", {
     method: "POST",
-    body: JSON.stringify({ precip_mm: precipMm }),
+    body: "{}",
+  })
+}
+
+const REPLAY_ID = "delhi-2025-07-29"
+
+export function getReplay(replayId = REPLAY_ID) {
+  return read<ReplayState & { steps?: unknown[]; milestones: string[] }>(`/replays/${replayId}`)
+}
+
+export function seekReplay(body: { t?: string | null; step_index?: number | null }, replayId = REPLAY_ID) {
+  return read<ReplayState>(`/replays/${replayId}/seek`, {
+    method: "POST",
+    body: JSON.stringify(body),
+  })
+}
+
+export function exitReplay(replayId = REPLAY_ID) {
+  return read<{ ok: boolean; mode: string }>(`/replays/${replayId}/exit`, {
+    method: "POST",
+    body: "{}",
   })
 }
 
