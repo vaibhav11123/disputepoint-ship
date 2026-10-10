@@ -14,7 +14,7 @@
 |-------------|--------|----------------|
 | `dry` | Baseline queue ranks | `precip_mm = 0` slider or dry fixture |
 | `rain-spike` | Re-rank flash (W2) | Wet demo precip **40 mm** ([DEPLOYMENT](../operations/DEPLOYMENT.md)) |
-| `conflict-open` | Purana Quila null agency (W3–W4) | Current fixtures are UNKNOWN with a null agency. Do not relabel them to CONFLICT. |
+| `conflict-open` | Purana Quila null agency (W3–W4) | Engine CONFLICT + `responsible_agency` null on spine (Okhla, Samaypur, Minto, Barapullah, Purana Quila, Lodhi). Corpus evidence **0.3.4** — do not invent owners. |
 
 Requirements:
 
@@ -41,10 +41,10 @@ VO column = [DEMO_SCRIPT.md](DEMO_SCRIPT.md) (authoritative). Do not improvise t
 | Time | Camera / tab | Action | VO |
 |------|--------------|--------|-----|
 | 0:00–0:30 | UI cold | Title + queue (not heatmap); optional HC lower-third | DEMO_SCRIPT problem statement |
-| 0:30–0:45 | UI | `dry` → establish before | DEMO_SCRIPT before |
-| 0:45–1:05 | UI | Trigger rain-spike; rank flash; mode banner | “Watch rain hit the queue.” |
-| 1:05–1:50 | UI | Open conflict point; null agency; quotes/URLs; why chips | DEMO_SCRIPT aha + optional W5 |
-| 1:50–2:00 | UI | Advisory + ACK or OVERRIDE + audit | DEMO_SCRIPT HITL |
+| 0:30–0:45 | UI | Full board: assigned + disputed + evidence-needed visible | DEMO_SCRIPT before |
+| 0:45–1:05 | UI | Trigger rain-spike; rank flash; mode banner | “Watch rain hit the board.” |
+| 1:05–1:50 | UI | Open Purana Quila; null agency; quotes/URLs; why chips | DEMO_SCRIPT aha + optional W5 |
+| 1:50–2:00 | UI | ESCALATE or OVERRIDE + audit on CONFLICT; optional ACK cutaway on Mathura Rd / Bharat Mandapam | DEMO_SCRIPT HITL |
 | 2:00–2:30 | Diagram + console/URL | W9 AWS proof | DEMO_SCRIPT AWS |
 | 2:30–3:00 | UI or contrast | Impact close; optional 5s flood-map vs queue | DEMO_SCRIPT close |
 
@@ -56,8 +56,8 @@ Hard cutoff **3:00**. Judges need not watch past three minutes.
 
 Run the **exact** recorded path twice with the same visible outcome:
 
-1. [ ] `dry` → `rain-spike` → open conflict point → evidence visible → HITL mutation → audit row
-2. [ ] Second consecutive run matches (ranks, null agency, labels)
+1. [ ] `dry` → first viewport shows ≥3 assigned, ≥3 disputed, ≥3 evidence-needed → `rain-spike` → open Purana Quila → evidence → ESCALATE or OVERRIDE → audit row
+2. [ ] Second consecutive run matches (ranks, CONFLICT null agency, labels); ACK path only if cutting to seeded ASSIGNED
 3. [ ] Mode banner correct under forced Open-Meteo fail (R1)
 4. [ ] No secrets/tokens on screen (grep fixtures + UI strings)
 5. [ ] AWS proof shot rehearsed once (Ship It live — warm `/health` + arch tab)

@@ -8,7 +8,7 @@
 |-------|--------------|-----------------|-----------------|----------------------|------------------|----------------------------|-------|
 | Open-Meteo Forecast API | https://open-meteo.com | runtime; metro Delhi locks in LLD | CC-BY 4.0 (non-commercial free tier) | Yes — UI credit | true | false (cache OK; do not republish bulk) | Rain ingest only |
 | Delhi HC / drain ownership quotes | LiveLaw PDF + TOI (see DEMO_SCRIPT) | fixtures `evidence.json` | Fair-use short quotes + link-out | Link to source | true | false — no wholesale PDF redistrib | `needs_review` until human OK |
-| DisputePoint fixtures (points/evidence/readiness) | `data/fixtures/` | v0.2 | Project MIT for our JSON; quotes remain third-party | Per-row sources | true | true for our fields | Mark `is_synthetic` when synthetic |
+| DisputePoint fixtures (points/evidence/readiness) | `data/fixtures/` | points 0.3.3 / evidence 0.3.4 | Project MIT for our JSON; quotes remain third-party | Per-row sources | true | true for our fields | Mark `is_synthetic` when synthetic |
 | IBM Plex Sans / Mono | @fontsource / IBM | Phase 7 package lock | SIL Open Font License 1.1 | Yes if required by OFL | true | true | UX lock |
 | FastAPI / Starlette / Uvicorn | PyPI | TBD at WP-00 | MIT / BSD (verify pin) | LICENSE in venv/vendor | true | true | Fill version after install |
 | React / Vite | npm | TBD at WP-00 | MIT | LICENSE in node_modules | true | true | Fill version after install |

@@ -21,7 +21,7 @@ Three artifacts: **public repo** · **YouTube ≤3 min** · **short write-up**. 
 
 - [ ] [EARTH_STUDIO_SHOT.md](EARTH_STUDIO_SHOT.md) open (or skip if time)
 - [ ] [DEMO_SCRIPT.md](DEMO_SCRIPT.md) VO
-- [ ] Rain Strike → CONFLICT null → evidence → ESCALATE → audit
+- [ ] Rain Strike → CONFLICT null → evidence → ESCALATE or OVERRIDE → audit (ACK only on assigned cutaway)
 - [ ] AWS on screen 2:00–2:30 (live UI + `/aws-arch.html` or console `/health`)
 - [ ] Signed-out YouTube check
 

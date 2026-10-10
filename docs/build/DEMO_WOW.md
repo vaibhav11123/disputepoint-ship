@@ -29,9 +29,9 @@
 |------|---------------------------|-----------|
 | **Problem** | DM cell; agencies pass the buck; HC “enormous confusion”; honest null | Title + queue (not heatmap) |
 | **Before** | Scatter workaround — WhatsApp, calls, no ranked list | Queue `dry` |
-| **Trigger** | Watch rain hit the queue. | Rain slider or Open-Meteo; mode banner; rank flash |
+| **Trigger** | Watch rain hit the board. | Rain slider or Open-Meteo; mode banner; rank flash |
 | **Aha** | CONFLICT → responsible agency null; quotes stay | Purana Quila or Minto card |
-| **Proof** | ACK or OVERRIDE with audit trail | Advisory + DecisionAuditPanel |
+| **Proof** | Escalate or override on disputed points; audit stays visible. ACK only on already-assigned rows (e.g. Mathura Rd) | Advisory + DecisionAuditPanel |
 | **Hard part** | Evidence-weighted ownership + rain re-rank — no flood ML | AWS beat |
 | **Close** | Not another flood map — don’t guess. Coordinate. | Optional heatmap vs queue |
 
@@ -47,7 +47,7 @@
 | W4 | Evidence quotes + URLs | FR-002, FR-009 | ~1:20–1:40 |
 | W5 | Why / counterfactual chips | FR-023 | ~1:40–1:55 |
 | W6 | Advisory + SYNTHETIC honesty labels | FR-010 | ~1:55–2:05 |
-| W7 | OVERRIDE/ESCALATE → DecisionAuditPanel | FR-012 | ~2:05–2:20 (may spill into tech block) |
+| W7 | OVERRIDE/ESCALATE on CONFLICT → DecisionAuditPanel; optional ACK cutaway on seeded ASSIGNED | FR-012 | ~2:05–2:20 (may spill into tech block) |
 | W8 | Triage &lt;30s feel on golden path | FR-027 | Close + KPI feel |
 | W9 | AWS visible in video | FR-016 | **2:00–2:30** (plus optional mid-flow breadcrumb) |
 
@@ -86,7 +86,7 @@ MapHUD / Cmd+K / eval are **not** W* story beats — see C7–C9 / J1–J2.
 
 | ID | Moment | Rule |
 |----|--------|------|
-| M1 | MapHUD marker + flyTo | Only after VERIFIED geocodes. **Demo ships without M1.** |
+| M1 | MapHUD marker + flyTo | Prefer VERIFIED geocodes; MapHUD is in play on Ship It (Rain Strike expand). Do not invent coords. |
 
 ---
 

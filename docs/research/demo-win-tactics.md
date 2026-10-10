@@ -1,9 +1,28 @@
 # Demo win tactics — Research OS live pass
 
-**Date:** 2026-10-06 (tactics) · 2026-10-07 (spoken-script critique)  
+**Date:** 2026-10-06 (tactics) · 2026-10-07 (spoken-script critique) · **2026-10-10 (ground VO + Ship It)**  
 **Purpose:** Auditable sources behind [build/DEMO_WOW.md](../build/DEMO_WOW.md), [build/DEMO_REHEARSAL.md](../build/DEMO_REHEARSAL.md), and [build/DEMO_SCRIPT.md](../build/DEMO_SCRIPT.md). Planning only — does not reopen Phase 6 product locks.
 
 **Hard stop:** Do not edit `market-research/src/research_os/**` for DisputePoint app work. Cite and promote into this repo.
+
+**Latest cite log:** [video-win-pass-2026-10-10.md](video-win-pass-2026-10-10.md) (FACT ledger, voice bank, live pins).
+
+---
+
+## 2026-10-10 refresh (Ship It + ground language)
+
+| Item | Lock |
+|------|------|
+| Live board | 35 points; ASSIGNED 6 / CONFLICT 6 / UNKNOWN 23; first viewport mix ≥3 each |
+| Spine CONFLICT→null | Okhla, Samaypur Badli, Minto, Barapullah, Purana Quila, Lodhi/Moolchand |
+| HITL on camera | CONFLICT → ESCALATE or OVERRIDE; ACK only on seeded ASSIGNED (Mathura Rd, Bharat Mandapam) |
+| VO voice | DM cell + street places + HC “enormous confusion”; no SaaS jargon; no invented figures |
+| AWS | Ship It live — API/UI/arch pins in [AWS_OPERATOR.md](../operations/AWS_OPERATOR.md) |
+| AngelHack clock | Still 30 / 90 / 30 / 30 — confirmed via Exa AngelHack tips 2026 |
+
+Must-adopt add: speak like monsoon coordination ground work; every spoken claim in the FACT ledger.
+
+Reject add: ACK on CONFLICT; UNKNOWN-only fixture fiction; `_SHIP_IT_URL_`; death counts / fake sensors.
 
 ---
 
@@ -42,7 +61,7 @@ Do not invent death counts or claim DisputePoint always assigns an owner.
 1. One end-to-end coordination/triage path before extra features.
 2. AngelHack timing for ≤3 min video: ~30s problem, ~90s working path, ~30s tech/AWS, ~30s impact.
 3. Problem VO: **user → HC buck-passing FACT → honest null promise** (not weather-then-product).
-4. Before → trigger → aha; trigger = “Watch rain hit the queue.”; aha = CONFLICT → null + evidence.
+4. Before → trigger → aha; trigger = “Watch rain hit the board.”; aha = CONFLICT → null + evidence.
 5. Dual path: deterministic fixtures for story + brief real AWS (Ship It or SAM) for eligibility.
 6. Smoke the exact recorded path twice before final take; signed-out YouTube check.
 7. G-CLOCK: fresh repo, event-dated history, no pre-clock product dump.

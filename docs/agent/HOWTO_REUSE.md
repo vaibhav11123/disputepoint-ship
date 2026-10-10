@@ -16,12 +16,12 @@ Research originals live in `market-research/runs/environmental-hacks-deep-2026/`
 | `docs/phases/PHASE1–5.md` + `docs/PHASE6.md` | Research trail → **frozen** implementation contract |
 | `docs/PRD.md` · `docs/HLD.md` · `docs/LLD.md` · `docs/UX.md` | Readable extracts of Phase 6. If an extract disagrees with Phase 6, follow Phase 6. |
 | `docs/build/` | DATA_PLAYBOOK, GAPS (inventory + unlock recipes), LICENSE_AUDIT, TRACEABILITY, DEMO_WOW |
-| `data/fixtures/` | L2 product corpus (points/evidence/readiness v0.2+; Data Ready PASS) |
+| `data/fixtures/` | L2 product corpus (points **0.3.3** / evidence **0.3.4** / readiness; Data Ready PASS) |
 | `data/audit/` | L1 audit matrices (committed); L0 source bodies gitignored — see `data/audit/README.md` |
 | `docs/research/geocode-candidates.md` | Nominatim offline candidates; promote only after VERIFIED. |
 | `docs/schemas/` | Data contracts coding agents must not silently change |
 | `.mex/` (optional) | Secondary living memory (mex Hub loopback-only). Phase 6 + root AGENTS hard stops win on conflict. |
-| `docs/research/` | ML/LLM gate, AWS/submission, UX anti-slop, API probes |
+| `docs/research/` | Demo win tactics, video-win-pass cite logs, enrichment/corpus audits, geocode, live-source notes |
 | `docs/archive/` | Earlier drafts (history, not SoT) |
 | `docs/README.md` | Docs map |
 | Code (Phase 7+) | Product implementation of DisputePoint |
@@ -79,7 +79,7 @@ Built in **Cursor** with agents on the `market-research` Research OS run, then s
 |----------------|----------|-----------------|
 | **Exa MCP** (`web_search_exa`, `web_fetch_exa`) | Live web research, hackathon rules, datasets, design sources | Prefer for current facts over model memory |
 | **opencli / gh** | Reddit signals, GitHub crowding search | X/Twitter often blocked (`AUTH_REQUIRED`) — coverage gap |
-| **HTTP probes** | Open-Meteo 🟢, IMD 🟡, Overpass, LiveLaw | Record in `docs/research/probe-log.md` |
+| **HTTP probes** | Open-Meteo, IMD, Overpass, LiveLaw, Ship It `/health` | Record in ops notes / video-win-pass FACT ledger (no phantom probe-log file) |
 | **Cursor plans** | Phase improve / ML gate / pre-freeze MUST FIX | Plan → confirm → execute; don’t edit plan files during exec |
 | **Skills** | stop-slop (copy), Exa practices, frontend anti-AI-slop rules | Demo script + UI strings |
 | **Agent transcripts** | Private Cursor session history | **Do not** commit raw transcripts; distill into docs like this |
@@ -146,3 +146,16 @@ Details: `docs/PHASE6.md`, `docs/research/ml-llm-opportunity-gate.md`.
 Full Cursor agent transcripts are **local and private**. They are not a substitute for docs.
 
 When a session discovers something durable (probe result, gate verdict, MUST FIX), **write it into `docs/`** in the same session. That is how this repo stays usable months later without replaying chats.
+
+---
+
+## 8. Phase 8–9 win pass (2026-10-10)
+
+Ground-language demo VO + Ship It accuracy (no product reopen):
+
+1. Research OS / Exa — HC FACT + AngelHack clock + live `/health`/`/points` pins  
+2. Promote → [docs/research/video-win-pass-2026-10-10.md](../research/video-win-pass-2026-10-10.md) + [demo-win-tactics.md](../research/demo-win-tactics.md)  
+3. Rewrite [DEMO_SCRIPT.md](../build/DEMO_SCRIPT.md) / WOW / REHEARSAL in officer + street language; CONFLICT → escalate/override (not ACK)  
+4. Sync root README + docs map to judged-entry + corpus 0.3.4  
+
+Reuse: cite/promote only — never dirty `market-research/src/research_os/**` for app work.

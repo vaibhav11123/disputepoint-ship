@@ -19,20 +19,22 @@ Show ≥10s:
 ## Diagram (record this ASCII or redraw)
 
 ```text
-UI (S3 / CloudFront)
+UI (S3 website)
         │
         ▼
    API Gateway
         │
         ▼
-     Lambda  ──► DynamoDB (points / audit)
+     Lambda  ──► DynamoDB (points / audit stamps)
         │
-        ├──► S3 (fixtures / static)
+        ├──► S3 (evidence bucket + UI)
         └──► EventBridge (rain schedule)
                 │
                 ▼
             CloudWatch logs
 ```
+
+**Spoken line (W9):** “Live on AWS — API Gateway, Lambda, DynamoDB, S3.” Show UI URL or `/aws-arch.html` plus `GET /health` with `rain_source_state=LIVE` when true.
 
 ## Operator pointers
 

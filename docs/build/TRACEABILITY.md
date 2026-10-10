@@ -4,7 +4,7 @@ Maps MUST (and key SHOULD) requirements → contracts → acceptance → tests. 
 
 **Status legend:** DOCUMENTED = specs/AC exist · IMPLEMENTED = code exists · VERIFIED = tests run green.
 
-Phase 7 code is not started in this pass — expect **DOCUMENTED** for implementation columns.
+Product **shipped** (Ship It live 2026-10-10). Many FR rows remain **DOCUMENTED** until each test id is explicitly VERIFIED in CI; residual human gate = **G-VIDEO**.
 
 | FR | Priority | Contract / design | AC | Test / E2E | Status |
 |----|----------|-------------------|----|------------|--------|

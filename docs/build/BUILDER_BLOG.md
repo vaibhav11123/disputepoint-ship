@@ -113,8 +113,8 @@ HITL: ACK / OVERRIDE / ESCALATE write an audit row the officer can see. No silen
 1. Open queue in `dry` — scattered workarounds become one ranked list.  
 2. Trigger rain (`rain-spike` / slider) — ranks flash; mode banner shows live/cache/slider.  
 3. Open a CONFLICT point (e.g. Purana Quila path) — agency null; evidence chips stay.  
-4. Advisory next step → ACK or OVERRIDE → audit row visible.  
-5. Show AWS: architecture diagram + Ship It URL or console invoke (API Gateway → Lambda → DynamoDB/S3).
+4. On a disputed point (Purana Quila): escalate or override → audit row visible. ACK only on an already-assigned point (Mathura Road / Bharat Mandapam).
+5. Show AWS: architecture page + live UI — http://disputepoint-uibucket-nuoadlgtpdko.s3-website.ap-south-1.amazonaws.com (API Gateway → Lambda → DynamoDB/S3).
 
 Spoken script for the video: [DEMO_SCRIPT.md](DEMO_SCRIPT.md).
 
@@ -135,7 +135,7 @@ Do not invent a failure. If nothing painful shipped, write the hardest Phase 6 l
 
 - Fixture-scale demo; not citywide hydraulic truth  
 - No ML runtime in MVP (Phase 6 gate)  
-- Geocodes / MapHUD only after human verify  
+- MapHUD uses cited Nominatim coords where present; COURT quotes may still need human review  
 - Next: ward pilot on time-to-confirmation under real rain windows  
 
 ### 9. AI tools and credits
@@ -156,8 +156,8 @@ Do not invent a failure. If nothing painful shipped, write the hardest Phase 6 l
 
 ## Publish checklist (human)
 
-1. [ ] Ship It URL + YouTube live; smoke path twice ([DEMO_REHEARSAL.md](DEMO_REHEARSAL.md))  
-2. [ ] Replace `_REPO_URL_`, `_SHIP_IT_URL_`, `_YOUTUBE_URL_`, screenshots, fought-back  
+1. [ ] YouTube live; smoke path twice ([DEMO_REHEARSAL.md](DEMO_REHEARSAL.md)) — Ship It UI already live (see AWS_DEMO_BEAT)  
+2. [ ] Replace `_REPO_URL_`, `_YOUTUBE_URL_`, screenshots, fought-back (Ship It URL is filled — do not leave `_SHIP_IT_URL_`)  
 3. [ ] Interview-surface acceptance above PASS  
 4. [ ] Builder Center: `+` → Create article → paste title/description/body → tags (≤5)  
 5. [ ] Preview; alt text on images; Preview mobile-ish readability  

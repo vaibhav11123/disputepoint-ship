@@ -1,6 +1,6 @@
 # Builder Center blog tactics — Research OS live pass
 
-**Date:** 2026-10-07  
+**Date:** 2026-10-07 · refresh **2026-10-10** (Ship It URLs live; VO cite log [video-win-pass-2026-10-10.md](video-win-pass-2026-10-10.md))  
 **Purpose:** Auditable sources behind [build/BUILDER_BLOG.md](../build/BUILDER_BLOG.md) for Environmental Hacks **Top 5 blogs (AirPods)**. Planning only — does not reopen Phase 6 product locks.
 
 **Hard stop:** Do not edit `market-research/src/research_os/**` for DisputePoint work. Cite and promote into this repo. Process: sibling `market-research` docs `RESEARCH_PLAYBOOK.md` + `TOOLS.md` (Exa MCP only for this pass).

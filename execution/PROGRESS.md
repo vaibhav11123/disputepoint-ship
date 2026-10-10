@@ -6,7 +6,7 @@ Append-only. Sessions add dated entries. Do not rewrite history.
 
 - Control plane created from Phase 7 execution plan.
 - `plan-check.yaml` status: PASS (derived waves in `waves.yaml`).
-- Product app code: **not started** (waits for G-PLAN + G-CLOCK).
+- Product app: **shipped** in this repo (Ship It live 2026-10-10). G-VIDEO still open.
 
 ## Log
 
@@ -82,3 +82,10 @@ Append-only. Sessions add dated entries. Do not rewrite history.
 - Live: Open-Meteo `rain_source_state=LIVE`, evidence batch LIVE, CORS allowlist, `/docs` 404.
 - Pins: `docs/operations/AWS_OPERATOR.md`, `docs/build/AWS_DEMO_BEAT.md`. Mex ROUTER/context refreshed.
 - Still open: G-VIDEO, G-VIS human slots, form/write-up, optional IAM-not-root, post-video cleanup.
+
+## 2026-10-10 — Demo board mix + win-docs pass
+
+- Fixtures evidence **0.3.4** / points **0.3.3**: engine board mix ASSIGNED/CONFLICT/UNKNOWN; spine CONFLICT→null; `DP_SEED_DEMO_ACK` on Mathura Rd + Bharat Mandapam; no frontend rank rewrite.
+- Docs: ground-language [DEMO_SCRIPT.md](../docs/build/DEMO_SCRIPT.md); cite log [video-win-pass-2026-10-10.md](../docs/research/video-win-pass-2026-10-10.md); README judged-entry + live URLs.
+- HITL on camera: ESCALATE/OVERRIDE on CONFLICT; ACK only on seeded ASSIGNED.
+- Still open: G-VIDEO (human record ≤3 min with AWS on screen).
