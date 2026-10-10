@@ -22,7 +22,7 @@ DisputePoint documentation. **Phase 6 wins** if anything disagrees.
 | [contracts/](contracts/) | DATA_MODEL index (schemas remain SoT for fields) |
 | [design/](design/) | DESIGN_SYSTEM extract → UX §8–§12; Vite stack lock + library KEEP/REJECT (no Next/shadcn forks) |
 | [quality/](quality/) | ACCEPTANCE_CRITERIA, TEST_STRATEGY, E2E_SCENARIOS, SPEC_READINESS |
-| [operations/](operations/) | SECURITY, PERFORMANCE, DEPLOYMENT, OBSERVABILITY, [AWS_OPERATOR](operations/AWS_OPERATOR.md) (profile/region/login/SAM/G-AWS), [SUBMISSION_GIT](operations/SUBMISSION_GIT.md) (two-repo commit/push + upload allow/deny) |
+| [operations/](operations/) | SECURITY, PERFORMANCE, [DEPLOYMENT](operations/DEPLOYMENT.md) (Ship It **live**), OBSERVABILITY, [AWS_OPERATOR](operations/AWS_OPERATOR.md) (URLs / login / cleanup), [SUBMISSION_GIT](operations/SUBMISSION_GIT.md) |
 | [build/](build/) | DATA_PLAYBOOK, GAPS, [LICENSE_AUDIT](build/LICENSE_AUDIT.md), TRACEABILITY, [DEMO_SCRIPT](build/DEMO_SCRIPT.md), [DEMO_WOW](build/DEMO_WOW.md), [DEMO_REHEARSAL](build/DEMO_REHEARSAL.md), [BUILDER_BLOG](build/BUILDER_BLOG.md) |
 | [`../data/`](../data/) | `fixtures/` (L2 product) · `audit/` (L1 decisions; L0 sources gitignored) |
 | [phases/](phases/) | PHASE1–5 research trail + REPORT (history) |

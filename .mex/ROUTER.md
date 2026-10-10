@@ -22,7 +22,9 @@ edges:
     condition: when curating points, evidence, or readiness fixtures
   - target: patterns/rain-ingest-open-meteo.md
     condition: when implementing rain ingest or the scenario slider
-last_updated: 2026-10-08
+  - target: patterns/ship-it-deploy.md
+    condition: when redeploying or smoking Ship It AWS
+last_updated: 2026-10-10
 ---
 
 # Session Bootstrap
@@ -33,22 +35,20 @@ last_updated: 2026-10-08
 
 **Working:**
 - Frozen Phase 6 contract plus PRD, HLD, LLD, and UX extracts
-- Schemas, OpenAPI, fixtures v0.2, and audit L1. Spec package and Data Ready PASS (2026-10-06)
-- Submission tree: `clock_declared` true, `plan_gate_accepted` true, `plan-check.yaml` status PASS
-- Derived wave 0 is `WP-00` and its work-status is READY. Later packages stay BLOCKED on dependencies
-- Makefile stubs and `.env.example` exist. Mex scaffold is under `.mex/` with Cursor selected
+- Schemas, OpenAPI, fixtures v0.2, and audit L1. Spec package and Data Ready PASS
+- Submission tree: `clock_declared` true, `plan_gate_accepted` true; waves WP-00–WP-16 product code landed
+- Local: `make install` · `make test` · `make run` (API `127.0.0.1:8000`, UI `127.0.0.1:5173`)
+- **Ship It live (2026-10-10)** stack `disputepoint` / `ap-south-1`: API Gateway → Lambda → DynamoDB + S3 + EventBridge + CloudWatch; `DP_LIVE_FETCH=1`; Open-Meteo rain LIVE; evidence LIVE batch; CORS allowlist; `/docs` off
+- Live URLs in [docs/build/AWS_DEMO_BEAT.md](../docs/build/AWS_DEMO_BEAT.md) and [docs/operations/AWS_OPERATOR.md](../docs/operations/AWS_OPERATOR.md)
+- Redeploy: `make deploy` (profile `disputepoint`)
 
-**Not yet built:**
-- API and UI application trees (WP-00 onward)
-- WP-01 through WP-16
-- VERIFIED geocode promotes (latitude and longitude stay null; MapHUD skippable)
-- Gold order file and tournament metric cells
-- Live AWS deploy (G-AWS still open)
+**Not yet done (submission / gates):**
+- G-VIDEO (YouTube ≤3 min with AWS on screen) · G-VIS human slots · form write-up · public repo if still private
+- IAM day-to-day user (CLI may still resolve as root) · post-video `sam delete` cleanup
+- Gold order / tournament metric cells (optional)
 
-**Known issues:**
-- `make install`, `make test`, `make run`, and `make deploy` exit 1 until app directories exist
-- Code graph is thin: indexed files are docs and planning scripts, not product engines
-- Plan-check warnings: WP-14 and WP-15 have no downstream consumers
+**Known issues / doc drift outside `.mex/`:**
+- `execution/PROGRESS.md`, `execution/work-status.json` (`WP-15.gate_open`), `docs/build/DEMO_REHEARSAL.md` G-AWS boxes, root `README.md` still speak as if G-AWS / deploy are open — update those next
 - Phase 6 still cites some legacy research paths; prefer `docs/schemas/` and `docs/research/`
 
 ## Routing Table
@@ -69,6 +69,7 @@ Prefer product docs over rewriting the source of truth into this wiki.
 | Curate fixtures | `patterns/add-fixture-point.md` |
 | Ownership / CONFLICT | `patterns/ownership-conflict-null.md` |
 | Rain ingest | `patterns/rain-ingest-open-meteo.md` |
+| Ship It deploy / smoke | `patterns/ship-it-deploy.md` |
 
 ## Behavioural Contract
 

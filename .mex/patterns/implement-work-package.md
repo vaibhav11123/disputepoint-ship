@@ -61,7 +61,7 @@ mex:
 
 ## Debug
 
-If Make exits 1, read the Makefile message. That is the stub, not a broken install. If a dependent package is BLOCKED, finish its dependency first. Do not mark it READY by hand.
+If Make fails, read the Makefile message. `make deploy` needs a live `aws login --profile disputepoint`. If a dependent package is BLOCKED, finish its dependency first. Do not mark it READY by hand.
 
 ## Update Scaffold
 

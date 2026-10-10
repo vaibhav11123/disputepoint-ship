@@ -48,11 +48,13 @@ Queue-first UI + point card:
 3. Ownership CONFLICT → `responsible_agency` stays **null**; quotes and source URLs stay visible  
 4. Advisory next step; officer **ACK / OVERRIDE / ESCALATE** with **DecisionAuditPanel**
 
-**Links (fill after deploy / record):**
+**Links (fill remaining after G-VIDEO / public repo):**
 
-- Public repo: `_REPO_URL_`  
-- Ship It URL: `_SHIP_IT_URL_`  
-- Demo video (≤3 min): `_YOUTUBE_URL_`
+- Public repo: `_REPO_URL_` *(make public before form submit)*  
+- Ship It UI: http://disputepoint-uibucket-nuoadlgtpdko.s3-website.ap-south-1.amazonaws.com  
+- Ship It API: https://olnsv0shee.execute-api.ap-south-1.amazonaws.com  
+- Arch diagram: http://disputepoint-uibucket-nuoadlgtpdko.s3-website.ap-south-1.amazonaws.com/aws-arch.html  
+- Demo video (≤3 min): `_YOUTUBE_URL_` *(G-VIDEO)*
 
 ![Queue-first UI under rain — alt: DisputePoint ops queue showing ranked disputed points with rain mode banner](_SCREENSHOT_QUEUE_)
 

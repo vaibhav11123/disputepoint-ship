@@ -1,12 +1,23 @@
 AWSTemplateFormatVersion: "2010-09-09"
 Transform: AWS::Serverless-2016-10-31
-Description: DisputePoint Build It sketch. Do not deploy until G-AWS.
+Description: DisputePoint Ship It — API Gateway → Lambda → DynamoDB + S3; EventBridge rain; CloudWatch.
 
 Globals:
   Function:
-    Timeout: 10
-    MemorySize: 256
+    Timeout: 300
+    MemorySize: 1024
     Runtime: python3.12
+    Architectures:
+      - arm64
+
+Parameters:
+  UiBucketName:
+    Type: String
+    Default: ""
+    Description: Optional override for static UI bucket name (leave empty for auto).
+
+Conditions:
+  HasUiBucketName: !Not [!Equals [!Ref UiBucketName, ""]]
 
 Resources:
   PointsTable:
@@ -19,38 +30,145 @@ Resources:
       KeySchema:
         - AttributeName: id
           KeyType: HASH
+      Tags:
+        - Key: project
+          Value: disputepoint
+
   EvidenceBucket:
     Type: AWS::S3::Bucket
     Properties:
+      BucketEncryption:
+        ServerSideEncryptionConfiguration:
+          - ServerSideEncryptionByDefault:
+              SSEAlgorithm: AES256
       PublicAccessBlockConfiguration:
         BlockPublicAcls: true
         BlockPublicPolicy: true
         IgnorePublicAcls: true
         RestrictPublicBuckets: true
+      Tags:
+        - Key: project
+          Value: disputepoint
+
+  UiBucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: !If [HasUiBucketName, !Ref UiBucketName, !Ref AWS::NoValue]
+      WebsiteConfiguration:
+        IndexDocument: index.html
+        ErrorDocument: index.html
+      PublicAccessBlockConfiguration:
+        BlockPublicAcls: false
+        BlockPublicPolicy: false
+        IgnorePublicAcls: false
+        RestrictPublicBuckets: false
+      OwnershipControls:
+        Rules:
+          - ObjectOwnership: BucketOwnerPreferred
+      Tags:
+        - Key: project
+          Value: disputepoint
+
+  UiBucketPolicy:
+    Type: AWS::S3::BucketPolicy
+    Properties:
+      Bucket: !Ref UiBucket
+      PolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Sid: PublicReadGetObject
+            Effect: Allow
+            Principal: "*"
+            Action: s3:GetObject
+            Resource: !Sub "${UiBucket.Arn}/*"
+
+  DecisionApi:
+    Type: AWS::Serverless::HttpApi
+    Properties:
+      StageName: $default
+      CorsConfiguration:
+        AllowOrigins:
+          - !Sub "http://${UiBucket}.s3-website.${AWS::Region}.amazonaws.com"
+          - "http://127.0.0.1:5173"
+          - "http://localhost:5173"
+        AllowHeaders:
+          - content-type
+          - x-request-id
+        AllowMethods:
+          - GET
+          - POST
+          - OPTIONS
+
   DecisionFunction:
     Type: AWS::Serverless::Function
     Properties:
-      Handler: backend.app.main.app
-      CodeUri: ../
+      FunctionName: disputepoint-decision
+      Handler: backend.app.lambda_handler.handler
+      CodeUri: package/
       Environment:
         Variables:
           POINTS_TABLE: !Ref PointsTable
+          EVIDENCE_BUCKET: !Ref EvidenceBucket
+          DP_LAMBDA: "1"
+          DP_LIVE_FETCH: "1"
+          DP_SOURCE_POLLING: "1"
+          DP_CORS_ORIGINS: !Sub "http://${UiBucket}.s3-website.${AWS::Region}.amazonaws.com,http://127.0.0.1:5173,http://localhost:5173"
+          DP_DB_PATH: /tmp/disputepoint.sqlite
+          DP_EXPOSE_DOCS: "0"
+          DP_SEED_DEMO_ACK: "1"
+          RAIN_POLL_MINUTES: "15"
+      Policies:
+        - DynamoDBCrudPolicy:
+            TableName: !Ref PointsTable
+        - S3CrudPolicy:
+            BucketName: !Ref EvidenceBucket
       Events:
-        Api:
+        ProxyApi:
           Type: HttpApi
           Properties:
+            ApiId: !Ref DecisionApi
             Path: /{proxy+}
             Method: ANY
+        RootApi:
+          Type: HttpApi
+          Properties:
             ApiId: !Ref DecisionApi
+            Path: /
+            Method: ANY
         RainPoll:
           Type: Schedule
           Properties:
+            Schedule: rate(15 minutes)
+            Description: DisputePoint Open-Meteo rain refresh
+            Enabled: true
+            Name: disputepoint-rain-15m
+        EvidencePoll:
+          Type: Schedule
+          Properties:
             Schedule: rate(1 hour)
-            Enabled: false
-  DecisionApi:
-    Type: AWS::Serverless::HttpApi
+            Description: DisputePoint evidence URL live verify
+            Enabled: true
+            Name: disputepoint-evidence-1h
+            Input: '{"job":"evidence"}'
+    Metadata:
+      BuildMethod: python3.12
 
 Outputs:
   ApiUrl:
-    Description: Present only after a human sam deploy
+    Description: API Gateway HTTP API base URL
     Value: !Sub "https://${DecisionApi}.execute-api.${AWS::Region}.amazonaws.com"
+  UiBucketNameOut:
+    Description: S3 bucket for static UI (website endpoint)
+    Value: !Ref UiBucket
+  UiWebsiteUrl:
+    Description: S3 website URL for the queue UI
+    Value: !Sub "http://${UiBucket}.s3-website.${AWS::Region}.amazonaws.com"
+  PointsTableName:
+    Description: DynamoDB points/audit stamp table
+    Value: !Ref PointsTable
+  EvidenceBucketName:
+    Description: Private evidence/fixtures bucket
+    Value: !Ref EvidenceBucket
+  DecisionFunctionName:
+    Description: Decision Lambda name
+    Value: !Ref DecisionFunction

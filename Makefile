@@ -40,8 +40,23 @@ run:
 	wait $$api_pid $$ui_pid
 
 deploy:
-	@echo "make deploy: prefer Ship It; see infra/README.md (SAM Build It day-1 recon gate)"
-	@exit 1
+	@export PATH="$$HOME/.local/bin:/opt/homebrew/bin:$$PATH"; \
+	export AWS_PROFILE=$${AWS_PROFILE:-disputepoint}; \
+	export AWS_REGION=$${AWS_REGION:-ap-south-1}; \
+	export AWS_DEFAULT_REGION=$$AWS_REGION; \
+	bash infra/stage_package.sh; \
+	sam build -t infra/template.yaml --profile $$AWS_PROFILE; \
+	sam deploy --config-file infra/samconfig.toml --profile $$AWS_PROFILE --region $$AWS_REGION; \
+	API=$$(aws cloudformation describe-stacks --stack-name disputepoint --profile $$AWS_PROFILE --region $$AWS_REGION --query "Stacks[0].Outputs[?OutputKey=='ApiUrl'].OutputValue" --output text); \
+	UI_BUCKET=$$(aws cloudformation describe-stacks --stack-name disputepoint --profile $$AWS_PROFILE --region $$AWS_REGION --query "Stacks[0].Outputs[?OutputKey=='UiBucketNameOut'].OutputValue" --output text); \
+	UI_URL=$$(aws cloudformation describe-stacks --stack-name disputepoint --profile $$AWS_PROFILE --region $$AWS_REGION --query "Stacks[0].Outputs[?OutputKey=='UiWebsiteUrl'].OutputValue" --output text); \
+	echo "Building frontend against $$API"; \
+	VITE_API_URL=$$API VITE_AWS_MODE=ship npm run build --prefix frontend; \
+	aws s3 sync frontend/dist/ "s3://$$UI_BUCKET/" --delete --profile $$AWS_PROFILE --region $$AWS_REGION; \
+	echo "Ship It API: $$API"; \
+	echo "Ship It UI:  $$UI_URL"; \
+	curl -fsS "$$API/health" | head -c 400; echo; \
+	curl -fsS "$$API/points" | head -c 400; echo
 
 visual-qa:
 	@mkdir -p runs/visual-qa/latest

@@ -46,18 +46,6 @@ export function pickConflictFocusId(items: { id: string; ownership_state: string
 }
 
 /**
- * Dry cold-open presentation only (ASSIGNED first). Never switches on rainfall —
- * citywide R cannot change relative order, so wet "engine reorder" is dishonest.
- */
-export function presentQueueForDemo(items: PointRow[], _precipMm?: number): PointRow[] {
-  const assigned = items.filter((row) => row.ownership_state === "ASSIGNED")
-  const conflict = items.filter((row) => row.ownership_state === "CONFLICT")
-  const rest = items.filter((row) => row.ownership_state !== "ASSIGNED" && row.ownership_state !== "CONFLICT")
-  const ordered = [...assigned, ...conflict, ...rest]
-  return ordered.map((row, index) => ({ ...row, priority_rank: index + 1 }))
-}
-
-/**
  * Historical replay view: documented activations by clock t, in activation order.
  * Does not fabricate points; remainder count is for UI honesty.
  */

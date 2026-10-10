@@ -1,7 +1,7 @@
 ---
 name: agents
 description: Always-loaded project anchor inside .mex. Secondary to root AGENTS.md and Phase 6.
-last_updated: 2026-10-08
+last_updated: 2026-10-10
 ---
 
 # DisputePoint
@@ -20,7 +20,8 @@ For a DM coordination cell officer, when monsoon rain threatens multi-agency dis
 
 ## Commands
 
-- `make help` · `make install` · `make test` · `make run` — stubs exit 1 until the API and UI trees exist.
+- `make help` · `make install` · `make test` · `make run` — local golden path.
+- `make deploy` — Ship It (live 2026-10-10); pins in `docs/operations/AWS_OPERATOR.md`.
 - `mex check` · `mex doctor` · `mex hub` (loopback). Graph and wiki DBs stay gitignored.
 
 ## Code Graph

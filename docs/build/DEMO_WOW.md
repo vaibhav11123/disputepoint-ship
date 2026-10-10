@@ -14,7 +14,7 @@
 |-------|-----|-------------------|
 | **0:00–0:30** | Problem + promise | **Read [DEMO_SCRIPT.md](DEMO_SCRIPT.md)** — DM cell + HC buck-passing + honest null |
 | **0:30–2:00** | Working path (~half runtime) | Before → trigger → aha → HITL (W1–W8); VO in DEMO_SCRIPT |
-| **2:00–2:30** | Tech hard part + **AWS** | W9: diagram and/or live Ship It / SAM; mid-flow breadcrumb OK earlier |
+| **2:00–2:30** | Tech hard part + **AWS** | W9: live Ship It UI + `/aws-arch.html` or `GET /health` LIVE — [AWS_DEMO_BEAT.md](AWS_DEMO_BEAT.md) |
 | **2:30–3:00** | Impact / next | Triage clarity; “not another flood map”; optional 5s competitor contrast |
 
 **First-90s pass/fail:** A stranger can answer: who is the user, what decision, why not a flood map. Full VO checklist: [DEMO_SCRIPT.md](DEMO_SCRIPT.md).

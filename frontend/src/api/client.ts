@@ -151,8 +151,16 @@ export type PointDetail = PointRow & {
 export const QUEUE_REFRESH = "dp-queue-refresh"
 export const SELECT_POINT = "dp-select-point"
 
+/** Empty locally (Vite proxy). Ship It sets VITE_API_URL to the API Gateway origin. */
+const API_BASE = String(import.meta.env.VITE_API_URL ?? "").replace(/\/$/, "")
+
+function apiUrl(path: string): string {
+  if (!API_BASE) return path
+  return `${API_BASE}${path.startsWith("/") ? path : `/${path}`}`
+}
+
 async function read<T>(path: string, init?: RequestInit): Promise<T> {
-  const response = await fetch(path, {
+  const response = await fetch(apiUrl(path), {
     headers: { "content-type": "application/json", ...(init?.headers ?? {}) },
     ...init,
   })

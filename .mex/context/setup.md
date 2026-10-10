@@ -16,7 +16,7 @@ edges:
   - target: patterns/implement-work-package.md
     condition: when setup is done and the next step is WP-00
 grounds_to: []
-last_updated: 2026-10-08
+last_updated: 2026-10-10
 mex:
   id: mx_01M4D8EQ6YSX62XR6H6BB2PM14
   type: guide
@@ -58,10 +58,10 @@ revision: 1
 ## First-time Setup
 
 1. Use this submission tree only. Clock is already declared (`execution/work-status.json`).
-2. Plan gate is accepted. Next product step is WP-00 via `execution/START.md`.
+2. Plan gate is accepted. Product trees exist under `backend/` and `frontend/`.
 3. Copy env only when a command needs it: `cp .env.example .env`
-4. `make help` prints the stub targets. `make install` exits 1 until the API and UI trees exist.
-5. After the scaffold is committed, `mex hub` serves the loopback Project Hub.
+4. `make install` · `make test` · `make run` for local. Ship It: `aws login --profile disputepoint` then `make deploy`.
+5. Live URLs and smoke notes: `docs/operations/AWS_OPERATOR.md` · `docs/build/AWS_DEMO_BEAT.md`.
 
 <!-- mex:entity
 id: mx_01M4D8EQ4G5F254YW1Q91F149G
@@ -76,8 +76,9 @@ From `.env.example`. No secret values belong in git.
 - `IMD_API_KEY` (optional) — IMD path. Demo must not require it.
 - `OPEN_METEO_BASE` (optional) — defaults to `https://api.open-meteo.com` in the example file.
 - `RAIN_POLL_MINUTES` (optional) — example sets 15. Locked metro query is lat `28.6139`, lon `77.2090`, `past_hours=6`, timezone `Asia/Kolkata`.
-- `API_HOST`, `API_PORT`, `VITE_API_URL` (optional, commented) — local API and UI once Phase 7 exists.
-- `AWS_PROFILE`, `AWS_REGION` (optional, commented) — only after G-CLOCK and G-AWS. Use `aws login` and roles. Do not put keys in `.env`.
+- `API_HOST`, `API_PORT`, `VITE_API_URL` — local Vite proxy vs Ship It bake (`VITE_API_URL` + `VITE_AWS_MODE=ship` on `make deploy`).
+- `DP_LIVE_FETCH`, `DP_SOURCE_POLLING` — live rain/evidence; Ship It Lambda sets these to `1`.
+- `AWS_PROFILE=disputepoint`, `AWS_REGION=ap-south-1` — use `aws login`; never put keys in `.env`.
 
 <!-- mex:entity
 id: mx_01M4D8EQ3QM94VNS9TGXCRQJJ6
@@ -87,16 +88,16 @@ revision: 1
 -->
 ## Common Commands
 
-- `make help` — lists install, test, run, deploy and states that Phase 7 app code has not started
-- `make install` — exits 1 with GAP-BOOT-01 until backend and frontend manifests exist
-- `make test` — exits 1 until the backend tree exists, then pytest
-- `make run` — exits 1 until the API and UI exist
-- `mex check` — drift between this scaffold and the tree, no model call
-- `mex doctor` — scaffold health
-- `mex hub` — loopback Hub after `.mex/config.json` matches the committed HEAD
+- `make help` — install, test, run, deploy, visual-qa
+- `make install` · `make test` · `make run` — local golden path
+- `make deploy` — stage SAM package, `sam build`/`sam deploy`, build UI with API URL, sync S3, smoke `/health` + `/points`
+- `mex check` — scaffold drift · `mex graph refresh` after large code moves
+- `mex doctor` · `mex hub`
 
 ## Common Issues
 
-**Make targets exit 1.** Expected. `Makefile` checks for the API and UI directories and stops. Create those trees only through the current work package, not by hand-dumping an app.
+**CLI session expired.** `aws login --profile disputepoint` (Chrome authorize + paste code if `--remote`).
 
-**`mex setup` skipped `.cursorrules`.** This repo already had `.cursorrules` (the DisputePoint Cursor anchor). Setup does not replace an existing tool file. Leave that anchor in place.
+**UI shows LIVE RAINFALL UNAVAILABLE.** Ship It must have `DP_LIVE_FETCH=1` and rain bootstrap; see `backend/app/lambda_handler.py`.
+
+**`mex setup` skipped `.cursorrules`.** Leave the DisputePoint Cursor anchor in place.

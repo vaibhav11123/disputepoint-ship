@@ -17,6 +17,8 @@ runs/
 *.pem
 .aws/
 .terraform/
+.aws-sam/
+infra/package/
 docs/research/_geocode_raw/
 
 # Data Ready L0 audit bodies (never commit full sources)

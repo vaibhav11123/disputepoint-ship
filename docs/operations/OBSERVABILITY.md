@@ -32,6 +32,13 @@ Example shape (illustrative):
 | Stale ranks | Rain mode: live vs cache vs slider (`GET /health`) |
 | ACK fails | ownership_state + status; expect DP-409 on CONFLICT |
 | Rain fail | Open-Meteo timeout → slider path |
+| Ship It “LIVE RAINFALL UNAVAILABLE” | `GET {ApiUrl}/health` — expect `live_fetch=true`, `rain_source_state=LIVE`; CloudWatch log group `/aws/lambda/disputepoint-decision` |
+
+## Ship It (2026-10-10)
+
+- Lambda: `disputepoint-decision` · HTTP API `olnsv0shee` · region `ap-south-1`
+- Dynamo stamps: `_shipit_api_invoke`, `_shipit_rain_live`, `_shipit_evidence_live`
+- Warm one `/health` before recording (cold start)
 
 ## Non-goals
 

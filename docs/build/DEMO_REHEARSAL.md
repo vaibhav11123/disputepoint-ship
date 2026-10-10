@@ -60,7 +60,7 @@ Run the **exact** recorded path twice with the same visible outcome:
 2. [ ] Second consecutive run matches (ranks, null agency, labels)
 3. [ ] Mode banner correct under forced Open-Meteo fail (R1)
 4. [ ] No secrets/tokens on screen (grep fixtures + UI strings)
-5. [ ] AWS proof shot rehearsed once (Ship It **or** SAM)
+5. [ ] AWS proof shot rehearsed once (Ship It live — warm `/health` + arch tab)
 
 Do not claim G-VIDEO until smoke passes twice.
 
@@ -87,8 +87,8 @@ Feature freeze ~**4 hours** before final take. Cut features; do not stretch the 
 - [ ] Demo URL bookmarked (no typing)
 - [ ] Slow steps pre-warmed (API hot, fixtures loaded)
 - [ ] G-VIS done (T-VIS-AUDIT / UX §12) — **before** record
-- [ ] G-AWS path chosen (Ship It vs Build It) documented
-- [ ] Architecture diagram file open in a tab
+- [x] G-AWS path chosen (Ship It) documented — live URLs in AWS_DEMO_BEAT / AWS_OPERATOR
+- [x] Architecture diagram file open in a tab (`/aws-arch.html` on UI bucket + `frontend/public/aws-arch.html`)
 - [ ] Screen resolution / font contrast checked
 - [ ] No `.env` or keys in shared screen
 - [ ] After upload: YouTube **public or unlisted**; open link in **signed-out** browser
@@ -120,8 +120,8 @@ Feature freeze ~**4 hours** before final take. Cut features; do not stretch the 
 
 ### G-AWS
 
-- [ ] Ship It **or** SAM Build It path chosen and runnable for the W9 shot
-- [ ] Secrets held out of git and video
+- [x] Ship It path chosen and runnable for the W9 shot (API Gateway + S3 UI live 2026-10-10)
+- [x] Secrets held out of git and video (CORS allowlist; `/docs` off on Lambda)
 
 ### G-VIDEO (before submit)
 

@@ -7,7 +7,7 @@ from pathlib import Path
 from types import SimpleNamespace
 from typing import Any
 
-from backend.app.db.store import connect, get_point, get_rain, list_points, replace_corpus, update_point
+from backend.app.db.store import connect, get_point, get_rain, list_points, replace_corpus, save_rain, update_point
 from backend.app.services.evidence import load_evidence
 from backend.app.services.ownership import EvidenceScore, decide
 from backend.app.services.priority import priority
@@ -18,6 +18,36 @@ ROOT = Path(__file__).resolve().parents[3]
 
 def repo_root() -> Path:
     return ROOT
+
+
+def fixture_corpus_version(root: Path | None = None) -> str:
+    root = root or repo_root()
+    doc = json.loads((root / "data/fixtures/evidence.json").read_text())
+    return str(doc.get("version") or "0")
+
+
+def ensure_fixture_corpus(conn, root: Path | None = None) -> bool:
+    """Ingest (or re-ingest) when the DB has no rain or a stale fixture corpus version.
+
+    Preserves a live Open-Meteo rain observation across re-ingest so Ship It stays LIVE.
+    """
+    root = root or repo_root()
+    version = fixture_corpus_version(root)
+    rain = get_rain(conn)
+    if rain is not None and rain.get("fixture_corpus") == version:
+        return False
+    prior_live = None
+    if rain is not None and rain.get("source") == "open-meteo" and not rain.get("is_synthetic"):
+        prior_live = dict(rain)
+    ingest_fixtures(conn, root, precip_mm=float((prior_live or {}).get("precip_mm") or 0.0))
+    if prior_live is not None:
+        prior_live["fixture_corpus"] = version
+        save_rain(conn, prior_live)
+    else:
+        seeded = get_rain(conn) or _dry_rain()
+        seeded["fixture_corpus"] = version
+        save_rain(conn, seeded)
+    return True
 
 
 def _dry_rain() -> dict[str, Any]:

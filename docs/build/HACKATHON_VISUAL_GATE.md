@@ -46,7 +46,7 @@ Wire: [DEMO_REHEARSAL.md](DEMO_REHEARSAL.md) **G-VIS** = this gate green before 
 
 ## Amazon-ready (condensed)
 
-- [ ] AWS visible on camera (Ship It URL **or** SAM + honest local) — [AWS_DEMO_BEAT.md](AWS_DEMO_BEAT.md)
+- [ ] AWS visible on camera (Ship It live URL ready — [AWS_DEMO_BEAT.md](AWS_DEMO_BEAT.md); still must appear in the recorded video)
 - [ ] Architecture shows only services used (API GW, Lambda, DynamoDB/S3, EventBridge, CloudWatch)
 - [ ] No secrets; AI tools listed in write-up
 - [ ] YouTube ≤3:00; signed-out link works

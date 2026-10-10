@@ -13,7 +13,7 @@ Agents stop here. Clearing a gate is a human action (or an explicit human-starte
 | G-GEO | Optional for map | Verify lat/lon; promote fixtures | E2E-07 / MapHUD; FR-001 numeric-lat VERIFIED |
 | G-GOLD | Optional for eval metrics | Supply `gold_order.json` | FR-015 metric cells |
 | G-QUOTES | As needed | Accept/reject `needs_review` evidence | Honest promotion of quotes |
-| G-AWS | Before deploy / Ship vs Build | Choose §16A path; hold secrets/SAM/account | Live deploy |
+| G-AWS | Before deploy / Ship vs Build | Choose §16A path; hold secrets/SAM/account | Live deploy — **cleared 2026-10-10 (Ship It live)**; see [AWS_OPERATOR.md](../docs/operations/AWS_OPERATOR.md) |
 | G-VIS | Before video | Run T-VIS-AUDIT (anti-slop, contrast) | NFR-007, NFR-008 VERIFIED |
 | G-KPI | During WP-16 | Time Purana Quila path &lt;30s | FR-027 VERIFIED |
 | G-VIDEO | Before submit | Record ≤3 min video (AWS visible); list AI tools | Submission |

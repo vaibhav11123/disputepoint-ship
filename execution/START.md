@@ -2,6 +2,8 @@
 
 Read this file first when building or continuing the app. Do **not** follow `.mex/ROUTER.md` into a full wiki walk on a build session. Phase 6 wins on product conflicts. Open only the anchors named on the current package.
 
+**Current (2026-10-10):** Product trees exist; **G-AWS cleared** (Ship It live — [AWS_OPERATOR.md](../docs/operations/AWS_OPERATOR.md)). Next human gates: **G-VIS** (human slots) · **G-VIDEO** · **G-FORM**.
+
 ## Session order
 
 1. This file, then `execution/status.json`, `execution/work-status.json`, `execution/GATES.md`, `execution/RESIDUALS.md`.

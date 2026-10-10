@@ -17,7 +17,7 @@ edges:
   - target: patterns/rain-ingest-open-meteo.md
     condition: when connecting rain into priority factor R
 grounds_to: []
-last_updated: 2026-10-08
+last_updated: 2026-10-10
 mex:
   id: mx_01M4D8EPSN5YTVEHAN19B65A7S
   type: architecture
@@ -77,8 +77,8 @@ revision: 1
 
 - **Open-Meteo** — metro precipitation. Public HTTP. Attribute CC-BY 4.0. Not required to be up for the demo because the scenario slider is the fallback.
 - **Fixtures and schemas** — `data/fixtures/` v0.2 and `docs/schemas/` plus `docs/openapi.yaml`. L0 audit bodies under `data/audit/sources/` stay gitignored.
-- **AWS (Ship It, not deployed)** — EventBridge schedules rain, Lambda runs decisions, DynamoDB stores points and audit, S3 holds evidence and UI, API Gateway serves HTTPS, CloudWatch holds logs. Local fixtures remain the failure path.
-- **IMD** — optional only when `IMD_API_KEY` is set. Demo must not block on it.
+- **AWS (Ship It, deployed 2026-10-10)** — EventBridge rain (15m) + evidence (1h) → Lambda `disputepoint-decision` → DynamoDB stamps + private evidence S3 (runtime SQLite snapshot) + public UI S3 website → API Gateway HTTPS; CloudWatch logs. Live Open-Meteo on cold start / invoke. Local `make run` remains the offline path.
+- **IMD** — optional only when `IMD_API_KEY` is set. Demo must not block on it. Ship It leaves IMD as `key_required` (honest).
 
 <!-- mex:entity
 id: mx_01M4D8EPP1V5E6DADP4EM924PG
@@ -88,7 +88,7 @@ revision: 1
 -->
 ## What Does NOT Exist Here
 
-- No API or UI application trees yet. Makefile targets exit 1 on purpose.
 - No flood heatmap, ML ranking runtime, live SCADA, or DM-71 registry scrape.
-- No numeric `lat`/`lon` until a human verifies geocode candidates. MapHUD stays skippable.
+- No Cognito / required CloudFront / WAF (MVP). HITL routes are demo-open with schema validation.
+- MapHUD remains secondary; queue-first product. Geocode honesty rules still apply.
 - No second product source of truth in `.mex/`. This file points at Phase 6.

@@ -21,7 +21,7 @@
     "FR-013": { "status": "DOCUMENTED", "package": "WP-03", "test": "unit G=0" },
     "FR-014": { "status": "DOCUMENTED", "package": null, "skip": true, "reason": "optional geometry" },
     "FR-015": { "status": "DOCUMENTED", "package": "WP-14", "test": "baseline_tournament; E2E-09", "residual": "metrics need G-GOLD" },
-    "FR-016": { "status": "DOCUMENTED", "package": "WP-15", "test": "eligibility checklist", "residual": "G-VIDEO + DEMO_REHEARSAL W9 AWS on screen" },
+    "FR-016": { "status": "IMPLEMENTED", "package": "WP-15", "test": "eligibility checklist", "residual": "Ship It live 2026-10-10; G-VIDEO still needs W9 AWS on camera" },
     "FR-017": { "status": "VERIFIED", "package": "WP-13", "test": "T-GOLD-PQ" },
     "FR-018": { "status": "VERIFIED", "package": "WP-15", "test": "subset suite" },
     "FR-019": { "status": "DOCUMENTED", "package": "WP-04", "test": "T-PROV-01" },

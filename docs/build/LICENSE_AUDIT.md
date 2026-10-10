@@ -12,7 +12,7 @@
 | IBM Plex Sans / Mono | @fontsource / IBM | Phase 7 package lock | SIL Open Font License 1.1 | Yes if required by OFL | true | true | UX lock |
 | FastAPI / Starlette / Uvicorn | PyPI | TBD at WP-00 | MIT / BSD (verify pin) | LICENSE in venv/vendor | true | true | Fill version after install |
 | React / Vite | npm | TBD at WP-00 | MIT | LICENSE in node_modules | true | true | Fill version after install |
-| AWS SDK / SAM / boto3 | AWS | TBD at WP-15 | AWS Customer Agreement / Apache-2.0 as packaged | As per package | true | true | Ship It path |
+| AWS SDK / SAM / boto3 | AWS | 2026-10-10 (Ship It live) | AWS Customer Agreement / Apache-2.0 as packaged | As per package | true | true | Ship It stack `disputepoint` / `ap-south-1` |
 | Carbon / Lucide icons (if used) | npm | TBD | Apache-2.0 / ISC (verify) | Package license | true | true | Only if imported |
 | OSM / Overpass (if MapHUD) | openstreetmap.org | TBD | ODbL | Yes | true | follow ODbL | Only after G-GEO |
 | MapLibre GL JS / react-map-gl | npm maplibre-gl, react-map-gl | frontend package.json | BSD-3-Clause | Yes (in LICENSE notices) | true | true | Product map (Mode A) |

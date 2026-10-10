@@ -22,7 +22,7 @@ Append-only. Sessions add dated entries. Do not rewrite history.
 - G-PLAN accepted on main before this package (`plan-check.yaml` PASS).
 - Branch `wp/WP-00`: Makefile install/test/run, root `pyproject.toml` and npm workspace, Vite shell, toolchain `create_app` until `backend/app/main.py` exists.
 - `make install`, `make test` (no `tests/` yet), and `make run` (API `127.0.0.1:8000`, UI `127.0.0.1:5173`) passed.
-- NFR-009 set to VERIFIED. WP-01 is READY. `make deploy` still exits 1 (G-AWS).
+- NFR-009 set to VERIFIED. WP-01 is READY. *(Historical: deploy was gated on G-AWS; cleared 2026-10-10 — see Ship It section below.)*
 
 ### 2026-10-08 — WP-01 models
 
@@ -55,7 +55,7 @@ Append-only. Sessions add dated entries. Do not rewrite history.
 - Fixture rows are UNKNOWN with a null agency. CONFLICT → null remains the unit case. No coordinates were added.
 - G-HITL-API closed: ACK is 409 unless ASSIGNED and OPEN. OVERRIDE and ESCALATE stay off RESOLVED. Audit row is written.
 - G-HITL-UI closed: ACK stays disabled on the fixture card. OVERRIDE and ESCALATE fill the audit panel.
-- G-AWS stays open. `make deploy` still exits 1. Template and operator note are in `infra/`. No live URL.
+- *(Historical)* G-AWS was open / no live URL. **Superseded 2026-10-10** — Ship It live; see section below.
 - G-VIDEO and G-KPI stay open. Rehearsal file is tracked. No measured triage time. FR-027, W8, and W9 stay DOCUMENTED.
 - FR-001 stays DOCUMENTED pending G-GEO. FR-015 gold cells stay blank. FR-016 stays DOCUMENTED until AWS is on screen.
 
@@ -73,4 +73,12 @@ Append-only. Sessions add dated entries. Do not rewrite history.
 - Mode B: Incident Replay scrubber. Tier A: Follow Storm (10s demo).
 - Mode C docs: `EARTH_STUDIO_SHOT.md`. AWS beat: `AWS_DEMO_BEAT.md`. Submission: `SUBMISSION_CHECKLIST.md`. Visual QA: `VISUAL_QA_BASELINE.md`.
 - `npx playwright test -c frontend/playwright.config.ts`: 9 passed. Frontend `npm run build` OK.
-- G-AWS / G-VIDEO still need human Ship It/SAM on camera + Earth Studio export.
+- G-AWS Ship It is live (2026-10-10). G-VIDEO still needs AWS on camera + Earth Studio export.
+
+## 2026-10-10 — Ship It (G-AWS)
+
+- Path: **Ship It** (not Build It). Stack `disputepoint` / `ap-south-1`.
+- `make deploy` stages SAM, deploys API GW + Lambda + DynamoDB + S3 UI/evidence + EventBridge, builds UI with `VITE_API_URL`, smokes `/health` + `/points`.
+- Live: Open-Meteo `rain_source_state=LIVE`, evidence batch LIVE, CORS allowlist, `/docs` 404.
+- Pins: `docs/operations/AWS_OPERATOR.md`, `docs/build/AWS_DEMO_BEAT.md`. Mex ROUTER/context refreshed.
+- Still open: G-VIDEO, G-VIS human slots, form/write-up, optional IAM-not-root, post-video cleanup.

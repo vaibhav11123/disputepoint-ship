@@ -210,7 +210,7 @@ Each block owns the id. Priority is MUST, SHOULD, or COULD. Acceptance is the pa
 
 ### FR-016
 
-- **Requirement:** Document an AWS Ship It path or a SAM Build It path. Show AWS in the video plan.
+- **Requirement:** Document an AWS Ship It path or a SAM Build It path. Show AWS in the video plan. **Path chosen:** Ship It live (2026-10-10); video beat still required (G-VIDEO).
 - **Priority:** MUST
 - **Acceptance:** Eligibility check
 - **Service list:** See [HLD.md](HLD.md). This PRD does not name AWS resources.

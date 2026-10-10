@@ -15,7 +15,7 @@ edges:
   - target: patterns/implement-work-package.md
     condition: when a decision changes how the next package may be built
 grounds_to: []
-last_updated: 2026-10-08
+last_updated: 2026-10-10
 ---
 
 # Decisions
@@ -102,10 +102,18 @@ type: decision
 status: promoted
 revision: 1
 -->
+### Ship It live path chosen (G-AWS)
+**Date:** 2026-10-10
+**Status:** Active
+**Decision:** Deploy path is **Ship It** (not Build It). Stack name `disputepoint` in `ap-south-1`. Live rain (`DP_LIVE_FETCH=1`) + evidence batch job; CORS allowlist to UI origin; Swagger off on Lambda.
+**Reasoning:** Account + SAM green; FR-016 video needs a live API/UI URL. Local `make run` remains the offline degrade path.
+**Alternatives considered:** SAM Local Build It only (deferred — Ship It succeeded).
+**Consequences:** Demo W9 uses live API Gateway + S3 UI + `aws-arch.html`. Cleanup with `sam delete` after video. Operator pins live in `docs/operations/AWS_OPERATOR.md`.
+
 ### Queue-first product, Ship It preferred
 **Date:** 2026-10-06
-**Status:** Active
+**Status:** Active — consequences partially superseded by **Ship It live path chosen (G-AWS)** (2026-10-10)
 **Decision:** The product is a queue plus point-card. Preferred deploy is Ship It. θ_assign stays 0.65 until fixture gold exists. UI kit is CSS variables and React.
 **Reasoning:** Frozen in Phase 6. A flood heatmap collides with existing dashboards and fails the kill tests.
 **Alternatives considered:** Heatmap product, Carbon React, required SAM Build It (rejected or deferred). Build It remains a day-1 recon fallback, not the default.
-**Consequences:** G-AWS still chooses the live path. Do not start deploy from this scaffold.
+**Consequences:** Originally: G-AWS still open. **Now:** Ship It is deployed; keep Build It only as failover narration if the live URL dies mid-demo.

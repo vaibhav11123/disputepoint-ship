@@ -197,7 +197,7 @@ Locks on every package: `THETA=0.65`, `W_NORM=2.0`, Bedrock off, no ML runtime, 
 | Risk | MEDIUM · human gate G-AWS (Ship It vs Build It) |
 | Owned paths | `tests/test_failures.py`, `infra/template.yaml`, `infra/README.md` |
 | Read | TEST_STRATEGY failure-injection; PHASE6 §16A only; AC FR-016, FR-018 |
-| Done when | `pytest tests/test_failures.py -q` (four FR-018 cases); no deploy without human |
+| Done when | `pytest tests/test_failures.py -q` (four FR-018 cases); no deploy without human — **G-AWS cleared 2026-10-10 (Ship It live)** |
 
 ## WP-16 — Demo rehearsal
 

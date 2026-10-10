@@ -31,10 +31,11 @@ Full layout: [docs/README.md](docs/README.md).
 - Fixtures: [`data/fixtures/`](data/fixtures/) v0.2 (evidence promoted). L0 source bodies gitignored under [`data/audit/`](data/audit/) (L1 matrices committed).
 - Geo: `lat`/`lon` null until human VERIFIED ([geocode-candidates](docs/research/geocode-candidates.md)); MapHUD skippable. COURT quotes may still have `needs_review=true`.
 - App: queue-first UI + MapHUD + Rain Strike + Ownership Conflict + HITL. Demo chrome default; `?judges=1` for eval/θ.
+- **Ship It (live):** `make deploy` → stack `disputepoint` / `ap-south-1`. URLs in [AWS_DEMO_BEAT](docs/build/AWS_DEMO_BEAT.md) · operator [AWS_OPERATOR](docs/operations/AWS_OPERATOR.md).
 - Demo: [DEMO_SCRIPT](docs/build/DEMO_SCRIPT.md) · [EARTH_STUDIO_SHOT](docs/build/EARTH_STUDIO_SHOT.md) · [AWS_DEMO_BEAT](docs/build/AWS_DEMO_BEAT.md) · [DONOR_MATRIX](docs/build/DONOR_MATRIX.md)
-- AI coding tools: Cursor (must be listed in hackathon write-up). AWS must show in the demo video.
+- AI coding tools: Cursor (must be listed in hackathon write-up). AWS must show in the demo video (G-VIDEO still open).
 - Optional secondary memory: `.mex/` (loopback Hub). Phase 6 + root AGENTS hard stops win on conflict.
-- **Git:** no GitHub remote on this tree yet. Policy: [docs/operations/SUBMISSION_GIT.md](docs/operations/SUBMISSION_GIT.md).
+- **Git:** policy [SUBMISSION_GIT](docs/operations/SUBMISSION_GIT.md) — keep history event-dated; make public before form submit.
 
 ## Engineering invariants (interview / judge surface)
 

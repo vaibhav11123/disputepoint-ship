@@ -19,7 +19,7 @@ Generated against authored `work-packages.yaml` + `status.json` + explicit skips
 | FR-011 | WP-02 + WP-09 | OK |
 | FR-012 | WP-08 + WP-11 | OK |
 | FR-015 | WP-14 (+ G-GOLD for metrics) | OK |
-| FR-016 | WP-15 (+ G-VIDEO for AWS beat) | OK |
+| FR-016 | WP-15 Ship It live 2026-10-10 (+ G-VIDEO for AWS on camera) | OK |
 | FR-017 | WP-13 | OK |
 | FR-018 | WP-15 | OK |
 | FR-019 | WP-04 | OK |

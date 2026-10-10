@@ -15,7 +15,7 @@ edges:
   - target: context/setup.md
     condition: when checking which commands exist today
 grounds_to: []
-last_updated: 2026-10-08
+last_updated: 2026-10-10
 mex:
   id: mx_01M4D8EQ7VVRBD20W0YXVQSCQB
   type: architecture
@@ -37,17 +37,18 @@ Details live in `docs/HLD.md` and the AWS notes under `docs/research/` and `docs
 
 ## Core Technologies
 
-- **Python + FastAPI** — local read API and engines. Not present until WP-00.
-- **React + Vite** — queue and point-card UI. Styling is CSS variables, IBM Plex Sans and Mono.
-- **Make** — root `Makefile` is the operator entry. Targets are stubs.
-- **Node** — mex CLI only (this machine has Node 22). Not the product runtime.
+- **Python + FastAPI + Mangum** — local uvicorn; Ship It Lambda ASGI adapter.
+- **React + Vite** — queue and point-card UI. IBM Plex Sans and Mono.
+- **Make** — `install` / `test` / `run` / `deploy` / `visual-qa`.
+- **AWS SAM** — `infra/template.yaml` + `infra/stage_package.sh` + `infra/samconfig.toml`.
+- **Node** — frontend build + mex CLI (Node 22 on this machine).
 
 ## Key Libraries
 
-- **Open-Meteo HTTP** — rain ingest. Use the locked URL. Do not add a second weather client for the demo.
-- **JSON Schema + OpenAPI** — `docs/schemas/` and `docs/openapi.yaml` are the contracts. Do not introduce a parallel model layer that drifts from them.
-- **pytest** — API tests once the backend tree exists. The Makefile already names pytest as the intended runner.
-- **AWS services listed in architecture** — Ship It is the preferred deploy. SAM is the Build It fallback after day-1 recon, not the default.
+- **Open-Meteo HTTP** — rain ingest. Locked Delhi centroid URL.
+- **JSON Schema + OpenAPI** — `docs/schemas/` and `docs/openapi.yaml`.
+- **pytest** + Playwright (frontend e2e / visual-qa).
+- **AWS Ship It** — API Gateway HTTP API, Lambda (python3.12 arm64), DynamoDB, S3 (UI website + private evidence), EventBridge schedules, CloudWatch. Build It / SAM Local remains failover only.
 
 ## What We Deliberately Do NOT Use
 
@@ -58,4 +59,4 @@ Details live in `docs/HLD.md` and the AWS notes under `docs/research/` and `docs
 
 ## Version Constraints
 
-Application language and framework versions are not pinned in this tree yet. Do not invent them. Mex on this machine is `mex-agent` 0.8.0. Node for mex is 22.17.0.
+Python ≥3.11 (Lambda runtime 3.12). Mex on this machine is current `mex-agent`; Node for mex/frontend is 22.x. Prefer lockfiles in-repo over inventing versions.

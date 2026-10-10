@@ -29,6 +29,20 @@ Source: [OWASP API Security Top 10 2023](https://owasp.org/API-Security/editions
 | API9 Inventory | Frozen [openapi.yaml](../openapi.yaml) — nine routes only. |
 | API10 Unsafe consumption | Validate Open-Meteo JSON; timeout + cache/slider fallback; never trust rain blindly. |
 
+## Ship It checks (2026-10-10)
+
+| Check | Result |
+|-------|--------|
+| No secrets in Lambda env / git | Pass — no key/token env vars; `.env` gitignored; no L0 audit bodies tracked |
+| Evidence S3 private + SSE-S3 | Pass — public access blocked; anon GET on runtime DB → 403 |
+| UI S3 public read-only | Pass (intentional demo host) — GetObject only |
+| Lambda invoke | Pass — API Gateway + EventBridge principals only |
+| IAM role | Pass — DynamoDB table-scoped + evidence bucket-scoped + basic logs |
+| CORS allowlist | Pass — UI website origin + localhost only (not `*`) |
+| `/docs` `/openapi.json` on Ship It | Pass — 404 (disabled on Lambda) |
+| Auth / HITL | **Accepted MVP risk** — no Cognito; ACK/OVERRIDE/ESCALATE are demo-open with schema validation |
+| Operator identity | **Warn** — CLI profile currently resolves as **root**; prefer IAM user after MFA |
+
 ## Explicit non-goals
 
 - Full OAuth / Cognito

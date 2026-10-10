@@ -30,12 +30,12 @@
 |-------|------------|--------------|-----|
 | **0:00–0:05** | (silent or ambient) | Earth Studio WORLD→PURANA QUILA → hard cut ([EARTH_STUDIO_SHOT.md](EARTH_STUDIO_SHOT.md)) | Mode C |
 | **0:05–0:30** | Locked problem statement above | Title + calm queue (Mode A) | — |
-| **0:30–0:45** | “Thirty-plus disputed areas on one board — not a thin fixture list. Volunteer reported rows fill the street view.” | Queue `dry` (full board); Volunteer reported chip | W1 |
+| **0:30–0:45** | “Thirty-plus disputed areas on one board — assigned, disputed, and evidence-needed in the first screen. Volunteer reported rows fill the street view.” | Queue `dry` (full board mix: green ASSIGNED + olive CONFLICT + UNKNOWN); Volunteer reported chip. No DEMO MIX banner — fixtures drive engine order. | W1 |
 | **0:45–1:05** | “Watch rain hit the board — mode banner updates; relative ranks stay engine-honest under citywide R.” | Slider or Open-Meteo; mode banner | W2 |
 | **1:05–1:35** | “Purana Quila — DEMO INCIDENT. Responsibility disputed. We don’t guess. Competing claims, no auto-assign. Volunteer reports raise urgency — they do not pick an owner.” | Open `/incident/dp-purana-quila` — **focused place map + PlaceStrip must be on screen** beside RESPONSIBILITY DISPUTED / NO AUTO-ASSIGN; then Evidence tab (map stays sticky) + quotes | W3 W4 |
 | **1:35–1:50** | “Why this rank — and what if rain drops.” | Counterfactual chips if shipped; else **skip VO** | W5 |
 | **1:50–2:00** | “Advisory next step. Officer ACK or OVERRIDE — audit stays visible.” | Advisory + HITL + DecisionAuditPanel | W6 W7 |
-| **2:00–2:30** | “Hard part: evidence-weighted ownership under conflict — no flood ML, no fake rain re-rank. On AWS: API Gateway, Lambda, DynamoDB, S3.” | Architecture diagram + Ship It URL or SAM invoke | W9 |
+| **2:00–2:30** | “Hard part: evidence-weighted ownership under conflict — no flood ML, no fake rain re-rank. On AWS: API Gateway, Lambda, DynamoDB, S3.” | Live UI or `/aws-arch.html` + `GET /health` LIVE — [AWS_DEMO_BEAT.md](AWS_DEMO_BEAT.md) | W9 |
 | **2:30–3:00** | “Not another flood map — fewer invisible handoffs. Next: ward pilot on time-to-confirmation. DisputePoint: don’t guess. Coordinate.” | Summary; optional 5s heatmap vs queue contrast | W8 |
 
 **Trigger sentence (only one):** “Watch rain hit the queue.”

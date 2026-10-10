@@ -564,7 +564,7 @@ Constants agents must not soft-change without a Phase 6 amendment. Inventory: [b
 | UI kit | CSS variables + React (no `@carbon/react` unless later ADR) |
 | Bedrock | Off — fixtures-only evidence |
 | SNS / CloudFront | Out of MVP |
-| Deploy preference | Prefer Ship It; day-1 recon may choose Build It if account/SAM blocked |
+| Deploy preference | Prefer Ship It; day-1 recon may choose Build It if account/SAM blocked — **Ship It live 2026-10-10** ([AWS_OPERATOR.md](operations/AWS_OPERATOR.md)) |
 
 ### Helper functions (locked)
 

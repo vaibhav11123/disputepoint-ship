@@ -1,6 +1,6 @@
 {
-  "version": "0.3.2",
-  "notes": "v0.3.2 full-board deep enrichment: Research OS / Exa for all 35; incident_summary + claim_summaries on every point; ≥5 evidence each. Not DM-71 bulk.",
+  "version": "0.3.3",
+  "notes": "v0.3.2 full-board deep enrichment: Research OS / Exa for all 35; incident_summary + claim_summaries on every point; ≥5 evidence each. Not DM-71 bulk. | 2026-10-10 demo board mix: severity/arterial boosts for clear-owner points; Samaypur dual claims for CONFLICT spine.",
   "points": [
     {
       "id": "dp-purana-quila",
@@ -38,7 +38,10 @@
         "PWD": "HC record: Purana Quila Road (Priya Nursery) to petrol pump and Gate No. 5–open nallah under PWD.",
         "MCD": "HC record: petrol pump–ITPO Gate No. 5 and open nallah–Ring Road control gate under MCD.",
         "IFC": "HC record: Ring Road control gate to Yamuna outfall under Irrigation & Flood Control."
-      }
+      },
+      "severity": 0.55,
+      "is_arterial": true,
+      "is_underpass": true
     },
     {
       "id": "dp-bharat-mandapam-tunnel",
@@ -68,7 +71,10 @@
       "incident_summary": "Bharat Mandapam / Purana Quila tunnel — HC (Apr 2024) noted 2023 monsoon closure of the newly built tunnel maintained by L&T under PWD supervision. TOI (Jul 2024) links repeated flooding to ITPO underground parking seepage and incomplete Bharat Mandapam drainage.",
       "claim_summaries": {
         "PWD": "Court and press attribute tunnel maintenance supervision and corridor drainage works to PWD."
-      }
+      },
+      "severity": 0.54,
+      "is_arterial": true,
+      "is_underpass": true
     },
     {
       "id": "dp-mathura-rd-hc",
@@ -98,7 +104,10 @@
       "incident_summary": "Mathura Road / High Court pool bungalows — HC took judicial notice of 2023 carriageway and bungalow flooding alongside the Purana Quila drain dispute. TOI notes VIP Mathura Road as low-lying with ongoing stormwater redesign tied to the Pragati corridor.",
       "claim_summaries": {
         "PWD": "PWD informed the court and leads Mathura Road desilt/redesign narratives in press."
-      }
+      },
+      "severity": 0.74,
+      "is_arterial": true,
+      "is_underpass": true
     },
     {
       "id": "dp-barapullah",
@@ -132,7 +141,10 @@
         "PWD": "PWD officials: drain not under PWD after transfer; cite back-flow impacts citywide.",
         "MCD": "MCD officials: handed the drain to Irrigation & Flood Control.",
         "IFC": "I&FC: takeover incomplete; NGT later flagged stretches with no stated desilt owner."
-      }
+      },
+      "severity": 0.7,
+      "is_arterial": true,
+      "is_underpass": true
     },
     {
       "id": "dp-minto-bridge",
@@ -170,7 +182,10 @@
         "MCD": "MLA/press: bridge sits on NDMC–MCD border; agencies blame each other.",
         "PWD": "Press: road ownership and pump-house capacity upgrades attributed to PWD.",
         "RAILWAYS": "Press: some PWD officials said the area under the bridge falls to railways."
-      }
+      },
+      "severity": 0.72,
+      "is_arterial": true,
+      "is_underpass": true
     },
     {
       "id": "dp-aiims-aurobindo",
@@ -238,7 +253,10 @@
         "PWD": "Main road and Moolchand underpass hotspot monitoring attributed to PWD.",
         "CPWD": "Government quarters on Lodhi Road maintained by CPWD per press.",
         "MCD": "Bylanes under MCD; representatives also point to city drainage responsibility."
-      }
+      },
+      "severity": 0.5,
+      "is_arterial": true,
+      "is_underpass": true
     },
     {
       "id": "dp-maharani-bagh",
@@ -486,7 +504,8 @@
       "claim_summaries": {
         "PWD": "PWD pump houses and clearance operations cited in press for Azadpur underpass.",
         "MCD": "Local drain/colony interfaces and MCD complaint channels appear in wider monsoon coverage."
-      }
+      },
+      "severity": 0.68
     },
     {
       "id": "dp-samaypur-badli",
@@ -520,7 +539,8 @@
       "claim_summaries": {
         "PWD": "Underpass appears on PWD flood-control / hotspot monitoring lists.",
         "MCD": "PWD officials told TOI Siraspur underpass jurisdiction is MCD."
-      }
+      },
+      "severity": 0.88
     },
     {
       "id": "dp-okhla-underpass",
@@ -555,7 +575,8 @@
       "claim_summaries": {
         "DDA": "TOI: Okhla underpass falls under DDA control; DDA has contested some attributions.",
         "PWD": "PWD flood-control / underpass SOP narratives cover citywide depressed sections."
-      }
+      },
+      "severity": 0.9
     },
     {
       "id": "dp-dhaula-kuan",
@@ -588,7 +609,8 @@
       "incident_summary": "Ring Road / Dhaula Kuan flyover underpass — critical airport-approach arterial. NDTV (Aug 2024): PWD minister directed drainage upgrade for 100 mm/hr and more mobile pumps after bowl-shaped ponding; IE listed Dhaula Kuan among concentrated PWD complaint clusters.",
       "claim_summaries": {
         "PWD": "PWD engineers cite bowl geometry; minister ordered drainage and pumping upgrades."
-      }
+      },
+      "severity": 0.58
     },
     {
       "id": "dp-sarita-vihar",
@@ -652,7 +674,8 @@
       "incident_summary": "Karala–Kanjhawala Road — west Delhi industrial-approach stretch. TOI (Aug 2024): PWD found existing drainage inadequate; consultancy engaged 2023 with remodel works targeted after report submission — a documented long-term hotspot intervention.",
       "claim_summaries": {
         "PWD": "PWD is the road-owning agency leading the drainage remodel consultancy and works."
-      }
+      },
+      "severity": 0.78
     },
     {
       "id": "dp-jahangirpuri-metro",
@@ -684,7 +707,8 @@
       "incident_summary": "Jahangirpuri Metro Station Road — listed among Delhi’s perennial waterlogging hotspots in traffic-police / PWD preparedness reporting alongside other chronic underpass and metro-approach points.",
       "claim_summaries": {
         "PWD": "Treated as a PWD-monitored perennial hotspot in city hotspot compilations."
-      }
+      },
+      "severity": 0.62
     },
     {
       "id": "dp-tilak-bridge",
@@ -716,7 +740,8 @@
       "incident_summary": "Tilak Bridge underpass (ITO) — HT (Jun 2024): closed after a drain wall collapsed and water filled the underpass, snarling Indraprastha Marg / BSZ Marg / Vikas Marg. TOI (Aug 2024) again paired Tilak Bridge with ITO among usual suspects.",
       "claim_summaries": {
         "PWD": "PWD officials described drain-wall collapse and multi-pump clearance at the underpass."
-      }
+      },
+      "severity": 0.76
     },
     {
       "id": "dp-ashram-underpass",
@@ -748,7 +773,8 @@
       "incident_summary": "Ashram underpass / Ashram Bridge approaches — The Hindu (20 Aug 2024) reported severe waterlogging near Ashram Bridge after heavy showers, with Mathura Road corridor congestion typical of monsoon inundation at this southeast arterial node.",
       "claim_summaries": {
         "PWD": "Arterial underpass/bridge approaches fall under PWD monsoon response narratives."
-      }
+      },
+      "severity": 0.66
     },
     {
       "id": "dp-shalimar-bagh-underpass",
@@ -910,7 +936,8 @@
       "incident_summary": "GTK Depot waterlogging stretch — north Delhi GT Karnal corridor context. HT (29 Aug 2024) advisories covered GT Karnal from Mukarba toward Azadpur Chowk; depot approaches sit in the same monsoon congestion band.",
       "claim_summaries": {
         "PWD": "GT Karnal corridor waterlogging responses attributed to PWD / traffic coordination."
-      }
+      },
+      "severity": 0.56
     },
     {
       "id": "dp-kali-mandir",
@@ -1146,7 +1173,8 @@
       "claim_summaries": {
         "PWD": "Underpass inundation lists place Dwarka among PWD flood-control action-plan facilities.",
         "OTHER": "DDA/local interfaces in Dwarka sectors can blur exclusive underpass ownership."
-      }
+      },
+      "severity": 0.64
     }
   ]
 }

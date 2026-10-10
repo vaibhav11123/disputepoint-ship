@@ -128,6 +128,8 @@ FastAPI + SQLite + filesystem fixtures + Vite UI (Phase 6 Part I §16).
 
 S3 (static + fixtures) → CloudFront optional → API Gateway → Lambda → DynamoDB. EventBridge schedule. CloudWatch logs. SAM template. Cognito out.
 
+**Status (2026-10-10):** Ship It **deployed** — live pins in [operations/AWS_OPERATOR.md](operations/AWS_OPERATOR.md) and [build/AWS_DEMO_BEAT.md](build/AWS_DEMO_BEAT.md). Phase 6 product locks unchanged; this is operator reality, not a Phase 6 reopen.
+
 ### Build It
 
 SAM CLI / LocalStack once installed (Phase 6 Part I §2 — currently missing on the recon machine).

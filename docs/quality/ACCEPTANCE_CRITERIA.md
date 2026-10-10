@@ -181,6 +181,8 @@ Scenario: Eligibility architecture path exists
   Then an AWS path is documented for the video plan
 ```
 
+**Status (2026-10-10):** Ship It **live** — [AWS_DEMO_BEAT.md](../build/AWS_DEMO_BEAT.md). Residual: show AWS on camera (G-VIDEO).
+
 ## FR-017 — Golden Purana Quila
 
 ```gherkin

@@ -137,7 +137,8 @@
         "WP-07"
       ],
       "human_gate": "G-AWS",
-      "gate_open": true
+      "gate_open": false,
+      "gate_note": "Ship It live 2026-10-10 stack disputepoint ap-south-1; see docs/operations/AWS_OPERATOR.md"
     },
     "WP-16": {
       "state": "SUCCEEDED",

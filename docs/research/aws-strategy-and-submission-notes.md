@@ -60,6 +60,8 @@ API Gateway → Frontend
 
 **Decision gate:** Record in Phase 7 day-1 recon; do not flip mid-demo without §40 escalation.
 
+**Update (2026-10-10, FACT in submission tree):** G-AWS cleared — **Ship It live** (`disputepoint` / `ap-south-1`). Operator pins: [../operations/AWS_OPERATOR.md](../operations/AWS_OPERATOR.md). Build It remains failover narration only.
+
 ---
 
 ## 3. License / compliance hard gate

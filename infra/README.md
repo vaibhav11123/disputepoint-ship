@@ -8,9 +8,18 @@
 
 `infra/template.yaml` is the SAM sketch for the decision API, a points table, a private evidence bucket, and a disabled hourly rain schedule. Bedrock stays off.
 
-**B Build It** is the path until a human account passes G-AWS. Local demo stays `make run` (API `127.0.0.1:8000`, UI `127.0.0.1:5173`). `make deploy` still exits 1.
+**Ship It** is preferred once `aws login --profile disputepoint` works.
 
-Do not invent a live URL. After `aws login` and SAM are confirmed, a human runs `sam build -t infra/template.yaml` and `sam deploy`, smokes `GET /health`, and shows that URL in the video.
+```bash
+export PATH="$HOME/.local/bin:/opt/homebrew/bin:$PATH"
+export AWS_PROFILE=disputepoint AWS_REGION=ap-south-1
+aws sts get-caller-identity
+make deploy
+```
+
+`make deploy` stages `infra/package/`, runs `sam build` / `sam deploy`, builds the Vite UI with `VITE_API_URL` + `VITE_AWS_MODE=ship`, syncs `frontend/dist/` to the UI S3 website bucket, and smokes `GET /health` + `GET /points`. Capture the printed API + UI URLs for the video beat.
+
+Local demo stays `make run` (API `127.0.0.1:8000`, UI `127.0.0.1:5173`).
 
 ## Ship It (preferred)
 

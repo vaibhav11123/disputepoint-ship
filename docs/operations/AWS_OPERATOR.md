@@ -2,7 +2,7 @@
 
 Live operator truth for DisputePoint AWS tooling. **Product SoT remains** [PHASE6.md](../PHASE6.md). If this file disagrees with Phase 6 product locks, follow Phase 6. Frozen Phase 6 recon tables (old CLI pins / “STS unverified”) are historical — use this page for day-1.
 
-**Prefer Ship It.** Build It only if deploy is blocked. No product deploy before [G-CLOCK](../../execution/GATES.md) in a fresh submission repo. Tonight’s login / SAM / budget work is tooling only.
+**Ship It is live (2026-10-10).** Build It only if the live URL dies mid-demo. Profile `disputepoint`, region `ap-south-1`. Pins below beat frozen Phase 6 recon tables.
 
 ---
 
@@ -55,6 +55,24 @@ Never hard-code access keys. Never commit `.env`, keys, or `runs/`. Prefer the S
 | Secrets | Env / SSM at runtime; never in git |
 
 See [AWS root user best practices](https://docs.aws.amazon.com/IAM/latest/UserGuide/root-user-best-practices.html).
+
+---
+
+## Ship It live (2026-10-10)
+
+Stack **`disputepoint`** in **`ap-south-1`** via `make deploy` / SAM.
+
+| Output | Value |
+|--------|-------|
+| API | https://olnsv0shee.execute-api.ap-south-1.amazonaws.com |
+| UI | http://disputepoint-uibucket-nuoadlgtpdko.s3-website.ap-south-1.amazonaws.com |
+| DynamoDB | `disputepoint-PointsTable-OPB0M6XQFZH0` (invoke stamps) |
+| Lambda | `disputepoint-decision` |
+| EventBridge | `disputepoint-rain-15m` (15 min rain refresh) |
+
+Smoked (live mode): `GET /health` → `live_fetch=true`, `rain_mode=live`, `rain_source_state=LIVE` (Open-Meteo); `evidence-live=LIVE` after evidence job; Dynamo stamps + S3 `runtime/disputepoint.sqlite` snapshot for cold-start continuity. Honest gates unchanged: IMD `key_required`, Google Flood `waitlist`, NWDP `investigating`.
+
+**Demo board mix (2026-10-10):** fixtures `evidence.json` corpus **0.3.4** curate ASSIGNED / CONFLICT / UNKNOWN under real engines (no DEMO MIX banner, no frontend rank rewrite). First viewport target ≥3 each; dispute spine stays CONFLICT + null agency. `ensure_fixture_corpus` re-ingests when S3 sqlite lags package version; `DP_SEED_DEMO_ACK=1` ACKs Mathura Rd + Bharat Mandapam via the same HITL store path as the API.
 
 ---
 
@@ -142,23 +160,18 @@ Out of MVP: Cognito, required CloudFront, SNS unless time, Bedrock unless §14A 
 
 ---
 
-## G-AWS checklist (after WP-07 local green)
+## G-AWS checklist — **cleared 2026-10-10 (Ship It)**
 
-Human clears [G-AWS](../../execution/GATES.md). Then:
+Recorded in `execution/work-status.json` (`WP-15.gate_open: false`). Replay anytime:
 
-1. Choose **Ship It** (default) or **Build It** if blocked; record choice in submission `work-status` / notes.
-2. Confirm budget alert email + no secrets in git.
-3. `sam build` → `sam deploy` (or guided) under `infra/` once templates exist — **only in the submission repo after G-CLOCK**.
-4. **Smoke** (Ship It):
-   - Capture public API / UI URL
-   - Invoke critical DecisionAPI routes (queue, point card, HITL ACK/OVERRIDE/ESCALATE as implemented)
-   - Confirm DynamoDB read/write for points / audit
-   - Confirm S3 access for fixtures/static as designed
-   - Open CloudWatch log group for one successful invoke
-5. **CORS:** from the real browser origin (Vite / hosted UI), not only `curl`. OPTIONS/preflight + methods/headers must succeed. Encode allowlist in SAM/IaC ([HTTP API CORS](https://docs.aws.amazon.com/apigateway/latest/developerguide/http-api-cors.html)).
-6. **Warm-up:** one GET against the demo path before recording (avoid cold-start stutter). Do **not** buy provisioned concurrency for MVP.
-7. Architecture diagram artifact for video (same story as strategy ASCII: EventBridge → Lambda → DynamoDB/S3 → API Gateway → UI). Point DEMO_SCRIPT / DEMO_WOW AWS beat + [DEMO_REHEARSAL](../build/DEMO_REHEARSAL.md) dual path.
-8. If Ship It fails: flip to Build It; fixtures still carry the spoken story.
+1. [x] Path = **Ship It** (not Build It)
+2. [x] No secrets in git; CORS allowlist; `/docs` off on Lambda — [SECURITY.md](SECURITY.md)
+3. [x] `make deploy` / SAM under `infra/`
+4. [x] **Smoke:** `/health` LIVE · `/points` queue · Dynamo stamps · S3 UI · EventBridge rain+evidence
+5. [x] **CORS** from S3 website origin (not `*`)
+6. [ ] **Warm-up** once immediately before recording (human — G-VIDEO)
+7. [x] Architecture diagram: `frontend/public/aws-arch.html` + hosted `/aws-arch.html`
+8. Failover: if live URL dies, Build It / `make run` + honest narration
 
 ---
 
@@ -172,7 +185,7 @@ Human clears [G-AWS](../../execution/GATES.md). Then:
 | 3 | Human | `gh repo create disputepoint-ship --source=. --remote=origin --private --push` |
 | 4 | Agents | **WP-00** first, then local waves (engines → API → UI). Not morning Bedrock/MapHUD/blog |
 | 5 | Early | Confirm `sam --version` on PATH (installed 2026-10-07 on planning laptop) |
-| 6 | After WP-07 green | Human **G-AWS**: Ship It deploy; smoke + CORS + warm URL |
+| 6 | After WP-07 green | Human **G-AWS**: Ship It deploy; smoke + CORS + warm URL — **done 2026-10-10** |
 | 7 | WP-15 | Document public URL + architecture diagram for demo AWS beat |
 | 8 | Near end | G-VIS → **G-VIDEO** (AWS visible) → public repo + form → Builder Center blog ([BUILDER_BLOG](../build/BUILDER_BLOG.md)) → **cleanup** |
 

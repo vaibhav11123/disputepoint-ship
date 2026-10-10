@@ -17,7 +17,6 @@ import {
   MAP_EXPAND_EVENT,
   pickColdOpenId,
   pickConflictFocusId,
-  presentQueueForDemo,
   presentReplayQueue,
   RAIN_STRIKE_EVENT,
 } from "./lib/demoMode"
@@ -202,16 +201,15 @@ export function App() {
         .then((items) => {
           const demoMm = typeof detailPrecip === "number" ? detailPrecip : precipMm
           const wet = demoMm > 5
-          // Never invent relative reorder from citywide rain — use API ranks or dry cold-open only.
-          const presented = judges ? items : presentQueueForDemo(items)
+          // API priority_rank only — no demo re-sort that invents rain reorder.
           const moved = new Set(
-            presented.filter((row) => previous.get(row.id) !== row.priority_rank).map((row) => row.id),
+            items.filter((row) => previous.get(row.id) !== row.priority_rank).map((row) => row.id),
           )
           setFlashed(moved)
           setPulse(true)
           setRainActive(wet || focusAfterStrike)
           if (focusAfterStrike) {
-            const conflictId = pickConflictFocusId(presented)
+            const conflictId = pickConflictFocusId(items)
             if (conflictId) setSelectedId(conflictId)
             setMapForceOpen(true)
             window.dispatchEvent(new Event(MAP_EXPAND_EVENT))
@@ -256,14 +254,10 @@ export function App() {
 
   const displayRows = useMemo(() => {
     if (!rows) return null
-    if (judges) return rows
     if (replayView) return replayView.active
-    // Command / non-replay: dry cold-open presentation only when precip unavailable.
-    if (!scenarioActive && precipMm <= 0 && rainMode !== "live" && rainMode !== "slider") {
-      return presentQueueForDemo(rows)
-    }
+    // Engine order only (fixtures curated for board mix). No demo rank rewrite.
     return rows
-  }, [rows, judges, replayView, scenarioActive, precipMm, rainMode])
+  }, [rows, replayView])
 
   const undocumentedReplayCount = replayView?.undocumentedCount ?? 0
 
