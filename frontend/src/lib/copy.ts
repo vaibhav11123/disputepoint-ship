@@ -259,6 +259,7 @@ export const copy = {
     empty: "No evidence rows on this point.",
     viewSource: "VIEW SOURCE",
     community: "Volunteer report",
+    pressReport: "Press report",
     verified: "SOURCE VERIFIED",
     scenario: "STORED EVIDENCE",
     stored: "STORED EVIDENCE",

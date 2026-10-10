@@ -72,7 +72,7 @@ Stack **`disputepoint`** in **`ap-south-1`** via `make deploy` / SAM.
 
 Smoked (live mode): `GET /health` → `live_fetch=true`, `rain_mode=live`, `rain_source_state=LIVE` (Open-Meteo); `evidence-live=LIVE` after evidence job; Dynamo stamps + S3 `runtime/disputepoint.sqlite` snapshot for cold-start continuity. Honest gates unchanged: IMD `key_required`, Google Flood `waitlist`, NWDP `investigating`.
 
-**Demo board mix (2026-10-10):** fixtures `evidence.json` corpus **0.3.4** curate ASSIGNED / CONFLICT / UNKNOWN under real engines (no DEMO MIX banner, no frontend rank rewrite). First viewport target ≥3 each; dispute spine stays CONFLICT + null agency. `ensure_fixture_corpus` re-ingests when S3 sqlite lags package version; `DP_SEED_DEMO_ACK=1` ACKs Mathura Rd + Bharat Mandapam via the same HITL store path as the API.
+**Demo board mix (2026-10-10):** fixtures `evidence.json` corpus **0.3.5** — honest `PRESS_REPORT` (never press typed as `GOV_ORDER`); ASSIGNED / CONFLICT / UNKNOWN under real engines (no DEMO MIX banner, no frontend rank rewrite). Dispute spine (Okhla, Samaypur, Barapullah, …) stays CONFLICT + null agency. `ensure_fixture_corpus` re-ingests when S3 sqlite lags package version; `DP_SEED_DEMO_ACK=1` ACKs Mathura Rd + Bharat Mandapam via the same HITL store path as the API.
 
 ---
 
@@ -82,10 +82,10 @@ Smoked (live mode): `GET /health` → `live_fetch=true`, `rain_mode=live`, `rain
 |------|--------|
 | SAM CLI `1.166.2` | Done on this laptop (`brew install aws-sam-cli`) |
 | Docker for `sam local` | Present (`docker` 28.x) |
-| Account (STS via toolkit) | `700002441889` — currently resolves as **root** ARN; prefer IAM/temp user for day-to-day after MFA check |
-| Local CLI `aws login --profile disputepoint` | **OK 2026-10-07** — STS returns `arn:aws:iam::700002441889:root`. Re-run when local STS fails again |
-| Promotional credits | **$120.00 USD remaining** (verified `billing:GetCredits` 2026-10-07): $100 AWS Free Tier + $20 Explore AWS Budgets promo; both ENABLED, unused so far; credit window through ~**2027-10-07**. Console free-plan note also mentions access until **Apr 07, 2027** or credit depletion |
-| Cost budget | **`disputepoint-zero-spend`** — $1/month COST; **subscriber `scion2304@gmail.com` @ 80% ACTUAL** (API-confirmed). Check Gmail for AWS **verify email** link (required for new budget recipients) |
+| Account (STS via toolkit) | Profile `disputepoint` / region `ap-south-1` — prefer IAM user (not root) for day-to-day after MFA check |
+| Local CLI `aws login --profile disputepoint` | **OK 2026-10-07** — re-run `aws sts get-caller-identity --profile disputepoint` when local STS fails |
+| Promotional credits | Track Free Tier / promo credits in the Billing console; credit window noted locally through ~**2027-10-07** |
+| Cost budget | **`disputepoint-zero-spend`** — $1/month COST; subscriber is the operator inbox @ 80% ACTUAL. Confirm budget email verify link in the Billing console |
 | Free Tier usage alert | Defaults to root email; confirm under Billing → Billing preferences / Free Tier in **your** browser (embedded Cursor browser hit “Unable to load content”) |
 | Root MFA on; no root access keys | **Still human** — Security credentials in your browser (MFA assign if missing; access keys list empty) |
 
@@ -180,7 +180,7 @@ Recorded in `execution/work-status.json` (`WP-15.gate_open: false`). Replay anyt
 | Step | Who | Action |
 |------|-----|--------|
 | 0 | Human | New Cursor session; `aws sts get-caller-identity --profile disputepoint` — re-`aws login` if expired |
-| 1 | Human | **G-CLOCK**: declare clock → `CLOCK_STARTED=1 ./scripts/scaffold_submission.sh` → open Cursor on `/Users/vaibhavsingh/disputepoint-ship` only ([SUBMISSION_GIT](SUBMISSION_GIT.md)) |
+| 1 | Human | **G-CLOCK**: declare clock → `CLOCK_STARTED=1 ./scripts/scaffold_submission.sh` → open Cursor on this submission tree only ([SUBMISSION_GIT](SUBMISSION_GIT.md)) |
 | 2 | Human | **G-PLAN**: accept [PLAN_CHECK.md](../../execution/PLAN_CHECK.md) in the **submission** tree; set `plan_gate_accepted: true` in submission `execution/work-status.json` |
 | 3 | Human | `gh repo create disputepoint-ship --source=. --remote=origin --private --push` |
 | 4 | Agents | **WP-00** first, then local waves (engines → API → UI). Not morning Bedrock/MapHUD/blog |

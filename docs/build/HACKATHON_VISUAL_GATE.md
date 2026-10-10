@@ -14,7 +14,7 @@ Wire: [DEMO_REHEARSAL.md](DEMO_REHEARSAL.md) **G-VIS** = this gate green before 
 
 | ID | PASS | FAIL |
 |----|------|------|
-| **V0 Cold open** | Idle ≥5s: queue leads with **ACT · ASSIGNED** + agency; CONFLICT (Purana/Minto) mid-list as ADJUDICATE; map **collapsed**; no θ/Why/eval chrome on default demo | RESEARCH/UNKNOWN as #01; land already on CONFLICT; map open; purple glass / heatmap-first |
+| **V0 Cold open** | Idle ≥5s: engine-honest board mix — first viewport shows **CONFLICT + UNKNOWN + ASSIGNED** (no DEMO MIX banner / fake sort); map may be open beside queue; no θ/Why/eval chrome on default demo | Fake-sorted ASSIGNED-only hero; heatmap-first; purple glass; invented agency under CONFLICT |
 | **V1 Rain Strike** | BEFORE → Strike → DURING (flash/reorder) → AFTER; map **expands** + flyTo conflict; DEMO/scenario honesty visible | Silent reorder; map stays collapsed; fake “live storm” without honesty chip |
 | **V2 Aha freeze** | Ownership Conflict card: claims duel · **NO AUTO-ASSIGN** · Agency **—** · EFFECT “does not establish exclusive responsibility”; **no** confidence % in demo | Conf % badge; invented responsible agency; soft “maybe both” copy |
 | **V3 Evidence** | Trace: CLAIM → SOURCE → QUOTE → DECISION EFFECT; no spiderweb | Trace opens empty; quotes without effect line |

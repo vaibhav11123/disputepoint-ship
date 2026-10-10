@@ -1,178 +1,183 @@
 # BUILDER_BLOG — AWS Builder Center article draft
 
-**Purpose:** Paste-ready skeleton for Environmental Hacks **Top 5 blogs (AirPods)**. Tactics: [research/builder-center-blog-tactics.md](../research/builder-center-blog-tactics.md). Spoken video: [DEMO_SCRIPT.md](DEMO_SCRIPT.md). Product SoT: [PHASE6.md](../PHASE6.md).
+**Purpose:** Paste-ready article for Environmental Hacks **Top 5 blogs (AirPods)**. Story arc: civic problem → engineering decision → lessons. Public-cost cites: [research/public-cost-of-waterlogging.md](../research/public-cost-of-waterlogging.md). Spoken video: [DEMO_SCRIPT.md](DEMO_SCRIPT.md).
 
-**Not the short form.** Form still needs a separate short write-up (problem / build / AWS / Cursor). This article is the longer Builder Center post; paste its public URL into the submission.
-
-**Timing:** Do **not** burn Thursday morning. Fill screenshots + “what fought back” + live links after **G-VIDEO** and Ship It URL. Human publishes at [builder.aws.com/create/content](https://builder.aws.com/create/content).
+**Not the short form.** Form still needs a separate short write-up. Publish at [builder.aws.com/create/content](https://builder.aws.com/create/content).
 
 **Tags (≤5):** `Hackathon` · `Environmental Hacks` · `Serverless` · `DynamoDB` · `AWS`
+
+**Hackathon note (sidebar / author line, not the lede):** Built for WeMakeDevs × AWS Environmental Hacks (Heat and Water). AI coding tools: Cursor.
 
 ---
 
 ## Title (paste)
 
-DisputePoint: DM triage for disputed Delhi waterlogging points under rain (Environmental Hacks)
+When Delhi’s Roads Flood, Who Needs to Act? Building DisputePoint on AWS
 
 ## Description (paste — 1–2 sentences)
 
-A queue-first tool for a Delhi DM coordination cell: under monsoon rain, rank disputed waterlogging points, show who should act — or honest null when ownership conflicts — with evidence and human ACK/OVERRIDE.
+When Delhi roads flood, response teams still need to know what is disputed and who should act. DisputePoint is an AWS prototype that prioritizes waterlogging incidents, keeps conflicting ownership visible, and records human decisions — without inventing an agency when claims conflict.
 
 ---
 
-## Article body (paste into Builder Center; replace placeholders)
+## Article body (paste)
 
-### 1. Promise
+# When Delhi’s Roads Flood, Who Needs to Act? Building DisputePoint on AWS
 
-Heat and Water track. User = DM cell officer, not a citizen inbox and not a citywide flood heatmap.
+When a road floods during Delhi’s monsoon, the consequences are immediate. Commuters lose time, vehicles can become stranded, and residents may face recurring disruption.
 
-DisputePoint answers: which disputed point needs action first under rain, which agency should act (or UNCERTAIN / null), and why — with cited evidence and a visible audit trail.
+Responding to a waterlogging incident can involve multiple agencies with different responsibilities. When responsibility is unclear, the response team needs to establish what is known, what remains disputed, and who should take the next action.
 
-### 2. The problem
+In July 2025, the Delhi High Court highlighted coordination problems among civic agencies dealing with drainage and flooding. Later proceedings also recorded coordination between agencies and residents over drainage-related issues. These proceedings provide context for the problem we wanted to explore with DisputePoint. They do **not** establish that every waterlogging incident is caused by an ownership dispute, and they do not endorse this product. ([TOI](https://timesofindia.indiatimes.com/india/much-confusion-on-who-does-what-even-upkeep-of-drains-hc-to-delhi-government/articleshow/122963747.cms) · [LiveLaw](https://www.livelaw.in/high-court/delhi-high-court/delhi-high-court-government-flood-management-299427) · [Delhi High Court order, 19 Aug 2025](https://delhihighcourt.nic.in/app/showFileJudgment/PMS19082025CW131902024_164406.pdf))
 
-During monsoon, multi-agency disputed waterlogging points stall while agencies pass the buck. Delhi’s High Court has called out enormous confusion over who does what on drains and related work (public record).
+**DisputePoint is a prototype for coordinating waterlogging incidents, reviewing responsibility claims, and recording decisions in one operational workflow.**
 
-**Public FACT anchors (write-up, not invented stats):**
+## The problem we wanted to solve
 
-- [Delhi HC order PDF (LiveLaw)](https://www.livelaw.in/pdf_upload/pms28072025cw131902024201344-613072.pdf)
-- [TOI — much confusion on who does what](https://timesofindia.indiatimes.com/india/much-confusion-on-who-does-what-even-upkeep-of-drains-hc-to-delhi-government/articleshow/122963747.cms)
+A map can show where an incident is reported. The response team still needs to answer:
 
-We do not invent death counts. We do not invent a single owner when ownership conflicts.
+- Which incidents need attention first?
+- What evidence is available?
+- Which agency is responsible, if that can be established?
+- What should happen when available claims conflict?
+- How can a decision and its rationale be recorded?
 
-### 3. What we built
+We focused on the coordination problem rather than building another citywide flood visualization.
 
-Queue-first UI + point card:
+The prototype is designed for an incident commander or coordination officer who needs to review incidents, understand responsibility claims, and coordinate the next action.
 
-1. Ranked queue of disputed points  
-2. Rain context (live / cache / slider) re-ranks the list  
-3. Ownership CONFLICT → `responsible_agency` stays **null**; quotes and source URLs stay visible  
-4. Advisory next step; officer **ACK / OVERRIDE / ESCALATE** with **DecisionAuditPanel**
+The objective is not to replace an official’s judgment. It is to make the information and decisions surrounding that judgment easier to inspect.
 
-**Links (fill remaining after G-VIDEO / public repo):**
+## What we built
 
-- Public repo: `_REPO_URL_` *(make public before form submit)*  
-- Ship It UI: http://disputepoint-uibucket-nuoadlgtpdko.s3-website.ap-south-1.amazonaws.com  
-- Ship It API: https://olnsv0shee.execute-api.ap-south-1.amazonaws.com  
-- Arch diagram: http://disputepoint-uibucket-nuoadlgtpdko.s3-website.ap-south-1.amazonaws.com/aws-arch.html  
-- Demo video (≤3 min): `_YOUTUBE_URL_` *(G-VIDEO)*
+DisputePoint brings an incident queue, a map, an evidence view, and a responsibility workflow into one interface.
 
-![Queue-first UI under rain — alt: DisputePoint ops queue showing ranked disputed points with rain mode banner](_SCREENSHOT_QUEUE_)
+The workflow is:
 
-![Point card CONFLICT with responsible agency null — alt: point card showing ownership CONFLICT and null agency with evidence chips](_SCREENSHOT_CONFLICT_)
+`INCIDENT → PRIORITY → EVIDENCE → RESPONSIBILITY DECISION → ACTION → AUDIT`
 
-### 4. Safety invariant
+The application distinguishes three ownership states:
 
-| Rule | Behavior |
-|------|----------|
-| `ownership_state == CONFLICT` | `responsible_agency = null` always |
-| U | Coordination uncertainty — not physical flood severity |
-| Evidence | Quote ⊆ source; no silent ownership from LLM |
-| Synthetic | Marked honest if readiness is synthetic |
+| State | Meaning |
+|-------|---------|
+| `ASSIGNED` | Responsibility is assigned to an agency |
+| `CONFLICT` | Competing claims remain unresolved |
+| `UNKNOWN` | Available evidence does not establish responsibility |
 
-### 5. Architecture (Ship It)
+These states are not just labels. They determine what the system is allowed to do next.
 
-```text
-Open-Meteo / fixtures
-        ↓
-   EventBridge          (rain poll / re-rank trigger)
-        ↓
-     Lambda             (decision API + rain refresh)
-   ┌────┴────┐
-DynamoDB    S3          (points + HITL audit | evidence + static UI)
-   ↓
-API Gateway → Frontend
-(+ CloudWatch logs)
-```
+### Designing for uncertainty instead of hiding it
 
-| Service | Role |
-|---------|------|
-| EventBridge | Schedule rain ingest / re-rank |
-| Lambda | Decision engine + rain refresh |
-| DynamoDB | Points, recommendations, HITL audit |
-| S3 | Evidence corpus + static UI |
-| API Gateway | HTTPS front door |
-| CloudWatch | Logs / demo observability |
+One design decision shaped the rest of DisputePoint: when evidence supports competing responsibility claims, the system must not automatically select an agency.
 
-SAM CLI builds and deploys this stack. Cognito and map Location Service are out of MVP.
+In our ownership model, `CONFLICT` means the responsible agency remains unassigned (`responsible_agency = null`). The incident can still be prioritized, the available evidence can still be reviewed, and an officer can still take the next step. What the system cannot do is pretend that the disagreement has already been resolved.
 
-**Why these services (tradeoffs):** EventBridge beats a cron-on-laptop for a judge-visible schedule. Lambda keeps the decision path serverless and Free Tier–friendly. DynamoDB stores HITL audit without standing up RDS. S3 hosts evidence + static UI without Amplify auth surface. API Gateway is the only public HTTPS door. CloudWatch proves the invoke on camera. We cut Cognito (single-tenant demo), Location Service (queue-first product), and ML runtime (Phase 6 no-KEEP).
+For example, open Okhla (or Samaypur Badli) in the live queue. Responsibility remains disputed. Competing claims and source material stay visible. An authorized officer can escalate or override after review; confirmation applies when a clear agency is already assigned. The decision and rationale stay in the audit trail.
 
-### Failure modes (what we degrade to)
+This distinction matters because an operational interface can look complete while concealing uncertainty. We wanted the unresolved state to remain visible until an authorized human decision is recorded.
 
-| Failure | Behavior |
-|---------|----------|
-| Open-Meteo timeout | Cache then scenario slider; mode banner stays honest |
-| AWS / Ship It down | Local FastAPI + fixtures still run the DEMO_SCRIPT story |
-| Missing fixture point | Empty-state copy — never invent points or owners |
-| CONFLICT ownership | `responsible_agency` stays **null**; quotes stay; human HITL only |
+The result is a workflow that represents uncertainty explicitly rather than treating every incident as a classification problem with a mandatory answer.
 
-HITL: ACK / OVERRIDE / ESCALATE write an audit row the officer can see. No silent LLM ownership.
+The system does not use an AI-generated answer to silently resolve conflicting ownership claims.
 
-### 6. Golden path (matches the demo)
+## Keeping priority separate from responsibility
 
-1. Open queue in `dry` — scattered workarounds become one ranked list.  
-2. Trigger rain (`rain-spike` / slider) — ranks flash; mode banner shows live/cache/slider.  
-3. Open a CONFLICT point (e.g. Purana Quila path) — agency null; evidence chips stay.  
-4. On a disputed point (Purana Quila): escalate or override → audit row visible. ACK only on an already-assigned point (Mathura Road / Bharat Mandapam).
-5. Show AWS: architecture page + live UI — http://disputepoint-uibucket-nuoadlgtpdko.s3-website.ap-south-1.amazonaws.com (API Gateway → Lambda → DynamoDB/S3).
+Rainfall matters to waterlogging response, but it answers a different question from asset ownership.
 
-Spoken script for the video: [DEMO_SCRIPT.md](DEMO_SCRIPT.md).
+Rainfall can be relevant to how urgently an incident needs attention. It cannot, by itself, establish who maintains a drain or road.
 
-### 7. What fought back
+DisputePoint treats priority and responsibility as separate decisions. When live Open-Meteo observations are available, or when an operator applies a rainfall scenario, the backend recalculates priority scores from the configured model inputs (including rainfall). The mode banner shows whether rain is live, cached, or scenario-driven so that a demonstration scenario is not mistaken for a historical flood measurement.
 
-_Fill during the event with one real incident only:_
+A higher position in the queue has not been validated against emergency-response outcomes. It is a prototype ranking for triage, not a certified urgency score.
 
-| Field | Fill |
-|-------|------|
-| Symptom | `_…_` |
-| Root cause | `_…_` |
-| Fix | `_…_` |
-| Proof | `_test name or screenshot_` |
+## Connecting evidence to decisions
 
-Do not invent a failure. If nothing painful shipped, write the hardest Phase 6 lock you had to keep (e.g. refusing to invent an owner under CONFLICT) and show the UI proof.
+The evidence view is intended to help an officer examine what supports a claim and what remains missing — source, quotation, verification status, and relationship to the decision.
 
-### 8. Limits and next
+A source existing is not the same as a claim being verified. A quotation being accurately extracted is not the same as that quotation establishing jurisdiction over a particular asset. Court quotations may still need human review of context and legal meaning before anyone treats them as settling ownership.
 
-- Fixture-scale demo; not citywide hydraulic truth  
-- No ML runtime in MVP (Phase 6 gate)  
-- MapHUD uses cited Nominatim coords where present; COURT quotes may still need human review  
-- Next: ward pilot on time-to-confirmation under real rain windows  
+The current prototype contains a **35-location** Delhi incident corpus and supporting evidence fixtures. The corpus demonstrates the workflow. It should not be interpreted as a comprehensive or independently verified account of every incident or agency responsibility in Delhi. Illustrative volunteer rows and synthetic readiness labels stay marked as such.
 
-### 9. AI tools and credits
+## Deploying the prototype on AWS
 
-- AI coding tools: **Cursor** (and any others used — list all)  
-- Data: Open-Meteo (CC-BY 4.0 attribution in UI); fixture evidence with source links  
-- Third-party code/assets: see `docs/build/LICENSE_AUDIT.md` in the submission repo  
+We deployed the DisputePoint frontend as a static web application on S3 and exposed the backend through API Gateway and Lambda. DynamoDB stores invoke stamps and workflow-related audit records; S3 also holds the private evidence/runtime snapshot used on cold start. EventBridge schedules rain refresh (every 15 minutes) and evidence-verification batches (hourly). CloudWatch receives Lambda logs for the decision function.
+
+We chose this serverless shape to build and deploy the prototype without managing a fleet of application servers. The current deployment demonstrates the application’s workflow. It does not establish production readiness for a citywide emergency-management system.
+
+- **Repository:** https://github.com/vaibhav11123/disputepoint-ship  
+- **Live application:** http://disputepoint-uibucket-nuoadlgtpdko.s3-website.ap-south-1.amazonaws.com  
+- **Backend API:** https://olnsv0shee.execute-api.ap-south-1.amazonaws.com  
+- **Architecture:** http://disputepoint-uibucket-nuoadlgtpdko.s3-website.ap-south-1.amazonaws.com/aws-arch.html  
+
+*(Upload screenshot: `docs/assets/readme-queue.png` — alt: DisputePoint incident queue showing waterlogging places with disputed responsibility visible.)*
+
+When Open-Meteo is unavailable, the UI can fall back to cache or a labeled scenario slider. When ownership conflicts, the agency field stays empty until a human decision is recorded. Missing fixture points produce an empty state — we do not invent owners.
+
+## Three lessons from building DisputePoint
+
+### 1. A system should be able to say “we don’t know yet”
+
+Many interfaces are designed around selecting a single result. In a responsibility workflow, forcing a result can conceal the most important fact: the available evidence is inconclusive.
+
+Representing uncertainty explicitly allows the system to remain useful without pretending to know more than it does.
+
+### 2. Related signals should not become interchangeable
+
+Rainfall, priority, evidence quality, and responsibility all matter, but each answers a different question.
+
+Keeping them separate makes the system easier to reason about and reduces the risk of an unsupported signal determining an unrelated decision.
+
+### 3. Human decisions need enforceable rules and an audit trail
+
+A human-in-the-loop label is not enough by itself. The backend must enforce who can make a decision, which state transitions are allowed, and what must be recorded — for example, confirmation only when ownership is already assigned; escalate/override when disputed.
+
+The interface should make the workflow understandable, while the backend protects its invariants.
+
+## What remains to be proven
+
+DisputePoint is a hackathon-stage prototype, not a validated citywide emergency-management system.
+
+Its current corpus is limited in size and coverage. The application does not establish live flood depth, provide a validated flood-prediction model, or prove that its queue improves real-world response times.
+
+The next step would be a ward-level pilot with relevant response teams and verified asset and jurisdiction records.
+
+We would measure:
+
+- Time from incident intake to a documented responsibility decision  
+- Time from responsibility confirmation to an acknowledged action  
+- The proportion of disputed incidents resolved with documented evidence  
+- The proportion of incidents that remain unresolved because required evidence is missing  
+
+These are proposed evaluation metrics, not results demonstrated by the current prototype.
+
+The larger question is whether making incident priority, responsibility, and evidence more visible helps response teams coordinate their work more effectively. That needs to be tested with the people who would use the system.
+
+## Try the prototype
+
+Explore the [live DisputePoint application](http://disputepoint-uibucket-nuoadlgtpdko.s3-website.ap-south-1.amazonaws.com) or inspect the [AWS architecture](http://disputepoint-uibucket-nuoadlgtpdko.s3-website.ap-south-1.amazonaws.com/aws-arch.html). Source: [github.com/vaibhav11123/disputepoint-ship](https://github.com/vaibhav11123/disputepoint-ship).
+
+**AI tools and credits:** Cursor. Rain observations via Open-Meteo (CC-BY 4.0). Third-party quotation notes: `docs/build/LICENSE_AUDIT.md` in the repository.
+
+**For builders:** How would you model conflicting responsibility claims in an operational workflow? Would you use explicit ownership states, an evidence graph, or another approach?
+
+I’d be interested in how others would handle the boundary between automated prioritization and a decision that must remain with an authorized human.
 
 ---
 
-## Interview-surface acceptance (before G-VIDEO)
+## Short form (submission form only)
 
-- [ ] Article (or README) states CONFLICT→null in plain language  
-- [ ] AWS table has one-line **why** per service (not name-drop only)  
-- [ ] Failure-modes table present (rain / AWS / empty / CONFLICT)  
-- [ ] HITL + audit called out  
-- [ ] Limits section does not claim production citywide truth  
+> **Problem:** When Delhi roads flood, people lose time and get stranded; response teams also struggle when agencies disagree on who must act.  
+> **Build:** DisputePoint — queue-first incident coordination; CONFLICT keeps agency null; evidence + human escalate/override with audit.  
+> **AWS:** API Gateway, Lambda, DynamoDB, S3, EventBridge, CloudWatch.  
+> **AI tools:** Cursor.  
+> **Builder Center article:** `_ARTICLE_URL_`
+
+---
 
 ## Publish checklist (human)
 
-1. [ ] YouTube live; smoke path twice ([DEMO_REHEARSAL.md](DEMO_REHEARSAL.md)) — Ship It UI already live (see AWS_DEMO_BEAT)  
-2. [ ] Replace `_REPO_URL_`, `_YOUTUBE_URL_`, screenshots, fought-back (Ship It URL is filled — do not leave `_SHIP_IT_URL_`)  
-3. [ ] Interview-surface acceptance above PASS  
-4. [ ] Builder Center: `+` → Create article → paste title/description/body → tags (≤5)  
-5. [ ] Preview; alt text on images; Preview mobile-ish readability  
-6. [ ] Publish → moderation → open URL **signed out**  
-7. [ ] Paste article URL into hackathon form (separate from short write-up)  
-8. [ ] Close residual **R-BLOG-BUILDER** when URL is live and linked  
-
----
-
-## Short form (separate — for the submission form only)
-
-Copy-edit after the article exists; keep short:
-
-> **Problem:** DM cell officers lose time on disputed Delhi waterlogging points when agencies pass the buck under monsoon.  
-> **Build:** DisputePoint — queue-first triage under rain; CONFLICT keeps responsible agency null; HITL ACK/OVERRIDE/ESCALATE with audit.  
-> **AWS:** API Gateway, Lambda, DynamoDB, S3, EventBridge, CloudWatch (Ship It).  
-> **AI tools:** Cursor.  
-> **Builder Center article:** `_ARTICLE_URL_`
+1. [ ] Confirm live `/health` rain mode wording matches the article (live vs scenario)  
+2. [ ] Okhla / Samaypur path: CONFLICT null + evidence visible; no ACK on conflict  
+3. [ ] Upload `docs/assets/readme-queue.png` with alt text  
+4. [ ] Add YouTube when recorded ([DEMO_SCRIPT.md](DEMO_SCRIPT.md))  
+5. [ ] Publish on Builder Center; open signed-out; paste URL into form  

@@ -16,7 +16,7 @@ Research originals live in `market-research/runs/environmental-hacks-deep-2026/`
 | `docs/phases/PHASE1–5.md` + `docs/PHASE6.md` | Research trail → **frozen** implementation contract |
 | `docs/PRD.md` · `docs/HLD.md` · `docs/LLD.md` · `docs/UX.md` | Readable extracts of Phase 6. If an extract disagrees with Phase 6, follow Phase 6. |
 | `docs/build/` | DATA_PLAYBOOK, GAPS (inventory + unlock recipes), LICENSE_AUDIT, TRACEABILITY, DEMO_WOW |
-| `data/fixtures/` | L2 product corpus (points **0.3.3** / evidence **0.3.4** / readiness; Data Ready PASS) |
+| `data/fixtures/` | L2 product corpus (points **0.3.3** / evidence **0.3.5** / readiness; Data Ready PASS) |
 | `data/audit/` | L1 audit matrices (committed); L0 source bodies gitignored — see `data/audit/README.md` |
 | `docs/research/geocode-candidates.md` | Nominatim offline candidates; promote only after VERIFIED. |
 | `docs/schemas/` | Data contracts coding agents must not silently change |

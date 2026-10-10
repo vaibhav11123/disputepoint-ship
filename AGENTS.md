@@ -19,7 +19,7 @@ Agent README for this repository. Format follows [agents.md](https://agents.md/)
 5. [docs/quality/SPEC_READINESS.md](docs/quality/SPEC_READINESS.md) — Spec + **Data Ready PASS**. Entry product implementation: after Oct 8 clock in the submission repo — [SUBMISSION_GIT](docs/operations/SUBMISSION_GIT.md).
 6. Quality pack as needed: [docs/quality/ACCEPTANCE_CRITERIA.md](docs/quality/ACCEPTANCE_CRITERIA.md), [TEST_STRATEGY.md](docs/quality/TEST_STRATEGY.md), [E2E_SCENARIOS.md](docs/quality/E2E_SCENARIOS.md); traceability: [docs/build/TRACEABILITY.md](docs/build/TRACEABILITY.md).
 7. [docs/agent/HOWTO_REUSE.md](docs/agent/HOWTO_REUSE.md) — process boundaries.
-8. Fixtures: [`data/fixtures/`](data/fixtures/) points **0.3.3** / evidence **0.3.4** + audit L1 [`data/audit/`](data/audit/). Recipes: [docs/build/DATA_PLAYBOOK.md](docs/build/DATA_PLAYBOOK.md). Gaps: [docs/build/GAPS.md](docs/build/GAPS.md). Geocode candidates: [docs/research/geocode-candidates.md](docs/research/geocode-candidates.md) — verify before promote; COURT `needs_review` remains until human validates. Never commit L0 under `data/audit/sources/`.
+8. Fixtures: [`data/fixtures/`](data/fixtures/) points **0.3.3** / evidence **0.3.5** + audit L1 [`data/audit/`](data/audit/). Recipes: [docs/build/DATA_PLAYBOOK.md](docs/build/DATA_PLAYBOOK.md). Gaps: [docs/build/GAPS.md](docs/build/GAPS.md). Geocode candidates: [docs/research/geocode-candidates.md](docs/research/geocode-candidates.md) — verify before promote; COURT `needs_review` remains until human validates. Never commit L0 under `data/audit/sources/`.
 9. For multi-file, architectural, or debugging work: [docs/agent/AGENT_CONSTITUTION.md](docs/agent/AGENT_CONSTITUTION.md).
 
 Prefer the smallest change that satisfies tests and FRs. Before the Oct 8 clock: planning docs in this tree only — no entry `backend/` / `frontend/` dump.
@@ -43,10 +43,10 @@ Prefer the smallest change that satisfies tests and FRs. Before the Oct 8 clock:
 
 Two repos — details: [docs/operations/SUBMISSION_GIT.md](docs/operations/SUBMISSION_GIT.md).
 
-1. **This folder** = planning SoT. Pre-clock: docs, schemas, fixtures, audit L1 — not the entry product implementation.
-2. **At clock (Oct 8):** new empty git + new GitHub repo; **copy planning artifacts** (not old `.git`, not a pre-built app); implement product **in-event**; push; make public for submit.
-3. Copy allow-list: Phase 6 + extracts, schemas/OpenAPI, fixtures, audit L1 (matrix/manifest/GAP_ASK/README), LICENSE / AGENTS / Makefile / `.env.example`.
-4. Never upload: `.env`, keys, `runs/`, L0 source bodies, invented gov data marked real, pre-clock product dump.
+1. **This folder (`disputepoint-ship`)** = judged entry product (Ship It live). Keep planning docs, schemas, fixtures, and audit L1 in sync with the running app.
+2. Sibling research/planning tree is not the form URL. History must match event dates ([SUBMISSION_GIT](docs/operations/SUBMISSION_GIT.md)).
+3. Never upload: `.env`, keys, `runs/`, L0 source bodies, invented gov data marked real (including press typed as `GOV_ORDER`).
+4. Residual human gate: **G-VIDEO** (YouTube ≤3 min with AWS on camera) + public repo + write-up / Builder article.
 
 ## UI
 

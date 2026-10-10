@@ -15,6 +15,9 @@ dist/
 .DS_Store
 runs/
 *.pem
+*.sqlite
+*.zip
+.cursor/
 .aws/
 .terraform/
 .aws-sam/

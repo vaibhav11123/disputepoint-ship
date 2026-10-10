@@ -12,10 +12,10 @@
 
 | Clock | Job | On screen / voice |
 |-------|-----|-------------------|
-| **0:00–0:30** | Problem + promise | **Read [DEMO_SCRIPT.md](DEMO_SCRIPT.md)** — DM cell + HC buck-passing + honest null |
-| **0:30–2:00** | Working path (~half runtime) | Before → trigger → aha → HITL (W1–W8); VO in DEMO_SCRIPT |
-| **2:00–2:30** | Tech hard part + **AWS** | W9: live Ship It UI + `/aws-arch.html` or `GET /health` LIVE — [AWS_DEMO_BEAT.md](AWS_DEMO_BEAT.md) |
-| **2:30–3:00** | Impact / next | Triage clarity; “not another flood map”; optional 5s competitor contrast |
+| **0:00–0:30** | Problem + promise | **Read [DEMO_SCRIPT.md](DEMO_SCRIPT.md)** — lived cost of waterlogging → coordination gap → commander tool |
+| **0:30–2:10** | Working path (~half runtime) | Before → trigger → aha → HITL (W1–W8); VO in DEMO_SCRIPT |
+| **2:10–2:35** | Tech hard part + **AWS** | W9: live Ship It UI + `/aws-arch.html` or `GET /health` LIVE — [AWS_DEMO_BEAT.md](AWS_DEMO_BEAT.md) |
+| **2:35–3:00** | Impact / next | Triage clarity; “not another flood map”; optional 5s competitor contrast |
 
 **First-90s pass/fail:** A stranger can answer: who is the user, what decision, why not a flood map. Full VO checklist: [DEMO_SCRIPT.md](DEMO_SCRIPT.md).
 
@@ -23,17 +23,17 @@
 
 ## Before → trigger → aha (spoken script)
 
-**Authoritative read-aloud:** [DEMO_SCRIPT.md](DEMO_SCRIPT.md) (HC-anchored 30s problem + timed VO). Summary only:
+**Authoritative read-aloud:** [DEMO_SCRIPT.md](DEMO_SCRIPT.md) (lived-cost open + timed VO). Summary only:
 
 | Beat | Script (≤1 sentence each) | Must show |
 |------|---------------------------|-----------|
-| **Problem** | DM cell; agencies pass the buck; HC “enormous confusion”; honest null | Title + queue (not heatmap) |
-| **Before** | Scatter workaround — WhatsApp, calls, no ranked list | Queue `dry` |
-| **Trigger** | Watch rain hit the board. | Rain slider or Open-Meteo; mode banner; rank flash |
-| **Aha** | CONFLICT → responsible agency null; quotes stay | Purana Quila or Minto card |
-| **Proof** | Escalate or override on disputed points; audit stays visible. ACK only on already-assigned rows (e.g. Mathura Rd) | Advisory + DecisionAuditPanel |
-| **Hard part** | Evidence-weighted ownership + rain re-rank — no flood ML | AWS beat |
-| **Close** | Not another flood map — don’t guess. Coordinate. | Optional heatmap vs queue |
+| **Problem** | Flooded roads cost people time; response also needs clear responsibility | Queue (+ map) |
+| **Before** | Queue of incidents — assigned / disputed / evidence-needed | Board mix |
+| **Trigger** | Rain may change priority; does not set ownership | Rain control + priority (engine-honest) |
+| **Aha** | Okhla (or Samaypur) disputed — no invented owner; evidence stays | Incident + ledger |
+| **Proof** | Escalate or override; audit visible; ACK only if already assigned | HITL + audit |
+| **Hard part** | Ownership under conflict on AWS — no flood ML | AWS beat |
+| **Close** | Can’t stop rain with a dashboard; clearer response; ward pilot | Close |
 
 ---
 
@@ -43,13 +43,13 @@
 |----|--------|-----------|----------------------|
 | W1 | Ranked queue, named points | FR-001, FR-008 | ~0:30–0:40 |
 | W2 | Rain → re-rank, flash ≤200 ms | FR-006, FR-007 | ~0:40–1:00 |
-| W3 | Purana Quila (or Minto) CONFLICT + null agency | FR-011, FR-017 | ~1:00–1:20 |
+| W3 | Okhla / Samaypur CONFLICT + null agency | FR-011, FR-017 | ~1:15–1:45 |
 | W4 | Evidence quotes + URLs | FR-002, FR-009 | ~1:20–1:40 |
 | W5 | Why / counterfactual chips | FR-023 | ~1:40–1:55 |
 | W6 | Advisory + SYNTHETIC honesty labels | FR-010 | ~1:55–2:05 |
 | W7 | OVERRIDE/ESCALATE on CONFLICT → DecisionAuditPanel; optional ACK cutaway on seeded ASSIGNED | FR-012 | ~2:05–2:20 (may spill into tech block) |
 | W8 | Triage &lt;30s feel on golden path | FR-027 | Close + KPI feel |
-| W9 | AWS visible in video | FR-016 | **2:00–2:30** (plus optional mid-flow breadcrumb) |
+| W9 | AWS visible in video | FR-016 | **2:10–2:35** (plus optional mid-flow breadcrumb) |
 
 MapHUD / Cmd+K / eval are **not** W* story beats — see C7–C9 / J1–J2.
 

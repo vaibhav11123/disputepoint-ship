@@ -1,28 +1,32 @@
 # DEMO_SCRIPT — read-aloud YouTube narration
 
-**Purpose:** One-page spoken script for the ≤3 min WeMakeDevs video. Story IDs: [DEMO_WOW.md](DEMO_WOW.md). Record ops: [DEMO_REHEARSAL.md](DEMO_REHEARSAL.md). Sources: [research/demo-win-tactics.md](../research/demo-win-tactics.md) · [research/video-win-pass-2026-10-10.md](../research/video-win-pass-2026-10-10.md).
+**Purpose:** One-page spoken script for the ≤3 min WeMakeDevs video. Story IDs: [DEMO_WOW.md](DEMO_WOW.md). Record ops: [DEMO_REHEARSAL.md](DEMO_REHEARSAL.md). Sources: [research/demo-win-tactics.md](../research/demo-win-tactics.md) · [research/video-win-pass-2026-10-10.md](../research/video-win-pass-2026-10-10.md) · [research/public-cost-of-waterlogging.md](../research/public-cost-of-waterlogging.md).
 
-**Product SoT:** [PHASE6.md](../PHASE6.md). User = DM coordination cell officer. Spine = queue → rain → disputed null → evidence → officer escalate/override → AWS. Not a flood map. Not a citizen inbox.
+**Product SoT:** [PHASE6.md](../PHASE6.md). User = DM / incident commander. Spine = lived cost → queue → rain/priority separate from ownership → disputed null → evidence → human review → AWS → pilot. Not a flood map. Not a citizen inbox. Not a safe-route app.
 
-**Word budget:** ~130–150 spoken words. Cut W5 VO first if over 3:00.
+**Word budget:** ~130–160 spoken words. Cut W5 / shorten AWS names if over 3:00.
 
-**Voice:** Ground language of people stuck when underpasses flood and agencies pass the buck — and the cell officer who must decide. Real places and public FACT only. No death counts, fake sensors, or placeholder URLs.
+**Voice:** People first (lost time, stranded journeys, recurring flood), then the coordination gap, then the product. Real places and cited FACT only. No unmeasured “fewer” / “faster” claims.
 
 ---
 
 ## Locked problem statement (0:00–0:30)
 
-**Structure:** named user → failure + public FACT → product promise that preserves null ownership.
+**Structure:** lived consequence → coordination gap → product for the commander (not HC as hero).
 
 **VO (exact):**
 
-> You’re in a DM coordination cell. When the monsoon hits, disputed waterlogging points stall — underpasses, drains — while agencies pass the buck. Delhi’s High Court called it enormous confusion. DisputePoint puts those places on one queue under rain: who clears this, with evidence — or honest null when ownership still fights.
+> When heavy rain floods a road in Delhi, the consequences are immediate. People get stuck in traffic, vehicles get stranded, and even getting home can become difficult.
+>
+> And when a waterlogging incident needs attention, there’s another problem: figuring out which agency is responsible and getting the response coordinated.
+>
+> DisputePoint is built to help incident commanders work through that problem.
 
-**On screen:** Title + queue-first UI (not heatmap). Optional lower-third: `HC 2025 · agency buck-passing (public record)`. No fake death counts or invented stats.
+**On screen:** Incident queue (+ map if visible). Optional lower-third later for HC cite in write-up — not the first line of VO.
 
-**FACT anchors (cite in write-up, not as on-screen essay):** [Delhi HC order / LiveLaw PDF](https://www.livelaw.in/pdf_upload/pms28072025cw131902024201344-613072.pdf) · [TOI summary](https://timesofindia.indiatimes.com/india/much-confusion-on-who-does-what-even-upkeep-of-drains-hc-to-delhi-government/articleshow/122963747.cms) · [DHC judgment PDF](https://delhihighcourt.nic.in/app/showFileJudgment/PMS19082025CW131902024_164406.pdf).
+**FACT anchors (write-up / blog, not on-screen essay):** [HT Jul 2025](https://www.hindustantimes.com/cities/delhi-news/delhi-buckles-under-first-significant-monsoon-rain-spell-101752171973612.html) · [TOI / HC confusion](https://timesofindia.indiatimes.com/india/much-confusion-on-who-does-what-even-upkeep-of-drains-hc-to-delhi-government/articleshow/122963747.cms) · [LiveLaw](https://www.livelaw.in/high-court/delhi-high-court/delhi-high-court-government-flood-management-299427) · [LocalCircles survey](https://www.localcircles.com/a/press/page/gurugram-water-logging) (respondents, not all Delhi).
 
-**30s pass/fail:** Stranger can answer (1) user = DM cell, (2) pain = ownership confusion not rain data, (3) product will not invent an owner.
+**30s pass/fail:** Stranger can answer (1) waterlogging hurts daily life, (2) response needs clear responsibility, (3) product helps commanders — does not invent an owner.
 
 ---
 
@@ -30,78 +34,56 @@
 
 | Clock | VO (exact) | Click / show | W* |
 |-------|------------|--------------|-----|
-| **0:00–0:05** | (silent or ambient) | Earth Studio WORLD→PURANA QUILA → hard cut ([EARTH_STUDIO_SHOT.md](EARTH_STUDIO_SHOT.md)) | Mode C |
-| **0:05–0:30** | Locked problem statement above | Title + calm queue (Mode A) | — |
-| **0:30–0:45** | “Thirty-plus waterlogging places on one board — Okhla, Samaypur, Minto. Some already have a clear agency. Some are still disputed. Some still need evidence. Volunteer reports show the street — they do not pick the owner.” | Full board: green assigned + disputed + evidence-needed in the first screen. No DEMO MIX banner. | W1 |
-| **0:45–1:05** | “Watch rain hit the board — the mode banner updates. We do not invent who owns the drain.” | Slider or Open-Meteo; mode banner `live` \| `cache` \| `slider` | W2 |
-| **1:05–1:35** | “Purana Quila — responsibility disputed. We don’t guess. Competing claims stay on screen. No auto-assign.” | Open `/incident/dp-purana-quila` — place map + RESPONSIBILITY DISPUTED / NO AUTO-ASSIGN; Evidence tab + quotes | W3 W4 |
-| **1:35–1:50** | “Why this rank — and what if rain drops.” | Counterfactual chips if shipped; else **skip VO** | W5 |
-| **1:50–2:00** | “Next step for the officer: escalate or override — the audit stays on screen. When a point already has a clear agency — Mathura Road, Bharat Mandapam — they can confirm.” | CONFLICT: ESCALATE or OVERRIDE + audit. Optional cutaway: seeded ASSIGNED ACK on Mathura Rd / Bharat Mandapam. Never ACK on CONFLICT. | W6 W7 |
-| **2:00–2:30** | “Hard part: evidence-weighted ownership under conflict — no flood ML, no fake rain tricks. Live on AWS: API Gateway, Lambda, DynamoDB, S3.” | Live UI or `/aws-arch.html` + `GET /health` — [AWS_DEMO_BEAT.md](AWS_DEMO_BEAT.md) | W9 |
-| **2:30–3:00** | “Not another flood map — fewer invisible handoffs when the road is underwater. Next: ward pilot on time-to-confirmation. DisputePoint: don’t guess. Coordinate.” | Summary; optional 5s heatmap vs queue contrast | W8 |
+| **0:00–0:30** | Locked problem statement above | Queue (+ map); product on screen early | — |
+| **0:30–0:55** | “Instead of starting with a flood map, we start with a queue of incidents. Some have an assigned agency. Some have competing responsibility claims. Others still need evidence. The officer can see what needs attention and where responsibility remains unresolved.” | Board mix: assigned / disputed / evidence-needed. Real places (Okhla, Samaypur, Minto…). | W1 |
+| **0:55–1:15** | “Rainfall can change which incidents need attention first. But it doesn’t establish who owns a drain or road. We keep those decisions separate.” | Rain control; priority explanation if visible. Only if engine re-ranks — do not fake reorder. | W2 |
+| **1:15–1:45** | “Let’s open Okhla. Here, responsibility remains disputed. We don’t pick an agency just to make the incident look resolved. The officer can examine the available evidence, see what it supports, and understand what is still missing.” | `/incident/dp-okhla-underpass` — DISPUTED / NO AUTO-ASSIGN + evidence (alt: Samaypur Badli). Never invent an owner. | W3 W4 |
+| **1:45–2:10** | “When the evidence doesn’t settle the dispute, a human decision is required. The officer reviews the evidence, records the next step — escalate or override — and confirms only when a clear agency is already assigned. The decision stays auditable.” | ESCALATE or OVERRIDE + audit. ACK cutaway only on Mathura Rd / Bharat Mandapam if needed. Never ACK on CONFLICT. | W6 W7 |
+| **2:10–2:35** | “Underneath, DisputePoint runs on AWS — API Gateway, Lambda, DynamoDB, and S3 — with EventBridge schedules and CloudWatch logs supporting the app. The aim is a structured, traceable decision process.” | Live UI or `/aws-arch.html` + `/health` | W9 |
+| **2:35–3:00** | “We can’t fix Delhi’s drainage with a dashboard. And we can’t promise software will prevent the next flood. But we can make the response clearer: what needs attention, what the evidence says, and who confirmed the next action. Next: a ward pilot on time-to-responsibility decisions. DisputePoint: don’t guess. Coordinate.” | Close | W8 |
 
-**Trigger sentence (only one):** “Watch rain hit the board.”
+**Trigger idea (not a banner tour):** rainfall may change priority; ownership stays separate.
 
-### Optional beat — Historical day (not the judged cold-open path)
+### Optional beat — Historical day (not cold-open)
 
-On `/demo`, operators may run **HISTORICAL REPLAY · 29 July 2025** (stored Safdarjung + documented activations). VO if used:
-
-> We’re replaying published observations from 29 July 2025 — documented activations emerge over time; Safdarjung totals are station context (not 6h live R); gaps stay gaps. Not live telemetry. Not Purana Qila on that clock unless research says so.
-
-Do **not** call the 42 mm stress-test “29 July.” Keep primary video on dry → APPLY SCENARIO unless judges choose the replay entry.
+On `/demo`, **HISTORICAL REPLAY · 29 July 2025** only if used: stored Safdarjung context + documented activations; gaps stay gaps; not live telemetry; do not call slider “29 July.”
 
 ---
 
 ## Script rules
 
-- Say **DEMO / scenario** when slider or fixtures drive rain (honesty = competence).
-- Say **HISTORICAL REPLAY** when the 29 July stored day is running — never LIVE.
-- Say **LIVE** only when the mode banner / `/health` shows live Open-Meteo.
-- Never invent an agency under `ownership_state == CONFLICT`.
-- Never claim measured response-time wins or death counts.
-- No “Hi we’re Team…”, no login, no feature tour, no citizen-inbox / Triage / Bedrock lines unless the product actually ships them (§14A default off).
-- Mid-flow AWS breadcrumb allowed; dedicated AWS still in **2:00–2:30**.
-- Rehearse with stopwatch; hard cutoff **3:00**.
+- Lead with people; HC is supporting evidence for the coordination gap — not endorsement of DisputePoint.
+- Say **DEMO / scenario** when slider drives rain; **LIVE** only when `/health` / banner says so.
+- Never invent an agency under CONFLICT.
+- Never claim measured response-time wins, prevented floods, or safe routes for commuters.
+- Escalation ≠ confirmation; ACK only on ASSIGNED.
+- Hard cutoff **3:00**.
 
 ---
 
 ## Anti-lines (do not say)
 
-- “We predict flooding / water depth / risk for the whole city.”
-- “AI assigns MCD automatically.”
-- “Shows the responsible owner” when the card is CONFLICT null.
-- “ACK” on a disputed / CONFLICT card.
-- Any invented SCADA / DM-71 GPS / live pump telemetry claim.
+- “We prevent waterlogging / make Delhi flood-resilient.”
+- “We eliminate traffic jams / tell you which roads are safe.”
+- “AI assigns MCD automatically” / “shows the owner” on CONFLICT.
+- “Fewer invisible handoffs” / “faster response” without measured pilot results.
+- Invented SCADA / DM-71 / live flood-depth claims.
+- “The High Court endorsed DisputePoint.”
 
 ---
 
 ## First-90s stranger test
 
-After watching 0:00–1:30 only, a stranger must name:
-
-1. User (DM cell)
-2. Trigger (rain on queue)
-3. Aha (CONFLICT → null + evidence, not invent owner)
-
-If they say “flood map” or “AI chatbot,” rewrite VO — do not add features.
+1. Waterlogging costs people time and disrupts journeys  
+2. Response also needs clear responsibility  
+3. Product helps commanders coordinate — does not invent an owner  
 
 ---
 
-## Live demo URLs (real pins)
+## Live demo URLs
 
 | Surface | URL |
 |---------|-----|
 | UI | http://disputepoint-uibucket-nuoadlgtpdko.s3-website.ap-south-1.amazonaws.com |
 | API | https://olnsv0shee.execute-api.ap-south-1.amazonaws.com |
 | Arch | http://disputepoint-uibucket-nuoadlgtpdko.s3-website.ap-south-1.amazonaws.com/aws-arch.html |
-
----
-
-## Ownership
-
-| Item | Owner |
-|------|--------|
-| This script | WP-16 · G-VIDEO |
-| Story IDs | [DEMO_WOW.md](DEMO_WOW.md) |
-| Smoke / gates | [DEMO_REHEARSAL.md](DEMO_REHEARSAL.md) |
-| Cite log | [video-win-pass-2026-10-10.md](../research/video-win-pass-2026-10-10.md) |

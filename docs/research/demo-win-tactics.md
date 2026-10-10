@@ -9,6 +9,10 @@
 
 ---
 
+## 2026-10-10 evening — public cost of waterlogging
+
+People-first VO: lost time / stranded journeys before HC coordination cite. See [public-cost-of-waterlogging.md](public-cost-of-waterlogging.md). Promise = help teams prioritize + resolve responsibility — not prevent floods. Replace “honest null” / “fewer invisible handoffs” with plain language + ward-pilot metrics.
+
 ## 2026-10-10 refresh (Ship It + ground language)
 
 | Item | Lock |

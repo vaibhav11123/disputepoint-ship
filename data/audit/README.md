@@ -10,7 +10,7 @@ Tiered corpus for Gate A evidence curation. Product SoT remains Phase 6 + playbo
 
 ## Rules
 
-- Mine Research OS (`/Users/vaibhavsingh/market-research`) before re-downloading.
+- Mine Research OS (sibling `market-research` tree) before re-downloading.
 - No paywall/CAPTCHA bypass. Mark `gated` / `failed` in `meta.json`.
 - Promote only verbatim quotes (≥10 chars) that appear in stored L0 bodies.
 - Do not invent DM-71 spots, SCADA, or GPS. Do not weaken runtime DisputePoint/OpenAPI.

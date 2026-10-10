@@ -170,7 +170,8 @@ Format: KEY · CURRENT · ACTION · FINAL · SCREEN · RATIONALE
 |---|---|---|---|---|---|
 | evidence.lead | Decision effect: evidence informs… | REWRITE | WHAT THE EVIDENCE ESTABLISHES | Evidence | Clear |
 | evidence.traceBtn | Trace | REWRITE | VIEW SOURCE | EvidenceLedger | Not dev tool |
-| evidence.volunteer | Volunteer report | REWRITE | Volunteer report | EvidenceLedger | Compact chip; illustrative rows also `is_synthetic=true` |
+| evidence.volunteer | Volunteer report | REWRITE | Volunteer report | EvidenceLedger | Compact chip; only when channel is volunteer **and** type is not PRESS/COURT/GOV |
+| evidence.pressReport | — | ADD | Press report | EvidenceLedger | `PRESS_REPORT` without live status; do not show as Volunteer |
 | evidence.demoFixture | DEMO / fixture | REWRITE | SCENARIO | EvidenceLedger | Provenance |
 | evidence.effect | Supports X claim · Does NOT… | REWRITE | Supports X's responsibility claim · Does not establish exclusive responsibility | EvidenceLedger | Keep meaning |
 | coord.title | HUMAN REVIEW REQUIRED | KEEP | HUMAN REVIEW REQUIRED | Coordination | Bone |

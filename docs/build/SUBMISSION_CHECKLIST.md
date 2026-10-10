@@ -21,11 +21,11 @@ Three artifacts: **public repo** · **YouTube ≤3 min** · **short write-up**. 
 
 - [ ] [EARTH_STUDIO_SHOT.md](EARTH_STUDIO_SHOT.md) open (or skip if time)
 - [ ] [DEMO_SCRIPT.md](DEMO_SCRIPT.md) VO
-- [ ] Rain Strike → CONFLICT null → evidence → ESCALATE or OVERRIDE → audit (ACK only on assigned cutaway)
-- [ ] AWS on screen 2:00–2:30 (live UI + `/aws-arch.html` or console `/health`)
+- [ ] Rain Strike → CONFLICT null (Okhla / Samaypur) → evidence → ESCALATE or OVERRIDE → audit (ACK only on assigned cutaway)
+- [ ] AWS on screen 2:10–2:35 (live UI + `/aws-arch.html` or console `/health`)
 - [ ] Signed-out YouTube check
 
 ## Write-up
 
 Problem · User · Why maps fail · Solution · Architecture · AWS · AI tools · Limitations  
-Draft: [BUILDER_BLOG.md](BUILDER_BLOG.md) (Ship It URLs filled; YouTube / public repo TBD).
+Draft: [BUILDER_BLOG.md](BUILDER_BLOG.md) (Ship It URLs filled; fill YouTube + public-repo confirm + `_ARTICLE_URL_` before form submit).

@@ -45,7 +45,7 @@ revision: 1
 -->
 ## Prerequisites
 
-- This git tree: `/Users/vaibhavsingh/disputepoint-ship`
+- This git tree: `disputepoint-ship` (submission / judged entry)
 - Node 22 and global `mex` (`mex-agent` 0.8.0) for the scaffold
 - Python, pytest, and a frontend package manager arrive with WP-00. They are not installed by the current Makefile
 

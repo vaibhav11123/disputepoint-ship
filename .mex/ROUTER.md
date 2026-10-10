@@ -35,7 +35,7 @@ last_updated: 2026-10-10
 
 **Working:**
 - Frozen Phase 6 contract plus PRD, HLD, LLD, and UX extracts
-- Schemas, OpenAPI, fixtures points 0.3.3 / evidence 0.3.4, and audit L1. Spec package and Data Ready PASS
+- Schemas, OpenAPI, fixtures points 0.3.3 / evidence 0.3.5, and audit L1. Spec package and Data Ready PASS
 - Submission tree: `clock_declared` true, `plan_gate_accepted` true; waves WP-00–WP-16 product code landed
 - Local: `make install` · `make test` · `make run` (API `127.0.0.1:8000`, UI `127.0.0.1:5173`)
 - **Ship It live (2026-10-10)** stack `disputepoint` / `ap-south-1`: API Gateway → Lambda → DynamoDB + S3 + EventBridge + CloudWatch; `DP_LIVE_FETCH=1`; Open-Meteo rain LIVE; evidence LIVE batch; CORS allowlist; `/docs` off
@@ -47,9 +47,10 @@ last_updated: 2026-10-10
 - IAM day-to-day user (CLI may still resolve as root) · post-video `sam delete` cleanup
 - Gold order / tournament metric cells (optional)
 
-**Known issues / doc drift outside `.mex/`:**
-- `execution/PROGRESS.md`, `execution/work-status.json` (`WP-15.gate_open`), `docs/build/DEMO_REHEARSAL.md` G-AWS boxes, root `README.md` still speak as if G-AWS / deploy are open — update those next
+**Known issues / residual:**
+- **G-VIDEO** still open (YouTube + AWS on camera); Builder `_ARTICLE_URL_` after publish
 - Phase 6 still cites some legacy research paths; prefer `docs/schemas/` and `docs/research/`
+- G-AWS cleared 2026-10-10 — Ship It live
 
 ## Routing Table
 

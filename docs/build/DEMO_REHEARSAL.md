@@ -14,7 +14,7 @@
 |-------------|--------|----------------|
 | `dry` | Baseline queue ranks | `precip_mm = 0` slider or dry fixture |
 | `rain-spike` | Re-rank flash (W2) | Wet demo precip **40 mm** ([DEPLOYMENT](../operations/DEPLOYMENT.md)) |
-| `conflict-open` | Purana Quila null agency (W3–W4) | Engine CONFLICT + `responsible_agency` null on spine (Okhla, Samaypur, Minto, Barapullah, Purana Quila, Lodhi). Corpus evidence **0.3.4** — do not invent owners. |
+| `conflict-open` | Okhla (or Samaypur) null agency (W3–W4) | Engine CONFLICT + `responsible_agency` null on spine (Okhla, Samaypur, Barapullah, Lodhi, Minto Bridge). Corpus evidence **0.3.5** — do not invent owners. |
 
 Requirements:
 
@@ -25,7 +25,7 @@ Requirements:
 
 ### B. AWS proof path (brief, real)
 
-| Preferred | On screen ≥10s in **2:00–2:30** (and optional mid-flow) |
+| Preferred | On screen ≥10s in **2:10–2:35** (and optional mid-flow) |
 |-----------|--------------------------------------------------------|
 | **Ship It primary** | API Gateway + Lambda + DynamoDB + S3 (+ EventBridge if used); live URL or console request for the rain/re-rank call |
 | **Build It failover** | SAM local invoke of the **same** handler + architecture diagram naming AWS services/OSS |
@@ -40,13 +40,13 @@ VO column = [DEMO_SCRIPT.md](DEMO_SCRIPT.md) (authoritative). Do not improvise t
 
 | Time | Camera / tab | Action | VO |
 |------|--------------|--------|-----|
-| 0:00–0:30 | UI cold | Title + queue (not heatmap); optional HC lower-third | DEMO_SCRIPT problem statement |
-| 0:30–0:45 | UI | Full board: assigned + disputed + evidence-needed visible | DEMO_SCRIPT before |
-| 0:45–1:05 | UI | Trigger rain-spike; rank flash; mode banner | “Watch rain hit the board.” |
-| 1:05–1:50 | UI | Open Purana Quila; null agency; quotes/URLs; why chips | DEMO_SCRIPT aha + optional W5 |
-| 1:50–2:00 | UI | ESCALATE or OVERRIDE + audit on CONFLICT; optional ACK cutaway on Mathura Rd / Bharat Mandapam | DEMO_SCRIPT HITL |
-| 2:00–2:30 | Diagram + console/URL | W9 AWS proof | DEMO_SCRIPT AWS |
-| 2:30–3:00 | UI or contrast | Impact close; optional 5s flood-map vs queue | DEMO_SCRIPT close |
+| 0:00–0:30 | UI | Queue (+ map); lived-cost open | DEMO_SCRIPT problem |
+| 0:30–0:55 | UI | Board mix: assigned / disputed / evidence-needed | DEMO_SCRIPT queue |
+| 0:55–1:15 | UI | Rain + priority (engine-honest); ownership separate | DEMO_SCRIPT rain |
+| 1:15–1:45 | UI | Okhla (or Samaypur) disputed null + evidence | DEMO_SCRIPT aha |
+| 1:45–2:10 | UI | ESCALATE/OVERRIDE + audit; ACK only if assigned cutaway | DEMO_SCRIPT HITL |
+| 2:10–2:35 | Arch / health | AWS proof | DEMO_SCRIPT AWS |
+| 2:35–3:00 | UI | Close + ward pilot (no unmeasured “faster”) | DEMO_SCRIPT close |
 
 Hard cutoff **3:00**. Judges need not watch past three minutes.
 
@@ -56,8 +56,8 @@ Hard cutoff **3:00**. Judges need not watch past three minutes.
 
 Run the **exact** recorded path twice with the same visible outcome:
 
-1. [ ] `dry` → first viewport shows ≥3 assigned, ≥3 disputed, ≥3 evidence-needed → `rain-spike` → open Purana Quila → evidence → ESCALATE or OVERRIDE → audit row
-2. [ ] Second consecutive run matches (ranks, CONFLICT null agency, labels); ACK path only if cutting to seeded ASSIGNED
+1. [ ] `dry` → first viewport shows CONFLICT + UNKNOWN + ASSIGNED mix → `rain-spike` → open Okhla (or Samaypur) → evidence → ESCALATE or OVERRIDE → audit row
+2. [ ] Second consecutive run matches (ranks, CONFLICT null agency, labels); ACK path only if cutting to seeded ASSIGNED (Mathura Rd / Bharat Mandapam)
 3. [ ] Mode banner correct under forced Open-Meteo fail (R1)
 4. [ ] No secrets/tokens on screen (grep fixtures + UI strings)
 5. [ ] AWS proof shot rehearsed once (Ship It live — warm `/health` + arch tab)
@@ -71,8 +71,8 @@ Do not claim G-VIDEO until smoke passes twice.
 | Pass | Check |
 |------|-------|
 | 1 | Time ≤3:00 stopwatch with [DEMO_SCRIPT.md](DEMO_SCRIPT.md) |
-| 2 | Speak **0:00–0:30 problem** aloud; stranger names DM cell + buck-passing + honest null |
-| 3 | Live/fixture path (no dead clicks); trigger sentence exact |
+| 2 | Speak **0:00–0:30 problem** aloud; stranger hears lived cost → coordination gap → honest null |
+| 3 | Live/fixture path (no dead clicks); people-first open matches DEMO_SCRIPT |
 | 4 | Backup: early full-path screen recording on disk |
 | 5 | Blind stranger: first-90s test from DEMO_SCRIPT |
 

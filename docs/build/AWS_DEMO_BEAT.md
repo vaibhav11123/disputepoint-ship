@@ -1,4 +1,4 @@
-# AWS demo beat (W9) — on camera 2:00–2:30
+# AWS demo beat (W9) — on camera 2:10–2:35
 
 **Rule:** Naming AWS only in the write-up is not enough ([WeMakeDevs rules](https://www.wemakedevs.org/aws/rules)).
 

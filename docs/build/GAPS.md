@@ -2,7 +2,7 @@
 
 **Purpose:** Inventory of weaknesses that can block Phase 7, plus web-researched unlock recipes.  
 **SoT for product behavior:** [../PHASE6.md](../PHASE6.md). This file is not a second contract.  
-**Last updated:** 2026-10-10 (corpus points 0.3.3 / evidence 0.3.4 board mix; prior Data Ready 2026-10-06).  
+**Last updated:** 2026-10-10 (corpus points 0.3.3 / evidence 0.3.5 honesty; prior Data Ready 2026-10-06).  
 **Fixtures playbook:** [DATA_PLAYBOOK.md](DATA_PLAYBOOK.md) · **Audit:** [../../data/audit/](../../data/audit/) · **Geocode candidates:** [../research/geocode-candidates.md](../research/geocode-candidates.md)  
 **Gate:** [SPEC_READINESS.md](../quality/SPEC_READINESS.md) Spec + Data Ready **PASS**. GAP-DATA-04 geocodes still READY (human VERIFIED).
 
@@ -16,7 +16,7 @@ Status values: **LOCKED** (prose closed) · **READY** (recipe + partial artifact
 |----|------|----------|---------|-------|--------|-------------|
 | GAP-DATA-01 | data | P0 | No per-point extract recipe; agents invent quotes/coords | docs | LOCKED | [DATA_PLAYBOOK.md](DATA_PLAYBOOK.md) |
 | GAP-DATA-02 | data | P0 | Fixture file layout / version unset | docs | LOCKED | DATA_PLAYBOOK § Files |
-| GAP-DATA-03 | data | P0 | `data/fixtures/*.json` bytes missing | human+Phase7 | LOCKED | points 0.3.3 / evidence 0.3.4 (advanced from v0.2 promote 2026-10-06); L0 audit gitignored; COURT needs_review |
+| GAP-DATA-03 | data | P0 | `data/fixtures/*.json` bytes missing | human+Phase7 | LOCKED | points 0.3.3 / evidence 0.3.5 (press stays PRESS_REPORT; advanced from v0.2 promote 2026-10-06); L0 audit gitignored; COURT needs_review |
 | GAP-DATA-04 | data | P1 | `lat`/`lon` geocodes TBD for all 14 points | human | READY | [../research/geocode-candidates.md](../research/geocode-candidates.md) |
 | GAP-DATA-05 | data | P1 | Row 15 DM-71 bulk mistaken for a demo point | docs | LOCKED | DATA_PLAYBOOK corpus note |
 | GAP-DATA-06 | data | P2 | LICENSE_AUDIT rows incomplete for extracts | docs | LOCKED | URL rows for fixture sources filled 2026-10-06 |
@@ -84,7 +84,7 @@ Recipe status: **READY** = recipe complete, execution can proceed · **BLOCKED**
 | Constraints | No invented quotes; schema validate against `docs/schemas/` |
 | Done when | `data/fixtures/{points,evidence,readiness}.json` validate and each point has ≥1 evidence quote |
 | Owner | human + Phase 7 Agent D |
-| Status | LOCKED — corpus points 0.3.3 / evidence 0.3.4 shipped; COURT `needs_review` residual |
+| Status | LOCKED — corpus points 0.3.3 / evidence 0.3.5 shipped; COURT `needs_review` residual |
 
 **Extract checklist**
 

@@ -29,8 +29,8 @@ If unclear: ask organizers before the clock (`contact@wemakedevs.org`), not afte
 
 | Role | Path / name |
 |------|-------------|
-| Research tree (planning SoT) | `/Users/vaibhavsingh/disputepoint` — **never** the form URL |
-| Submission local folder | `/Users/vaibhavsingh/disputepoint-ship` |
+| Research tree (planning SoT) | sibling `disputepoint` — **never** the form URL |
+| Submission local folder | this repo (`disputepoint-ship`) |
 | GitHub repo | `disputepoint-ship` (new empty repo under your GitHub user) |
 | Default branch | `main` |
 
@@ -42,7 +42,7 @@ Product work after clock: open Cursor on **`disputepoint-ship` only**. Do not ad
 
 | Role | This research tree | Submission tree (create at clock) |
 |------|--------------------|-----------------------------------|
-| Path | `/Users/vaibhavsingh/disputepoint` | `/Users/vaibhavsingh/disputepoint-ship` |
+| Path | sibling `disputepoint` | this repo `disputepoint-ship` |
 | Job | Planning SoT: Phase 6, extracts, schemas, fixtures, audit L1, execution plane | **Judged** product + git history during the event |
 | Before Oct 8 | Planning/practice commits OK; optional private backup remote | **Do not** create or fill |
 | Public entry URL | **Never** | **Yes** — public before submit |
@@ -75,18 +75,18 @@ Do **not** `git clone` this research repo into the submission folder. **Copy all
 2. From research tree:
 
 ```bash
-cd /Users/vaibhavsingh/disputepoint
+cd /path/to/disputepoint   # research/planning tree
 CLOCK_STARTED=1 ./scripts/scaffold_submission.sh
 ```
 
-   Script creates `/Users/vaibhavsingh/disputepoint-ship`, allow-list rsync only, `git init -b main`, first commit, sets `clock_declared: true` in submission `execution/work-status.json`.
+   Script creates sibling `disputepoint-ship`, allow-list rsync only, `git init -b main`, first commit, sets `clock_declared: true` in submission `execution/work-status.json`.
 
-3. Open Cursor on **`/Users/vaibhavsingh/disputepoint-ship`** only.
+3. Open Cursor on **`disputepoint-ship` only**.
 4. **G-PLAN:** read `execution/PLAN_CHECK.md`; set `plan_gate_accepted: true` in submission `execution/work-status.json` and commit (human).
 5. Create remote (human):
 
 ```bash
-cd /Users/vaibhavsingh/disputepoint-ship
+cd /path/to/disputepoint-ship
 gh repo create disputepoint-ship --source=. --remote=origin --private --push
 ```
 

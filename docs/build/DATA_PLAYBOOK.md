@@ -34,7 +34,7 @@
 
 | Path | Role |
 |------|------|
-| `data/fixtures/points.json` | L2 seeds (points **0.3.3**; evidence corpus **0.3.4**); validate each item against [DisputePointSeed.schema.json](../schemas/DisputePointSeed.schema.json); `evidence_ids` when promoted |
+| `data/fixtures/points.json` | L2 seeds (points **0.3.3**; evidence corpus **0.3.5**); validate each item against [DisputePointSeed.schema.json](../schemas/DisputePointSeed.schema.json); `evidence_ids` when promoted |
 | `data/fixtures/evidence.json` | L2 Evidence rows (short quote⊆source only) |
 | `data/fixtures/readiness.json` | Readiness objects keyed by `point_id` |
 | `data/audit/` | L1: `FETCH_MANIFEST.json`, `AUDIT_MATRIX.md`, `GAP_ASK.md`, `README.md` (committed). L0: `sources/`, `rain/`, `geo/`, `_work/` (**gitignored**) |
