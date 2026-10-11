@@ -27,14 +27,16 @@ UI (S3 website)
         ▼
      Lambda  ──► DynamoDB (points / audit stamps)
         │
-        ├──► S3 (evidence bucket + UI)
-        └──► EventBridge (rain schedule)
+        ├──► S3 (evidence + runtime snapshot)
+        └──► EventBridge (rain + evidence schedules)
                 │
                 ▼
             CloudWatch logs
 ```
 
-**Spoken line (W9):** “Live on AWS — API Gateway, Lambda, DynamoDB, S3.” Show UI URL or `/aws-arch.html` plus `GET /health` with `rain_source_state=LIVE` when true.
+Do **not** say CloudFront is serving the live UI — Ship It is S3 website hosting.
+
+**Spoken line (W9):** “Live on AWS — API Gateway, Lambda, DynamoDB, S3 website UI.” Show `/aws-arch.html` plus `GET /health` with `rain_source_state=LIVE` when true.
 
 ## Operator pointers
 

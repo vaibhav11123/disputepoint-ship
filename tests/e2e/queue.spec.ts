@@ -14,7 +14,7 @@ test("E2E-01 cold queue is home at /command", async ({ page }) => {
   await expect(page.getByText("Loading incident queue…")).toHaveCount(0)
   // Columns: Incident | Status | Responsibility | Priority | Next action
   await expect(page.locator("table tbody tr").first().locator("td").nth(1)).toContainText(
-    /ACTION REQUIRED|REVIEW REQUIRED|EVIDENCE NEEDED|AWAITING DECISION/,
+    /ACTION REQUIRED|REVIEW REQUIRED|EVIDENCE NEEDED|AWAITING DECISION|OFFICER CONFIRMED/,
   )
   await expect(page.getByRole("region", { name: "Incident case" })).toHaveCount(0)
   await expect(page.getByTestId("command-map-hero")).toBeVisible()

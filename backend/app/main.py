@@ -133,9 +133,10 @@ def create_app(
         path = repo_root() / "runs" / "disputepoint.sqlite"
     conn = connect(path)
     ensure_fixture_corpus(conn, repo_root())
-    from backend.app.services.demo_hitl_seed import seed_demo_acks
+    from backend.app.services.demo_hitl_seed import seed_demo_acks, seed_demo_officer_confirms
 
     seed_demo_acks(conn)
+    seed_demo_officer_confirms(conn)
 
     live_stats = empty_live_stats()
     use_live = live_fetch_enabled() if live_fetch is None else live_fetch

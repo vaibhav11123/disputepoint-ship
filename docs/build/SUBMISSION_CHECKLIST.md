@@ -25,8 +25,8 @@ Record from [DEMO_SCRIPT.md](DEMO_SCRIPT.md) (people-first VO; Okhla CONFLICT; A
 - [ ] [DEMO_SCRIPT.md](DEMO_SCRIPT.md) VO recorded ≤3 min
 - [ ] Rain Strike → CONFLICT null (Okhla / Samaypur) → evidence → ESCALATE or OVERRIDE → audit (ACK only on assigned cutaway)
 - [ ] AWS on screen 2:10–2:35 (live UI + `/aws-arch.html` or console `/health`)
-- [ ] Upload YouTube → paste URL into [README.md](../../README.md) Demo video + [BUILDER_BLOG.md](BUILDER_BLOG.md)
-- [ ] Signed-out YouTube check
+- [x] Upload YouTube → https://youtu.be/3vwh9wRnFVg — paste into form + [README.md](../../README.md) + [BUILDER_BLOG.md](BUILDER_BLOG.md)
+- [ ] Signed-out YouTube check (human: open link logged out)
 - [x] Publish Builder Center → [article URL](https://builder.aws.com/content/3KVsack7Txq70T0Wmau3MZdYQkS/when-delhis-roads-flood-who-needs-to-act-building-disputepoint-on-aws) in BUILDER_BLOG short form
 
 ## Write-up

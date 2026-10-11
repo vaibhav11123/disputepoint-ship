@@ -14,7 +14,7 @@ When responsibility is clear, the system displays the assigned agency. When clai
 
 [Live Demo](http://disputepoint-uibucket-nuoadlgtpdko.s3-website.ap-south-1.amazonaws.com)
 · [AWS Architecture](http://disputepoint-uibucket-nuoadlgtpdko.s3-website.ap-south-1.amazonaws.com/aws-arch.html)
-· [Demo Video](#demo-video)
+· [Demo Video](https://youtu.be/3vwh9wRnFVg)
 
 ![DisputePoint incident queue — disputed underpasses ranked for coordination](docs/assets/readme-queue.png)
 
@@ -105,7 +105,7 @@ flowchart TD
 
 ### Demo video
 
-YouTube link will be added when the ≤3 min recording is published. Spoken walkthrough: [`docs/build/DEMO_SCRIPT.md`](docs/build/DEMO_SCRIPT.md).
+[https://youtu.be/3vwh9wRnFVg](https://youtu.be/3vwh9wRnFVg) — ≤3 min WeMakeDevs walkthrough (AWS on camera). Spoken script: [`docs/build/DEMO_SCRIPT.md`](docs/build/DEMO_SCRIPT.md).
 
 ## Run locally
 

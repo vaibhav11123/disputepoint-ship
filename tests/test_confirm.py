@@ -107,4 +107,5 @@ def test_confirm_creates_assignment_and_audit():
     assert after["ownership_state"] == "ASSIGNED"
     assert after["responsible_agency"] == "MCD"
     assert after["officer_confirmed"] is True
+    assert not after.get("escalated")
     assert any(a["action"] == "OFFICER_CONFIRMED" for a in after.get("audit", []))

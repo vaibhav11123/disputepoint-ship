@@ -55,7 +55,11 @@ export function PointCard({
       <h2 style={{ fontSize: 16, fontWeight: 600, margin: "0 0 8px" }}>{point.name}</h2>
       <EventRail point={point} />
       <p className="decision-meta">
-        <TriageChip state={point.ownership_state} escalated={Boolean(point.escalated)} />{" "}
+        <TriageChip
+          state={point.ownership_state}
+          escalated={Boolean(point.escalated)}
+          officerConfirmed={Boolean(point.officer_confirmed)}
+        />{" "}
         <StateChip
           state={point.ownership_state}
           escalated={Boolean(point.escalated)}

@@ -45,7 +45,11 @@ export function QueueTable({
         id: "status",
         header: copy.queue.status,
         cell: ({ row }) => (
-          <TriageChip state={row.original.ownership_state} escalated={Boolean(row.original.escalated)} />
+          <TriageChip
+            state={row.original.ownership_state}
+            escalated={Boolean(row.original.escalated)}
+            officerConfirmed={Boolean(row.original.officer_confirmed)}
+          />
         ),
       },
       {
@@ -65,7 +69,11 @@ export function QueueTable({
         header: copy.queue.nextAction,
         cell: ({ row }) => (
           <span className="muted dp-meta">
-            {nextActionLabel(row.original.ownership_state, Boolean(row.original.escalated))}
+            {nextActionLabel(
+              row.original.ownership_state,
+              Boolean(row.original.escalated),
+              Boolean(row.original.officer_confirmed),
+            )}
           </span>
         ),
       },
@@ -84,7 +92,12 @@ export function QueueTable({
     return <p>{copy.command.empty}</p>
   }
 
-  const awaiting = rows.filter((r) => r.ownership_state === "CONFLICT" || r.escalated)
+  const awaiting = rows.filter(
+    (r) =>
+      !r.officer_confirmed &&
+      r.ownership_state !== "ASSIGNED" &&
+      (r.ownership_state === "CONFLICT" || r.escalated),
+  )
 
   return (
     <div className="queue-wrap">

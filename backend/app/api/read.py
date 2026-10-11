@@ -121,6 +121,22 @@ def health(request: Request) -> dict:
     raw_precip = None if rain is None else rain.get("precip_mm")
     precip = None if raw_precip is None else float(raw_precip)
     evidence_rows = list_evidence(request.app.state.conn)
+    counts = evidence_counts(evidence_rows)
+    # Hydrate in-memory registry from persisted live_status so cold starts are not UNKNOWN
+    # when SQLite already has verification stamps from a prior evidence job.
+    if registry is not None and counts.get("verified", 0) > 0:
+        ev = registry.get("evidence-live")
+        if ev is not None and ev.source_state in (SourceState.UNKNOWN, SourceState.SCENARIO):
+            apply_success(
+                ev,
+                value={
+                    "ok": counts["verified"],
+                    "fail": counts["verification_failed"],
+                    "skipped": counts["not_reverified"],
+                },
+                observation_time=None,
+                validation_result="ok",
+            )
     # When replay session is active, prefer replay mode even if parked with null precip.
     mode = "replay" if replay_active else rain_mode(source)
     return {
@@ -143,10 +159,10 @@ def health(request: Request) -> dict:
         "has_last_live": bool(rain and isinstance(rain.get("last_live"), dict)),
         "live_fetch": bool(stats.get("live_fetch")),
         "geo_fill": stats.get("geo_fill") or "none",
-        "evidence_live_ok": int(stats.get("evidence_live_ok") or 0),
-        "evidence_live_fail": int(stats.get("evidence_live_fail") or 0),
-        "evidence_live_skipped": int(stats.get("evidence_live_skipped") or 0),
-        "evidence_counts": evidence_counts(evidence_rows),
+        "evidence_live_ok": int(stats.get("evidence_live_ok") or counts.get("verified") or 0),
+        "evidence_live_fail": int(stats.get("evidence_live_fail") or counts.get("verification_failed") or 0),
+        "evidence_live_skipped": int(stats.get("evidence_live_skipped") or counts.get("not_reverified") or 0),
+        "evidence_counts": counts,
         "sources": [] if registry is None else snapshot(registry),
     }
 

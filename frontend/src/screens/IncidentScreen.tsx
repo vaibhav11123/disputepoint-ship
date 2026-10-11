@@ -88,7 +88,11 @@ export function IncidentScreen({
             ) : (
               <p className="decision-meta chip-budget">
                 {point.ownership_state === "CONFLICT" || point.escalated ? (
-                  <TriageChip state={point.ownership_state} escalated={Boolean(point.escalated)} />
+                  <TriageChip
+                    state={point.ownership_state}
+                    escalated={Boolean(point.escalated)}
+                    officerConfirmed={Boolean(point.officer_confirmed)}
+                  />
                 ) : (
                   <StateChip
                     state={point.ownership_state}

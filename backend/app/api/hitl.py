@@ -201,9 +201,10 @@ def confirm_responsibility(point_id: str, body: ConfirmBody, request: Request) -
         "decisionType": "OPERATIONAL_RESPONSIBILITY_CONFIRMATION",
         "auditId": audit_id,
     }
-    # Human confirmation sets operational agency without rewriting ownership_state to invent clarity:
-    # store human_selected + officer_confirmed; keep CONFLICT visible until assigned via human path.
+    # Human confirmation completes the escalate → review path; clear escalated so the queue
+    # shows ASSIGNED / ACTION REQUIRED instead of staying on AWAITING YOU.
     point["officer_confirmed"] = True
+    point["escalated"] = False
     point["lifecycle_state"] = "ASSIGNED"
     point["human_selected_agency"] = body.agency
     point["responsible_agency"] = body.agency

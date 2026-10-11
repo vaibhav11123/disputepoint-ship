@@ -27,12 +27,12 @@
 
 | Beat | Script (≤1 sentence each) | Must show |
 |------|---------------------------|-----------|
-| **Problem** | Flooded roads cost people time; response also needs clear responsibility | Queue (+ map) |
-| **Before** | Queue of incidents — assigned / disputed / evidence-needed | Board mix |
-| **Trigger** | Rain may change priority; does not set ownership | Rain control + priority (engine-honest) |
-| **Aha** | Okhla (or Samaypur) disputed — no invented owner; evidence stays | Incident + ledger |
-| **Proof** | Escalate or override; audit visible; ACK only if already assigned | HITL + audit |
-| **Hard part** | Ownership under conflict on AWS — no flood ML | AWS beat |
+| **Problem** | Flooded roads cost people time; response also needs clear responsibility | Root → Command queue |
+| **Before** | Queue of incidents — assigned / disputed / evidence-needed | Okhla / Azadpur / Karala mix |
+| **Trigger** | **Optional:** rain affects urgency component; does not set ownership (no reorder claim) | Verbal and/or Rain Strike labels |
+| **Aha** | Okhla (separate demo record) disputed — no invented owner; evidence stays | Incident + ledger |
+| **Proof** | Escalate; agency stays null; audit shows action/reason/reviewer | HITL + audit |
+| **Hard part** | Ownership under conflict on AWS — S3 website UI, no flood ML | AWS beat |
 | **Close** | Can’t stop rain with a dashboard; clearer response; ward pilot | Close |
 
 ---
@@ -42,7 +42,7 @@
 | ID | Moment | FR / note | §39 / AngelHack slot |
 |----|--------|-----------|----------------------|
 | W1 | Ranked queue, named points | FR-001, FR-008 | ~0:30–0:40 |
-| W2 | Rain → re-rank, flash ≤200 ms | FR-006, FR-007 | ~0:40–1:00 |
+| W2 | Optional rain: scenario label / scores; **not** required reorder | FR-006, FR-007 | ~0:55–1:15 optional |
 | W3 | Okhla / Samaypur CONFLICT + null agency | FR-011, FR-017 | ~1:15–1:45 |
 | W4 | Evidence quotes + URLs | FR-002, FR-009 | ~1:20–1:40 |
 | W5 | Why / counterfactual chips | FR-023 | ~1:40–1:55 |

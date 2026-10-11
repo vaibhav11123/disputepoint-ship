@@ -40,6 +40,34 @@ def _s3_client():
     return boto3.client("s3")
 
 
+def _evidence_verified_count(conn) -> int:
+    """Count rows with live_status=ok (quote re-check passed)."""
+    try:
+        from backend.app.db.store import list_evidence
+
+        return sum(1 for row in list_evidence(conn) if row.get("live_status") == "ok")
+    except Exception:
+        return 0
+
+
+def _sqlite_verified_count(path: Path) -> int:
+    if not path.is_file():
+        return 0
+    try:
+        import sqlite3
+
+        from backend.app.db.store import list_evidence
+
+        conn = sqlite3.connect(f"file:{path}?mode=ro", uri=True)
+        conn.row_factory = sqlite3.Row
+        try:
+            return _evidence_verified_count(conn)
+        finally:
+            conn.close()
+    except Exception:
+        return 0
+
+
 def restore_db_from_s3() -> bool:
     """Pull last live SQLite snapshot so cold starts keep Open-Meteo / evidence state."""
     bucket = os.environ.get("EVIDENCE_BUCKET", "").strip()
@@ -66,6 +94,27 @@ def persist_db_to_s3() -> None:
         if conn is not None:
             conn.execute("PRAGMA wal_checkpoint(FULL)")
             conn.commit()
+        # Concurrent Lambdas: a rain-only warm instance must not overwrite a snapshot
+        # that already has more live evidence verification stamps.
+        local_ok = _evidence_verified_count(conn) if conn is not None else _sqlite_verified_count(Path(_DB))
+        tmp = Path(_DB + ".remote-check")
+        try:
+            _s3_client().download_file(bucket, _DB_S3_KEY, str(tmp))
+            remote_ok = _sqlite_verified_count(tmp)
+            if remote_ok > local_ok:
+                log.warning(
+                    "shipit skip db persist: local verified=%s remote verified=%s",
+                    local_ok,
+                    remote_ok,
+                )
+                return
+        except Exception:
+            pass
+        finally:
+            try:
+                tmp.unlink(missing_ok=True)
+            except Exception:
+                pass
         _s3_client().upload_file(str(_DB), bucket, _DB_S3_KEY)
         _stamp_dynamo("db_persist")
     except Exception as exc:
@@ -174,7 +223,11 @@ def refresh_live_evidence() -> dict[str, Any]:
             volunteer = 2 if "VOLUNTEER" in channel else 0
             return (official + volunteer, str(row.get("id") or ""))
 
-        ordered = sorted(rows, key=_rank)
+        # Prefer rows not yet re-checked so later jobs fill the corpus.
+        def _needs_check(row: dict[str, Any]) -> int:
+            return 0 if not row.get("live_status") else 1
+
+        ordered = sorted(rows, key=lambda row: (_needs_check(row), *_rank(row)))
         limit = int(os.environ.get("DP_EVIDENCE_MAX", "80"))
         batch = ordered[: max(1, limit)]
         updated, stats = verify_corpus(batch, delay_s=float(os.environ.get("DP_EVIDENCE_DELAY_S", "0.05")))
@@ -260,6 +313,16 @@ def _wants_evidence(event: dict[str, Any]) -> bool:
     return "evidence" in str(event.get("detail-type") or "").lower()
 
 
+def _http_method(event: dict[str, Any]) -> str:
+    ctx = event.get("requestContext") or {}
+    http = ctx.get("http") if isinstance(ctx, dict) else None
+    if isinstance(http, dict) and http.get("method"):
+        return str(http["method"]).upper()
+    if event.get("httpMethod"):
+        return str(event["httpMethod"]).upper()
+    return ""
+
+
 def handler(event: dict[str, Any], context: Any) -> Any:
     if isinstance(event, dict) and _is_schedule_event(event):
         if _wants_evidence(event):
@@ -270,4 +333,8 @@ def handler(event: dict[str, Any], context: Any) -> Any:
     bootstrap_live()
     refresh_live_rain(force=False)
     _stamp_dynamo("api_invoke")
-    return _asgi(event, context)
+    response = _asgi(event, context)
+    # Persist HITL / rain-scenario writes so cold starts do not restore a pre-confirm board.
+    if isinstance(event, dict) and _http_method(event) in {"POST", "PUT", "PATCH", "DELETE"}:
+        persist_db_to_s3()
+    return response

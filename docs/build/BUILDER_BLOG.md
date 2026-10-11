@@ -179,7 +179,8 @@ I’d be interested in how others would handle the boundary between automated pr
 > **Build:** DisputePoint — queue-first incident coordination; CONFLICT keeps agency null; evidence + human escalate/override with audit.  
 > **AWS:** API Gateway, Lambda, DynamoDB, S3, EventBridge, CloudWatch.  
 > **AI tools:** Cursor.  
-> **Builder Center article:** https://builder.aws.com/content/3KVsack7Txq70T0Wmau3MZdYQkS/when-delhis-roads-flood-who-needs-to-act-building-disputepoint-on-aws
+> **Builder Center article:** https://builder.aws.com/content/3KVsack7Txq70T0Wmau3MZdYQkS/when-delhis-roads-flood-who-needs-to-act-building-disputepoint-on-aws  
+> **Demo video:** https://youtu.be/3vwh9wRnFVg
 
 ---
 
@@ -188,6 +189,6 @@ I’d be interested in how others would handle the boundary between automated pr
 1. [x] Confirm live `/health` rain mode wording matches the article (live vs scenario)  
 2. [x] Okhla / Samaypur path: CONFLICT null + evidence visible; no ACK on conflict  
 3. [ ] Upload `docs/assets/builder-queue-mix.png` with alt text (Okhla disputed / Azadpur evidence / Karala→PWD) — if not already on the live article  
-4. [ ] Add YouTube when recorded ([DEMO_SCRIPT.md](DEMO_SCRIPT.md))  
+4. [x] YouTube recorded — https://youtu.be/3vwh9wRnFVg ([DEMO_SCRIPT.md](DEMO_SCRIPT.md))  
 5. [x] Publish on Builder Center — [live article](https://builder.aws.com/content/3KVsack7Txq70T0Wmau3MZdYQkS/when-delhis-roads-flood-who-needs-to-act-building-disputepoint-on-aws); paste URL into form  
 

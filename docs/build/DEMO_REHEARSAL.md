@@ -12,16 +12,16 @@
 
 | Scenario id | Intent | Seed / control |
 |-------------|--------|----------------|
-| `dry` | Baseline queue ranks | `precip_mm = 0` slider or dry fixture |
-| `rain-spike` | Re-rank flash (W2) | Wet demo precip **40 mm** ([DEPLOYMENT](../operations/DEPLOYMENT.md)) |
-| `conflict-open` | Okhla (or Samaypur) null agency (W3–W4) | Engine CONFLICT + `responsible_agency` null on spine (Okhla, Samaypur, Barapullah, Lodhi, Minto Bridge). Corpus evidence **0.3.6** — do not invent owners. |
+| `dry` | Baseline queue ranks | Live rain or clear scenario |
+| `rain-spike` | **Optional** W2 — scenario label + scores (not required reorder) | Wet demo precip **42 mm** Strike if used |
+| `conflict-open` | Okhla null agency (W3–W4) | Engine CONFLICT + `responsible_agency` null. Corpus evidence **0.3.6** — do not invent owners. |
 
 Requirements:
 
-- Visible rain **mode banner**: `live` | `cache` | `slider`
-- Zero live typing of URLs or long forms; pre-seed ACK/OVERRIDE paths
-- Open-Meteo timeout → cache then slider (R1); soft-fail still re-ranks
-- Prefill everything AngelHack-style (bookmark demo URL; seeded data)
+- Visible rain **mode banner**: `live` | `cache` | `slider` / scenario
+- Bookmark **root** UI URL; navigate to Command in-app (S3 `/command` curl 404 is expected SPA ErrorDocument)
+- Open-Meteo timeout → cache then slider (R1)
+- Prefill escalate reason; ACK only on seeded ASSIGNED cutaway if needed
 
 ### B. AWS proof path (brief, real)
 
@@ -40,15 +40,38 @@ VO column = [DEMO_SCRIPT.md](DEMO_SCRIPT.md) (authoritative). Do not improvise t
 
 | Time | Camera / tab | Action | VO |
 |------|--------------|--------|-----|
-| 0:00–0:30 | UI | Queue (+ map); lived-cost open | DEMO_SCRIPT problem |
-| 0:30–0:55 | UI | Board mix: assigned / disputed / evidence-needed | DEMO_SCRIPT queue |
-| 0:55–1:15 | UI | Rain + priority (engine-honest); ownership separate | DEMO_SCRIPT rain |
-| 1:15–1:45 | UI | Okhla (or Samaypur) disputed null + evidence | DEMO_SCRIPT aha |
-| 1:45–2:10 | UI | ESCALATE/OVERRIDE + audit; ACK only if assigned cutaway | DEMO_SCRIPT HITL |
-| 2:10–2:35 | Arch / health | AWS proof | DEMO_SCRIPT AWS |
-| 2:35–3:00 | UI | Close + ward pilot (no unmeasured “faster”) | DEMO_SCRIPT close |
+| 0:00–0:30 | UI | Root → Command; lived-cost open | DEMO_SCRIPT problem |
+| 0:30–0:55 | UI | Okhla disputed / Azadpur evidence / Karala PWD | DEMO_SCRIPT queue |
+| 0:55–1:15 | UI | **Optional** Rain Strike or verbal urgency≠ownership | DEMO_SCRIPT rain |
+| 1:15–1:45 | UI | Okhla disputed null + six evidence items | DEMO_SCRIPT aha |
+| 1:45–2:10 | UI | ESCALATE + audit (agency still null); never ACK on CONFLICT | DEMO_SCRIPT HITL |
+| 2:10–2:35 | Arch / health | `/aws-arch.html` (S3 website) + `/health` | DEMO_SCRIPT AWS |
+| 2:35–3:00 | UI | Queue close + ward pilot | DEMO_SCRIPT close |
 
 Hard cutoff **3:00**. Judges need not watch past three minutes.
+
+---
+
+## Live acceptance (2026-10-11 Ship It) — escalate transaction
+
+Verified against `https://olnsv0shee.execute-api.ap-south-1.amazonaws.com` + S3 website UI:
+
+| Check | Result |
+|-------|--------|
+| Okhla evidence ×6 | PASS — quotes/URLs; DDA vs PWD `establishes` / `does_not_establish`; 2 illustrative volunteer rows labeled synthetic / sample |
+| ACK on CONFLICT | PASS — `409 DP-409-ACK` |
+| Escalate Okhla | PASS — `ESCALATE`, reason stored, `lifecycle_state=HUMAN_REVIEW`, `escalated=true` |
+| Agency after escalate | PASS — still `responsible_agency: null`, `ownership_state=CONFLICT` |
+| Audit fields present | PASS — `action`, `reviewer`, `timestamp`, `point_id`, `previous_recommendation`, `final_decision.reason` (no `auditId` until confirm/`decision_record`) |
+| Refresh re-fetch | PASS — state + audit persist |
+| Rain scenario 42 mm | PASS optional — `scenario_slider` / `is_synthetic`; scores update; **do not require reorder on camera** |
+| `/command` curl | Expected SPA 404 + index body; record via root → Command |
+| UI audit after escalate | PASS — `ESCALATE by demo-eoc-operator`, timeline, responsibility awaiting decision; diagram live **UI (S3 website)** |
+| `/health` at record prep | `rain_mode=live`, `rain_source_state=LIVE`, `scenario_active=false` |
+
+Narrate audit fields visible on screen after escalate (`ESCALATE`, reviewer, timestamp/timeline). Full reason string is on the point (`escalate_reason`); say it if shown. Do not invent a separate DecisionRecord `auditId` unless confirm was used.
+
+**Human still owed:** two stopwatch dry-runs ≤3:00 with [DEMO_SCRIPT.md](DEMO_SCRIPT.md) before G-VIDEO.
 
 ---
 
@@ -56,11 +79,11 @@ Hard cutoff **3:00**. Judges need not watch past three minutes.
 
 Run the **exact** recorded path twice with the same visible outcome:
 
-1. [ ] `dry` → first viewport shows CONFLICT + UNKNOWN + ASSIGNED mix → `rain-spike` → open Okhla (or Samaypur) → evidence → ESCALATE or OVERRIDE → audit row
-2. [ ] Second consecutive run matches (ranks, CONFLICT null agency, labels); ACK path only if cutting to seeded ASSIGNED (Mathura Rd / Bharat Mandapam)
-3. [ ] Mode banner correct under forced Open-Meteo fail (R1)
-4. [ ] No secrets/tokens on screen (grep fixtures + UI strings)
-5. [ ] AWS proof shot rehearsed once (Ship It live — warm `/health` + arch tab)
+1. [x] API + one UI path: Okhla evidence → ESCALATE → audit (agency null). Rain optional. *(Human: repeat full timed path.)*
+2. [ ] Second consecutive **timed** run matches (CONFLICT null agency, escalate audit); ACK path only if cutting to seeded ASSIGNED
+3. [x] Mode banner honest (LIVE vs scenario) at prep
+4. [ ] No secrets/tokens on screen (human share-screen check)
+5. [x] AWS proof: `/aws-arch.html` shows **S3 website**; `/health` LIVE
 
 Do not claim G-VIDEO until smoke passes twice.
 
