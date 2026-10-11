@@ -48,7 +48,7 @@ last_updated: 2026-10-10
 - Gold order / tournament metric cells (optional)
 
 **Known issues / residual:**
-- **G-VIDEO** still open (YouTube + AWS on camera); Builder `_ARTICLE_URL_` after publish
+- **G-VIDEO** still open (YouTube + AWS on camera); Builder article live: https://builder.aws.com/content/3KVsack7Txq70T0Wmau3MZdYQkS/when-delhis-roads-flood-who-needs-to-act-building-disputepoint-on-aws
 - Phase 6 still cites some legacy research paths; prefer `docs/schemas/` and `docs/research/`
 - G-AWS cleared 2026-10-10 — Ship It live
 

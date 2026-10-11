@@ -137,7 +137,7 @@ AI coding tools used: **Cursor** (disclose in the hackathon write-up).
 | [`docs/PHASE6.md`](docs/PHASE6.md) | Frozen product contract |
 | [`AGENTS.md`](AGENTS.md) | Engineering hard stops |
 | [`docs/build/DEMO_SCRIPT.md`](docs/build/DEMO_SCRIPT.md) | Demo VO |
-| [`docs/build/BUILDER_BLOG.md`](docs/build/BUILDER_BLOG.md) | Builder Center draft |
+| [Builder Center article](https://builder.aws.com/content/3KVsack7Txq70T0Wmau3MZdYQkS/when-delhis-roads-flood-who-needs-to-act-building-disputepoint-on-aws) · [`BUILDER_BLOG.md`](docs/build/BUILDER_BLOG.md) | Published write-up + draft source |
 | [`docs/build/AWS_DEMO_BEAT.md`](docs/build/AWS_DEMO_BEAT.md) | AWS on-camera beat |
 | [`docs/operations/AWS_OPERATOR.md`](docs/operations/AWS_OPERATOR.md) | Deploy / ops |
 | [`docs/research/`](docs/research/) | Research and cite logs |

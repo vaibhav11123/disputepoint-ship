@@ -2,7 +2,9 @@
 
 **Purpose:** Paste-ready article for Environmental Hacks **Top 5 blogs (AirPods)**. Story arc: civic problem → engineering decision → lessons. Public-cost cites: [research/public-cost-of-waterlogging.md](../research/public-cost-of-waterlogging.md). Spoken video: [DEMO_SCRIPT.md](DEMO_SCRIPT.md).
 
-**Not the short form.** Form still needs a separate short write-up. Publish at [builder.aws.com/create/content](https://builder.aws.com/create/content).
+**Published:** [When Delhi's Roads Flood, Who Needs to Act? Building DisputePoint on AWS](https://builder.aws.com/content/3KVsack7Txq70T0Wmau3MZdYQkS/when-delhis-roads-flood-who-needs-to-act-building-disputepoint-on-aws) (2026-10-11).
+
+**Not the short form.** Form still needs a separate short write-up + this article URL.
 
 **Tags (≤5):** `Hackathon` · `Environmental Hacks` · `Serverless` · `DynamoDB` · `AWS`  
 *(Do not use Artificial Intelligence / Bedrock as headline tags — MVP has no ML runtime. Story research: [research/builder-blog-story-pass-2026-10-10.md](../research/builder-blog-story-pass-2026-10-10.md).)*
@@ -114,7 +116,7 @@ We chose this serverless shape to build and deploy the prototype without managin
 - **Backend API:** [API Gateway base URL](https://olnsv0shee.execute-api.ap-south-1.amazonaws.com)
 - **Architecture:** [aws-arch.html](http://disputepoint-uibucket-nuoadlgtpdko.s3-website.ap-south-1.amazonaws.com/aws-arch.html)
 
-Upload screenshot in the Builder UI (not markdown): `docs/assets/readme-queue.png` — alt text: DisputePoint incident queue showing waterlogging places with disputed responsibility visible.
+Upload screenshot in the Builder UI (not markdown): `docs/assets/builder-queue-mix.png` (same file as `docs/assets/readme-queue.png`) — alt text: DisputePoint incident queue showing Okhla disputed with no agency, Azadpur awaiting evidence, and Karala assigned to PWD.
 
 When Open-Meteo is unavailable, the UI can fall back to cache or a labeled scenario slider. When ownership conflicts, the agency field stays empty until a human decision is recorded. Missing fixture points produce an empty state — we do not invent owners.
 
@@ -177,14 +179,15 @@ I’d be interested in how others would handle the boundary between automated pr
 > **Build:** DisputePoint — queue-first incident coordination; CONFLICT keeps agency null; evidence + human escalate/override with audit.  
 > **AWS:** API Gateway, Lambda, DynamoDB, S3, EventBridge, CloudWatch.  
 > **AI tools:** Cursor.  
-> **Builder Center article:** `_ARTICLE_URL_`
+> **Builder Center article:** https://builder.aws.com/content/3KVsack7Txq70T0Wmau3MZdYQkS/when-delhis-roads-flood-who-needs-to-act-building-disputepoint-on-aws
 
 ---
 
 ## Publish checklist (human)
 
-1. [ ] Confirm live `/health` rain mode wording matches the article (live vs scenario)  
-2. [ ] Okhla / Samaypur path: CONFLICT null + evidence visible; no ACK on conflict  
-3. [ ] Upload `docs/assets/readme-queue.png` with alt text  
+1. [x] Confirm live `/health` rain mode wording matches the article (live vs scenario)  
+2. [x] Okhla / Samaypur path: CONFLICT null + evidence visible; no ACK on conflict  
+3. [ ] Upload `docs/assets/builder-queue-mix.png` with alt text (Okhla disputed / Azadpur evidence / Karala→PWD) — if not already on the live article  
 4. [ ] Add YouTube when recorded ([DEMO_SCRIPT.md](DEMO_SCRIPT.md))  
-5. [ ] Publish on Builder Center; open signed-out; paste URL into form  
+5. [x] Publish on Builder Center — [live article](https://builder.aws.com/content/3KVsack7Txq70T0Wmau3MZdYQkS/when-delhis-roads-flood-who-needs-to-act-building-disputepoint-on-aws); paste URL into form  
+

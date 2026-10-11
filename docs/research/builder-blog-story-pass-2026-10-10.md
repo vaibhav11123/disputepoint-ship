@@ -75,7 +75,7 @@ Engineering-first title from Exa (“without becoming another flood map”) is a
 - [x] Queue screenshot asset present  
 - [x] Article thesis = CONFLICT → null + HITL  
 - [ ] YouTube ≤3 min with AWS on camera (still open — article can ship first; form needs video)  
-- [ ] Human Publish → signed-out URL → paste into form + `_ARTICLE_URL_`
+- [x] Human Publish → https://builder.aws.com/content/3KVsack7Txq70T0Wmau3MZdYQkS/when-delhis-roads-flood-who-needs-to-act-building-disputepoint-on-aws → paste into form
 
 ---
 

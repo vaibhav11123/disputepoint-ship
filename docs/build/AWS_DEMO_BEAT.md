@@ -42,15 +42,19 @@ UI (S3 website)
 - [DEPLOYMENT.md](../operations/DEPLOYMENT.md)
 - [DEMO_REHEARSAL.md](DEMO_REHEARSAL.md) dual path
 
+
+
 ## Live Ship It URLs (2026-10-10, stack `disputepoint`, `ap-south-1`)
 
-| Surface | URL |
-|---------|-----|
-| API Gateway | https://olnsv0shee.execute-api.ap-south-1.amazonaws.com |
-| UI (S3 website) | http://disputepoint-uibucket-nuoadlgtpdko.s3-website.ap-south-1.amazonaws.com |
-| Architecture page | http://disputepoint-uibucket-nuoadlgtpdko.s3-website.ap-south-1.amazonaws.com/aws-arch.html |
-| Health smoke | `GET …/health` → `{"ok":true,…}` |
-| Queue smoke | `GET …/points` → Okhla CONFLICT / `responsible_agency: null` |
+
+| Surface           | URL                                                                                                                                                                                        |
+| ----------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| API Gateway       | [https://olnsv0shee.execute-api.ap-south-1.amazonaws.com](https://olnsv0shee.execute-api.ap-south-1.amazonaws.com)                                                                         |
+| UI (S3 website)   | [http://disputepoint-uibucket-nuoadlgtpdko.s3-website.ap-south-1.amazonaws.com](http://disputepoint-uibucket-nuoadlgtpdko.s3-website.ap-south-1.amazonaws.com)                             |
+| Architecture page | [http://disputepoint-uibucket-nuoadlgtpdko.s3-website.ap-south-1.amazonaws.com/aws-arch.html](http://disputepoint-uibucket-nuoadlgtpdko.s3-website.ap-south-1.amazonaws.com/aws-arch.html) |
+| Health smoke      | `GET …/health` → `{"ok":true,…}`                                                                                                                                                           |
+| Queue smoke       | `GET …/points` → Okhla CONFLICT / `responsible_agency: null`                                                                                                                               |
+
 
 Redeploy: `make deploy` (profile `disputepoint`). Cleanup after video: `sam delete --stack-name disputepoint --region ap-south-1 --profile disputepoint`.
 

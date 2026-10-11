@@ -27,9 +27,9 @@ Record from [DEMO_SCRIPT.md](DEMO_SCRIPT.md) (people-first VO; Okhla CONFLICT; A
 - [ ] AWS on screen 2:10–2:35 (live UI + `/aws-arch.html` or console `/health`)
 - [ ] Upload YouTube → paste URL into [README.md](../../README.md) Demo video + [BUILDER_BLOG.md](BUILDER_BLOG.md)
 - [ ] Signed-out YouTube check
-- [ ] Publish Builder Center → replace `_ARTICLE_URL_` in BUILDER_BLOG short form
+- [x] Publish Builder Center → [article URL](https://builder.aws.com/content/3KVsack7Txq70T0Wmau3MZdYQkS/when-delhis-roads-flood-who-needs-to-act-building-disputepoint-on-aws) in BUILDER_BLOG short form
 
 ## Write-up
 
 Problem · User · Why maps fail · Solution · Architecture · AWS · AI tools · Limitations  
-Draft: [BUILDER_BLOG.md](BUILDER_BLOG.md) (Ship It URLs filled; fill YouTube + public-repo confirm + `_ARTICLE_URL_` before form submit).
+Draft: [BUILDER_BLOG.md](BUILDER_BLOG.md) (Ship It URLs filled; Builder article live; fill YouTube + public-repo confirm before form submit).

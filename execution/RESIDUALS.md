@@ -27,6 +27,6 @@ Operational packaging for flashier-winner / AWS-video / git-dump / blog-prize ri
 | **R-DEMO-WOW** | Weak wow vs flashy prediction demos | Cold-open / AngelHack script rehearsed; first-90s stranger test pass on a dry-run recording | WP-16 · G-KPI · DEMO_WOW |
 | **R-DEMO-DETERMINISM** | Flaky live deps kill the video | Fixture scenarios smoke twice; dual AWS/fixture path proven; R1 labeled failover | WP-16 · DEMO_REHEARSAL |
 | **R-GIT-CLOCK** | Pre-clock product dump / wrong history = DQ | Human G-CLOCK; fresh submission repo; allow-list copy only; event-dated history | G-CLOCK · [SUBMISSION_GIT](../docs/operations/SUBMISSION_GIT.md) |
-| **R-BLOG-BUILDER** | Miss Top 5 blogs (AirPods) / only short form | Builder Center article published; URL opens signed-out; linked in form (separate from short write-up) | Human after G-VIDEO · [BUILDER_BLOG](../docs/build/BUILDER_BLOG.md) |
+| **R-BLOG-BUILDER** | Miss Top 5 blogs (AirPods) / only short form | Builder Center article [published](https://builder.aws.com/content/3KVsack7Txq70T0Wmau3MZdYQkS/when-delhis-roads-flood-who-needs-to-act-building-disputepoint-on-aws); still paste URL into form (separate from short write-up) | Human · [BUILDER_BLOG](../docs/build/BUILDER_BLOG.md) |
 
 Agents must not mark W9 / FR-016 VERIFIED until G-VIDEO (AWS on screen). Do not invent demo metrics or geocodes to close these residuals. Do not burn day-1 build time closing R-BLOG-BUILDER.
